@@ -3,64 +3,124 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Думаев — Ремонт в Челябинске</title>
+  <title>Думаев — Ремонт квартир в Челябинске</title>
+  <meta name="description" content="Ремонт квартир и коммерческих помещений под ключ в Челябинске. 5+ лет опыта, 80+ объектов, фиксированная смета. Личный контроль на каждом этапе." />
+  <meta property="og:title" content="Думаев — Ремонт в Челябинске" />
+  <meta property="og:description" content="Ремонт под ключ. 5+ лет, 80+ объектов. Фиксированная смета, личный контроль." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://nav21ruz.github.io/Cloude/" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%23111'/><text x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-weight='bold' font-size='18' fill='white'>Д</text></svg>" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Geologica:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "Думаев — Ремонт",
+    "description": "Ремонт квартир и коммерческих помещений под ключ в Челябинске",
+    "telephone": "+79090856451",
+    "address": { "@type": "PostalAddress", "addressLocality": "Челябинск", "addressCountry": "RU" },
+    "url": "https://migremont.pro",
+    "sameAs": ["https://vk.com/migremont_pro", "https://t.me/imovv"]
+  }
+  </script>
+
   <style>
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+    :root {
+      --bg:        #111111;
+      --bg-deep:   #0d0d0d;
+      --bg-card:   #181818;
+      --bg-hover:  #1e1e1e;
+      --border:    #242424;
+      --border-hi: #383838;
+      --text:      #c0c0c0;
+      --text-dim:  #888888;
+      --label:     #606060;
+      --white:     #ffffff;
     }
 
-    html {
-      scroll-behavior: smooth;
-    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
 
     body {
-      background: #0a0a0a;
-      color: #aaaaaa;
+      background: var(--bg);
+      color: var(--text);
       font-family: 'Geologica', sans-serif;
       font-weight: 400;
       line-height: 1.6;
       overflow-x: hidden;
     }
 
-    /* ── TYPOGRAPHY ── */
     h1, h2, h3, h4 {
       font-family: 'Bebas Neue', sans-serif;
-      color: #ffffff;
+      color: var(--white);
       line-height: 1;
       letter-spacing: 0.02em;
     }
 
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
+    a { color: inherit; text-decoration: none; }
 
-    /* ── REVEAL ANIMATIONS ── */
+    /* ── REVEAL ── */
     .reveal {
       opacity: 0;
-      transform: translateY(32px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
+      transform: translateY(28px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
     }
-
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
+    .reveal.visible { opacity: 1; transform: translateY(0); }
     .reveal-delay-1 { transition-delay: 0.1s; }
     .reveal-delay-2 { transition-delay: 0.2s; }
     .reveal-delay-3 { transition-delay: 0.3s; }
     .reveal-delay-4 { transition-delay: 0.4s; }
     .reveal-delay-5 { transition-delay: 0.5s; }
 
+    /* ── NAV ── */
+    #navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(13, 13, 13, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 80px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transform: translateY(-100%);
+      transition: transform 0.35s ease;
+    }
+    #navbar.visible { transform: translateY(0); }
+
+    .nav-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22px;
+      color: var(--white);
+      letter-spacing: 0.06em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--label);
+      transition: color 0.2s ease;
+    }
+    .nav-links a:hover { color: var(--white); }
+
     /* ── HERO ── */
     #hero {
-      background: #0a0a0a;
+      background: var(--bg-deep);
       min-height: 100svh;
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -68,7 +128,7 @@
     }
 
     .hero-left {
-      background: #0a0a0a;
+      background: var(--bg-deep);
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -76,12 +136,11 @@
     }
 
     .hero-label {
-      font-family: 'Geologica', sans-serif;
       font-size: 12px;
       font-weight: 500;
       letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: #777777;
+      color: var(--label);
       margin-bottom: 28px;
       opacity: 0;
       transform: translateY(20px);
@@ -89,9 +148,8 @@
     }
 
     .hero-name {
-      font-family: 'Bebas Neue', sans-serif;
       font-size: clamp(80px, 10vw, 148px);
-      color: #ffffff;
+      color: var(--white);
       line-height: 0.9;
       margin-bottom: 32px;
       opacity: 0;
@@ -102,9 +160,9 @@
     .hero-desc {
       font-size: 15px;
       font-weight: 300;
-      color: #aaaaaa;
+      color: var(--text-dim);
       max-width: 380px;
-      line-height: 1.75;
+      line-height: 1.8;
       margin-bottom: 44px;
       opacity: 0;
       transform: translateY(20px);
@@ -121,7 +179,7 @@
     }
 
     .btn-primary {
-      background: #ffffff;
+      background: var(--white);
       color: #0a0a0a;
       font-family: 'Geologica', sans-serif;
       font-weight: 600;
@@ -132,40 +190,43 @@
       border: none;
       cursor: pointer;
       display: inline-block;
-      transition: background 0.2s ease, color 0.2s ease;
+      transition: background 0.2s ease;
     }
-
-    .btn-primary:hover {
-      background: #dddddd;
-    }
+    .btn-primary:hover { background: #e8e8e8; }
 
     .btn-secondary {
       background: transparent;
-      color: #ffffff;
+      color: var(--white);
       font-family: 'Geologica', sans-serif;
       font-weight: 500;
       font-size: 13px;
       letter-spacing: 0.08em;
       text-transform: uppercase;
       padding: 14px 32px;
-      border: 1px solid #333333;
+      border: 1px solid var(--border-hi);
       cursor: pointer;
       display: inline-block;
-      transition: border-color 0.2s ease, color 0.2s ease;
+      transition: border-color 0.2s ease;
     }
+    .btn-secondary:hover { border-color: var(--white); }
 
-    .btn-secondary:hover {
-      border-color: #ffffff;
-    }
-
-    /* ── HERO RIGHT — PHOTO PLACEHOLDER ── */
     .hero-right {
-      background: #111111;
+      background: #161616;
       display: flex;
       align-items: center;
       justify-content: center;
       position: relative;
       overflow: hidden;
+    }
+
+    .hero-photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+      min-height: 400px;
+      will-change: transform;
     }
 
     .hero-photo-placeholder {
@@ -179,86 +240,46 @@
       min-height: 400px;
     }
 
-    .hero-photo {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center top;
-      display: block;
-      min-height: 400px;
-      filter: grayscale(20%);
-    }
-
     .photo-icon {
-      width: 72px;
-      height: 72px;
-      border: 1px solid #2a2a2a;
+      width: 72px; height: 72px;
+      border: 1px solid #282828;
       border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: flex; align-items: center; justify-content: center;
     }
-
-    .photo-icon svg {
-      width: 32px;
-      height: 32px;
-      stroke: #333333;
-      fill: none;
-      stroke-width: 1.5;
-    }
-
-    .photo-label {
-      font-size: 11px;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: #333333;
-    }
+    .photo-icon svg { width: 32px; height: 32px; stroke: #383838; fill: none; stroke-width: 1.5; }
+    .photo-label { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #383838; }
 
     .hero-right-corner {
       position: absolute;
-      bottom: 32px;
-      right: 32px;
+      bottom: 32px; right: 32px;
       font-size: 11px;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: #2a2a2a;
+      color: #303030;
     }
 
-    @keyframes fadeUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
+    @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
 
     /* ── STATS ── */
     #stats {
-      background: #0a0a0a;
-      border-top: 1px solid #1a1a1a;
-      border-bottom: 1px solid #1a1a1a;
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
     }
 
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-    }
+    .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); }
 
     .stat-item {
-      padding: 60px 48px;
-      border-right: 1px solid #1a1a1a;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
+      padding: 64px 48px;
+      border-right: 1px solid var(--border);
+      display: flex; flex-direction: column; gap: 10px;
     }
-
-    .stat-item:last-child {
-      border-right: none;
-    }
+    .stat-item:last-child { border-right: none; }
 
     .stat-number {
       font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(52px, 6vw, 80px);
-      color: #ffffff;
+      font-size: clamp(56px, 6vw, 84px);
+      color: var(--white);
       line-height: 1;
     }
 
@@ -266,13 +287,13 @@
       font-size: 12px;
       letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: #555555;
+      color: var(--label);
       font-weight: 500;
     }
 
     /* ── ABOUT ── */
     #about {
-      background: #0a0a0a;
+      background: var(--bg);
       padding: 120px 80px;
     }
 
@@ -283,77 +304,100 @@
       align-items: start;
     }
 
-    .about-left .section-label {
+    .section-label {
       display: block;
       font-size: 11px;
       letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: #555555;
-      margin-bottom: 24px;
+      color: var(--label);
+      margin-bottom: 20px;
     }
 
-    .about-title {
-      font-size: clamp(40px, 4vw, 60px);
-      margin-bottom: 28px;
-      color: #ffffff;
-    }
+    .about-title { font-size: clamp(40px, 4vw, 60px); margin-bottom: 28px; }
 
     .about-text {
       font-size: 15px;
       font-weight: 300;
-      color: #888888;
-      line-height: 1.85;
+      color: var(--text-dim);
+      line-height: 1.9;
     }
 
-    .principles {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
+    .principles { display: flex; flex-direction: column; gap: 2px; }
 
     .principle-card {
-      background: #0f0f0f;
-      border: 1px solid #1a1a1a;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
       padding: 28px 32px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
+      display: flex; flex-direction: column; gap: 8px;
       cursor: default;
       transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease;
     }
+    .principle-card:hover { transform: translateX(8px); border-color: var(--white); background: var(--bg-hover); }
 
-    .principle-card:hover {
-      transform: translateX(8px);
-      border-color: #ffffff;
-      background: #111111;
+    .principle-number { font-size: 11px; letter-spacing: 0.14em; color: #383838; font-weight: 500; }
+    .principle-title { font-family: 'Bebas Neue', sans-serif; font-size: 24px; color: var(--white); letter-spacing: 0.04em; }
+    .principle-desc { font-size: 13px; font-weight: 300; color: var(--text-dim); line-height: 1.7; }
+
+    /* ── PROCESS ── */
+    #process {
+      background: var(--bg-deep);
+      padding: 120px 80px;
+      border-top: 1px solid var(--border);
     }
 
-    .principle-number {
-      font-size: 11px;
-      letter-spacing: 0.14em;
-      color: #333333;
-      font-weight: 500;
+    .process-header { margin-bottom: 64px; }
+
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2px;
     }
 
-    .principle-title {
+    .process-step {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      padding: 36px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      position: relative;
+      transition: border-color 0.25s ease, background 0.25s ease;
+    }
+    .process-step:hover { border-color: var(--border-hi); background: var(--bg-hover); }
+
+    .process-step-num {
       font-family: 'Bebas Neue', sans-serif;
-      font-size: 24px;
-      color: #ffffff;
+      font-size: 48px;
+      color: #2a2a2a;
+      line-height: 1;
+    }
+
+    .process-step-icon {
+      width: 40px; height: 40px;
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .process-step-icon svg { width: 18px; height: 18px; stroke: var(--text-dim); fill: none; stroke-width: 1.5; }
+
+    .process-step-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22px;
+      color: var(--white);
       letter-spacing: 0.04em;
     }
 
-    .principle-desc {
+    .process-step-desc {
       font-size: 13px;
       font-weight: 300;
-      color: #666666;
-      line-height: 1.7;
+      color: var(--text-dim);
+      line-height: 1.75;
     }
 
     /* ── PORTFOLIO ── */
     #portfolio {
-      background: #0a0a0a;
+      background: var(--bg);
       padding: 120px 80px;
-      border-top: 1px solid #1a1a1a;
+      border-top: 1px solid var(--border);
     }
 
     .section-header {
@@ -363,19 +407,7 @@
       margin-bottom: 56px;
     }
 
-    .section-header-left .section-label {
-      display: block;
-      font-size: 11px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: #555555;
-      margin-bottom: 12px;
-    }
-
-    .section-title {
-      font-size: clamp(36px, 4vw, 56px);
-      color: #ffffff;
-    }
+    .section-title { font-size: clamp(36px, 4vw, 56px); }
 
     .portfolio-grid {
       display: grid;
@@ -385,86 +417,109 @@
 
     .portfolio-item {
       position: relative;
-      background: #111111;
+      background: #161616;
       aspect-ratio: 4/3;
       overflow: hidden;
-      cursor: pointer;
+      cursor: zoom-in;
     }
 
     .portfolio-item-inner {
-      width: 100%;
-      height: 100%;
-      background: #111111;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: transform 0.4s ease;
+      width: 100%; height: 100%;
+      background: #161616;
+      display: flex; align-items: center; justify-content: center;
+      transition: transform 0.45s ease;
     }
+    .portfolio-item:hover .portfolio-item-inner { transform: scale(1.05); }
 
-    .portfolio-item:hover .portfolio-item-inner {
-      transform: scale(1.04);
+    .portfolio-img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.45s ease;
     }
 
     .portfolio-placeholder-icon {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 12px;
-      opacity: 0.15;
+      display: flex; flex-direction: column; align-items: center; gap: 12px;
+      opacity: 0.12;
     }
-
-    .portfolio-placeholder-icon svg {
-      width: 40px;
-      height: 40px;
-      stroke: #ffffff;
-      fill: none;
-      stroke-width: 1;
-    }
+    .portfolio-placeholder-icon svg { width: 40px; height: 40px; stroke: var(--white); fill: none; stroke-width: 1; }
 
     .portfolio-overlay {
-      position: absolute;
-      inset: 0;
-      background: rgba(10, 10, 10, 0.88);
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      justify-content: flex-end;
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(10,10,10,0.92) 0%, rgba(10,10,10,0.4) 50%, transparent 100%);
+      display: flex; flex-direction: column;
+      align-items: flex-start; justify-content: flex-end;
       padding: 28px;
       opacity: 0;
       transition: opacity 0.3s ease;
     }
+    .portfolio-item:hover .portfolio-overlay { opacity: 1; }
 
-    .portfolio-item:hover .portfolio-overlay {
-      opacity: 1;
+    .portfolio-obj-label { font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--label); margin-bottom: 6px; }
+    .portfolio-obj-name { font-family: 'Bebas Neue', sans-serif; font-size: 22px; color: var(--white); letter-spacing: 0.04em; }
+    .portfolio-obj-type { font-size: 12px; color: var(--text-dim); margin-top: 4px; font-weight: 300; }
+
+    /* ── REVIEWS ── */
+    #reviews {
+      background: var(--bg-deep);
+      padding: 120px 80px;
+      border-top: 1px solid var(--border);
     }
 
-    .portfolio-obj-label {
-      font-size: 10px;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: #555555;
-      margin-bottom: 6px;
+    .reviews-header { margin-bottom: 56px; }
+
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
     }
 
-    .portfolio-obj-name {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 22px;
-      color: #ffffff;
-      letter-spacing: 0.04em;
+    .review-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      padding: 36px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      transition: border-color 0.25s ease, background 0.25s ease;
+    }
+    .review-card:hover { border-color: var(--border-hi); background: var(--bg-hover); }
+
+    .review-stars {
+      display: flex; gap: 4px;
+    }
+    .review-stars span {
+      font-size: 14px;
+      color: var(--text-dim);
     }
 
-    .portfolio-obj-type {
-      font-size: 12px;
-      color: #777777;
-      margin-top: 4px;
+    .review-text {
+      font-size: 14px;
       font-weight: 300;
+      color: var(--text);
+      line-height: 1.85;
+      flex: 1;
     }
+
+    .review-author {
+      display: flex; flex-direction: column; gap: 4px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+
+    .review-name {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--white);
+    }
+
+    .review-meta { font-size: 12px; color: var(--label); font-weight: 300; }
 
     /* ── CONTACTS ── */
     #contacts {
-      background: #0a0a0a;
+      background: var(--bg);
       padding: 120px 80px;
-      border-top: 1px solid #1a1a1a;
+      border-top: 1px solid var(--border);
     }
 
     .contacts-grid {
@@ -474,229 +529,198 @@
       align-items: start;
     }
 
-    .contacts-left .section-label {
-      display: block;
-      font-size: 11px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: #555555;
-      margin-bottom: 24px;
-    }
-
-    .contacts-title {
-      font-size: clamp(40px, 4vw, 60px);
-      margin-bottom: 20px;
-      color: #ffffff;
-    }
+    .contacts-title { font-size: clamp(40px, 4vw, 60px); margin-bottom: 20px; }
 
     .contacts-subtitle {
       font-size: 14px;
       font-weight: 300;
-      color: #666666;
-      line-height: 1.75;
+      color: var(--text-dim);
+      line-height: 1.8;
     }
 
-    .contact-list {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-      list-style: none;
-    }
+    .contact-list { display: flex; flex-direction: column; gap: 2px; list-style: none; }
 
     .contact-item {
-      display: flex;
-      align-items: center;
-      gap: 18px;
-      padding: 20px 24px;
-      background: #0f0f0f;
-      border: 1px solid #1a1a1a;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
       transition: border-color 0.2s ease, background 0.2s ease;
     }
+    .contact-item:hover { border-color: var(--border-hi); background: var(--bg-hover); }
 
     .contact-item a {
-      display: flex;
-      align-items: center;
-      gap: 18px;
+      display: flex; align-items: center; gap: 18px;
+      padding: 20px 24px;
       width: 100%;
-      color: inherit;
-    }
-
-    .contact-item:hover {
-      border-color: #333333;
-      background: #111111;
     }
 
     .contact-icon {
-      width: 36px;
-      height: 36px;
-      border: 1px solid #222222;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      width: 38px; height: 38px;
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
       flex-shrink: 0;
     }
+    .contact-icon svg { width: 16px; height: 16px; stroke: var(--text-dim); fill: none; stroke-width: 1.5; }
 
-    .contact-icon svg {
-      width: 16px;
-      height: 16px;
-      stroke: #777777;
-      fill: none;
-      stroke-width: 1.5;
-    }
-
-    .contact-meta {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-
-    .contact-type {
-      font-size: 10px;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: #444444;
-      font-weight: 500;
-    }
-
-    .contact-value {
-      font-size: 15px;
-      color: #cccccc;
-      font-weight: 400;
-    }
+    .contact-meta { display: flex; flex-direction: column; gap: 2px; }
+    .contact-type { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--label); font-weight: 500; }
+    .contact-value { font-size: 15px; color: #d8d8d8; font-weight: 400; }
 
     /* ── FOOTER ── */
     footer {
-      background: #0a0a0a;
-      border-top: 1px solid #1a1a1a;
+      background: var(--bg-deep);
+      border-top: 1px solid var(--border);
       padding: 36px 80px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      display: flex; align-items: center; justify-content: space-between;
     }
 
-    .footer-copy {
-      font-size: 12px;
-      color: #333333;
-      letter-spacing: 0.04em;
-    }
+    .footer-copy { font-size: 12px; color: #383838; letter-spacing: 0.04em; }
 
     .footer-link {
-      font-size: 12px;
-      color: #444444;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
+      font-size: 12px; color: var(--label);
+      letter-spacing: 0.1em; text-transform: uppercase;
       transition: color 0.2s ease;
     }
+    .footer-link:hover { color: var(--text); }
 
-    .footer-link:hover {
-      color: #aaaaaa;
+    /* ── BACK TO TOP ── */
+    #back-top {
+      position: fixed;
+      bottom: 32px; right: 32px;
+      width: 44px; height: 44px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.3s ease, border-color 0.2s ease, background 0.2s ease;
+      z-index: 90;
     }
+    #back-top.visible { opacity: 1; pointer-events: all; }
+    #back-top:hover { border-color: var(--white); background: var(--bg-hover); }
+    #back-top svg { width: 16px; height: 16px; stroke: var(--text-dim); fill: none; stroke-width: 2; }
+
+    /* ── LIGHTBOX ── */
+    #lightbox {
+      position: fixed; inset: 0;
+      background: rgba(10, 10, 10, 0.97);
+      z-index: 200;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.3s ease;
+      padding: 40px;
+    }
+    #lightbox.open { opacity: 1; pointer-events: all; }
+
+    .lightbox-inner {
+      max-width: 800px; width: 100%;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      transform: scale(0.95);
+      transition: transform 0.3s ease;
+    }
+    #lightbox.open .lightbox-inner { transform: scale(1); }
+
+    .lightbox-img-wrap {
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: #161616;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+
+    .lightbox-img-wrap img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+
+    .lightbox-img-placeholder {
+      display: flex; flex-direction: column; align-items: center; gap: 16px;
+      opacity: 0.12;
+    }
+    .lightbox-img-placeholder svg { width: 56px; height: 56px; stroke: var(--white); fill: none; stroke-width: 0.8; }
+
+    .lightbox-body { padding: 32px 36px; }
+
+    .lightbox-label { font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--label); margin-bottom: 8px; }
+
+    .lightbox-title { font-family: 'Bebas Neue', sans-serif; font-size: 36px; color: var(--white); margin-bottom: 8px; }
+
+    .lightbox-type { font-size: 14px; color: var(--text-dim); font-weight: 300; }
+
+    .lightbox-close {
+      position: absolute;
+      top: 24px; right: 24px;
+      width: 44px; height: 44px;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      transition: border-color 0.2s ease;
+    }
+    .lightbox-close:hover { border-color: var(--white); }
+    .lightbox-close svg { width: 16px; height: 16px; stroke: var(--text-dim); fill: none; stroke-width: 2; }
 
     /* ── MOBILE ── */
     @media (max-width: 900px) {
+      #navbar { padding: 0 24px; }
+      .nav-links { display: none; }
+
       #hero {
         grid-template-columns: 1fr;
         grid-template-rows: 40svh 1fr;
         min-height: 100svh;
       }
+      .hero-right { order: -1; height: 40svh; }
+      .hero-left { background: var(--bg-deep); padding: 48px 24px 56px; order: 1; }
+      .hero-name { font-size: clamp(72px, 18vw, 110px); }
 
-      .hero-right {
-        order: -1;
-        height: 40svh;
-      }
+      .stats-grid { grid-template-columns: 1fr; }
+      .stat-item { border-right: none; border-bottom: 1px solid var(--border); padding: 36px 24px; }
+      .stat-item:last-child { border-bottom: none; }
 
-      .hero-left {
-        background: #0a0a0a;
-        padding: 48px 24px 56px;
-        order: 1;
-      }
+      #about, #reviews { padding: 72px 24px; }
+      .about-grid { grid-template-columns: 1fr; gap: 48px; }
+      .reviews-grid { grid-template-columns: 1fr; }
 
-      .hero-name {
-        font-size: clamp(72px, 18vw, 110px);
-      }
+      #process { padding: 72px 24px; }
+      .process-steps { grid-template-columns: 1fr 1fr; }
 
-      #stats {
-        background: #0a0a0a;
-      }
+      #portfolio { padding: 72px 24px; }
+      .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
+      .section-header { flex-direction: column; align-items: flex-start; gap: 16px; }
 
-      .stats-grid {
-        grid-template-columns: 1fr;
-      }
+      #contacts { padding: 72px 24px; }
+      .contacts-grid { grid-template-columns: 1fr; gap: 48px; }
 
-      .stat-item {
-        border-right: none;
-        border-bottom: 1px solid #1a1a1a;
-        padding: 36px 24px;
-      }
+      footer { flex-direction: column; gap: 12px; text-align: center; padding: 32px 24px; }
 
-      .stat-item:last-child {
-        border-bottom: none;
-      }
-
-      #about {
-        background: #0a0a0a;
-        padding: 72px 24px;
-      }
-
-      .about-grid {
-        grid-template-columns: 1fr;
-        gap: 48px;
-      }
-
-      #portfolio {
-        background: #0a0a0a;
-        padding: 72px 24px;
-      }
-
-      .portfolio-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .section-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 16px;
-      }
-
-      #contacts {
-        background: #0a0a0a;
-        padding: 72px 24px;
-      }
-
-      .contacts-grid {
-        grid-template-columns: 1fr;
-        gap: 48px;
-      }
-
-      footer {
-        flex-direction: column;
-        gap: 12px;
-        text-align: center;
-        padding: 32px 24px;
-        background: #0a0a0a;
-      }
+      #back-top { bottom: 20px; right: 20px; }
     }
 
-    @media (max-width: 500px) {
-      .portfolio-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .hero-buttons {
-        flex-direction: column;
-      }
-
-      .btn-primary, .btn-secondary {
-        text-align: center;
-      }
+    @media (max-width: 560px) {
+      .portfolio-grid { grid-template-columns: 1fr; }
+      .process-steps { grid-template-columns: 1fr; }
+      .hero-buttons { flex-direction: column; }
+      .btn-primary, .btn-secondary { text-align: center; }
     }
   </style>
 </head>
 <body>
 
-  <!-- ══════════════════════════════════════
-       HERO
-  ══════════════════════════════════════ -->
+  <!-- ══ NAV ══ -->
+  <nav id="navbar">
+    <span class="nav-logo">Думаев</span>
+    <ul class="nav-links">
+      <li><a href="#about">О себе</a></li>
+      <li><a href="#process">Как работаю</a></li>
+      <li><a href="#portfolio">Портфолио</a></li>
+      <li><a href="#reviews">Отзывы</a></li>
+      <li><a href="#contacts">Контакты</a></li>
+    </ul>
+  </nav>
+
+  <!-- ══ HERO ══ -->
   <section id="hero">
     <div class="hero-left">
       <span class="hero-label">Ремонт · Челябинск</span>
@@ -713,47 +737,45 @@
     </div>
 
     <div class="hero-right">
-      <img src="photo.jpg" alt="Думаев" class="hero-photo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+      <img src="photo.jpg" alt="Думаев" class="hero-photo"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
       <div class="hero-photo-placeholder" style="display:none;">
         <div class="photo-icon">
           <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
         </div>
         <span class="photo-label">Фото</span>
       </div>
-      <span class="hero-right-corner">Ремонт·Чел·2024</span>
+      <span class="hero-right-corner">Ремонт · Чел · 2024</span>
     </div>
   </section>
 
-  <!-- ══════════════════════════════════════
-       STATS
-  ══════════════════════════════════════ -->
+  <!-- ══ STATS ══ -->
   <section id="stats">
     <div class="stats-grid">
       <div class="stat-item reveal">
-        <span class="stat-number">5+</span>
+        <span class="stat-number" data-count="5" data-suffix="+">5+</span>
         <span class="stat-label">Лет опыта</span>
       </div>
       <div class="stat-item reveal reveal-delay-2">
-        <span class="stat-number">80+</span>
+        <span class="stat-number" data-count="80" data-suffix="+">80+</span>
         <span class="stat-label">Объектов сдано</span>
       </div>
       <div class="stat-item reveal reveal-delay-3">
-        <span class="stat-number">100%</span>
+        <span class="stat-number" data-count="100" data-suffix="%">100%</span>
         <span class="stat-label">По договору</span>
       </div>
     </div>
   </section>
 
-  <!-- ══════════════════════════════════════
-       ABOUT
-  ══════════════════════════════════════ -->
+  <!-- ══ ABOUT ══ -->
   <section id="about">
     <div class="about-grid">
       <div class="about-left reveal">
         <span class="section-label">О себе</span>
         <h2 class="about-title">Строю репутацию, а не объём</h2>
         <p class="about-text">
-          Работаю в Челябинске с 2019 года. Каждый объект веду лично — от составления сметы до финальной уборки.
+          Работаю в Челябинске с 2019 года. Каждый объект веду лично —
+          от составления сметы до финальной уборки.
           Не передаю в субподряд, не завышаю бюджет в процессе.
           Цена фиксируется в договоре и не меняется.
           Для меня важны не масштаб, а качество и доверие клиента.
@@ -780,19 +802,63 @@
     </div>
   </section>
 
-  <!-- ══════════════════════════════════════
-       PORTFOLIO
-  ══════════════════════════════════════ -->
+  <!-- ══ PROCESS ══ -->
+  <section id="process">
+    <div class="process-header reveal">
+      <span class="section-label">Как работаю</span>
+      <h2 class="section-title">4 этапа до результата</h2>
+    </div>
+
+    <div class="process-steps">
+      <div class="process-step reveal reveal-delay-1">
+        <span class="process-step-num">01</span>
+        <div class="process-step-icon">
+          <svg viewBox="0 0 24 24"><path d="M3 12h18M3 6h18M3 18h12"/></svg>
+        </div>
+        <span class="process-step-title">Замер и смета</span>
+        <p class="process-step-desc">Выезжаю на объект, делаю замеры, составляю подробную смету. Бесплатно и без обязательств.</p>
+      </div>
+      <div class="process-step reveal reveal-delay-2">
+        <span class="process-step-num">02</span>
+        <div class="process-step-icon">
+          <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        </div>
+        <span class="process-step-title">Договор</span>
+        <p class="process-step-desc">Фиксируем объём работ, сроки и стоимость в договоре. Никаких устных договорённостей.</p>
+      </div>
+      <div class="process-step reveal reveal-delay-3">
+        <span class="process-step-num">03</span>
+        <div class="process-step-icon">
+          <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        </div>
+        <span class="process-step-title">Ремонт</span>
+        <p class="process-step-desc">Веду объект лично. Регулярно отправляю фотоотчёты — вы видите прогресс каждый день.</p>
+      </div>
+      <div class="process-step reveal reveal-delay-4">
+        <span class="process-step-num">04</span>
+        <div class="process-step-icon">
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <span class="process-step-title">Сдача</span>
+        <p class="process-step-desc">Принимаете объект по чек-листу. Финальная уборка включена. Гарантия на все виды работ.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ PORTFOLIO ══ -->
   <section id="portfolio">
     <div class="section-header">
-      <div class="section-header-left reveal">
+      <div class="reveal">
         <span class="section-label">Портфолио</span>
         <h2 class="section-title">Последние объекты</h2>
       </div>
     </div>
 
     <div class="portfolio-grid">
-      <div class="portfolio-item reveal">
+      <div class="portfolio-item reveal"
+           data-name="Квартира на Комсомольском"
+           data-type="Капитальный ремонт · 68 м²"
+           data-img="">
         <div class="portfolio-item-inner">
           <div class="portfolio-placeholder-icon">
             <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 9h18M9 21V9"/></svg>
@@ -805,7 +871,10 @@
         </div>
       </div>
 
-      <div class="portfolio-item reveal reveal-delay-1">
+      <div class="portfolio-item reveal reveal-delay-1"
+           data-name="Офис в центре города"
+           data-type="Коммерческий ремонт · 120 м²"
+           data-img="">
         <div class="portfolio-item-inner">
           <div class="portfolio-placeholder-icon">
             <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 9h18M9 21V9"/></svg>
@@ -818,7 +887,10 @@
         </div>
       </div>
 
-      <div class="portfolio-item reveal reveal-delay-2">
+      <div class="portfolio-item reveal reveal-delay-2"
+           data-name="Студия под ключ"
+           data-type="Дизайнерский ремонт · 34 м²"
+           data-img="">
         <div class="portfolio-item-inner">
           <div class="portfolio-placeholder-icon">
             <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 9h18M9 21V9"/></svg>
@@ -831,7 +903,10 @@
         </div>
       </div>
 
-      <div class="portfolio-item reveal reveal-delay-1">
+      <div class="portfolio-item reveal reveal-delay-1"
+           data-name="Трёхкомнатная на Тракторном"
+           data-type="Капитальный ремонт · 84 м²"
+           data-img="">
         <div class="portfolio-item-inner">
           <div class="portfolio-placeholder-icon">
             <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 9h18M9 21V9"/></svg>
@@ -844,7 +919,10 @@
         </div>
       </div>
 
-      <div class="portfolio-item reveal reveal-delay-2">
+      <div class="portfolio-item reveal reveal-delay-2"
+           data-name="Ванная комната"
+           data-type="Санузел под ключ · 9 м²"
+           data-img="">
         <div class="portfolio-item-inner">
           <div class="portfolio-placeholder-icon">
             <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 9h18M9 21V9"/></svg>
@@ -857,7 +935,10 @@
         </div>
       </div>
 
-      <div class="portfolio-item reveal reveal-delay-3">
+      <div class="portfolio-item reveal reveal-delay-3"
+           data-name="Загородный дом"
+           data-type="Черновой ремонт · 160 м²"
+           data-img="">
         <div class="portfolio-item-inner">
           <div class="portfolio-placeholder-icon">
             <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 9h18M9 21V9"/></svg>
@@ -872,12 +953,59 @@
     </div>
   </section>
 
-  <!-- ══════════════════════════════════════
-       CONTACTS
-  ══════════════════════════════════════ -->
+  <!-- ══ REVIEWS ══ -->
+  <section id="reviews">
+    <div class="reviews-header reveal">
+      <span class="section-label">Отзывы</span>
+      <h2 class="section-title">Что говорят клиенты</h2>
+    </div>
+
+    <div class="reviews-grid">
+      <div class="review-card reveal reveal-delay-1">
+        <div class="review-stars">
+          <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+        </div>
+        <p class="review-text">
+          «Делали ремонт в двушке. Смета не изменилась ни на рубль — это редкость. Максим лично контролировал бригаду каждый день. Сдали в срок, всё аккуратно.»
+        </p>
+        <div class="review-author">
+          <span class="review-name">Андрей К.</span>
+          <span class="review-meta">Капитальный ремонт · 2-комнатная квартира</span>
+        </div>
+      </div>
+
+      <div class="review-card reveal reveal-delay-2">
+        <div class="review-stars">
+          <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+        </div>
+        <p class="review-text">
+          «Ремонт в офисе 120 кв.м. Отдельно хочу отметить порядок на объекте — каждый день убирали за собой. Фотоотчёты приходили ежедневно, всё видели онлайн.»
+        </p>
+        <div class="review-author">
+          <span class="review-name">Светлана М.</span>
+          <span class="review-meta">Коммерческий ремонт · офис 120 м²</span>
+        </div>
+      </div>
+
+      <div class="review-card reveal reveal-delay-3">
+        <div class="review-stars">
+          <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+        </div>
+        <p class="review-text">
+          «Обращались уже второй раз. В этот раз делали ванную и кухню. Рекомендую всем знакомым — надёжно, честно, качество на уровне.»
+        </p>
+        <div class="review-author">
+          <span class="review-name">Ирина Т.</span>
+          <span class="review-meta">Санузел + кухня под ключ</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ CONTACTS ══ -->
   <section id="contacts">
     <div class="contacts-grid">
-      <div class="contacts-left reveal">
+      <div class="reveal">
         <span class="section-label">Контакты</span>
         <h2 class="contacts-title">Давайте обсудим ваш объект</h2>
         <p class="contacts-subtitle">
@@ -898,7 +1026,6 @@
             </div>
           </a>
         </li>
-
         <li class="contact-item reveal reveal-delay-2">
           <a href="https://t.me/imovv" target="_blank" rel="noopener">
             <div class="contact-icon">
@@ -910,7 +1037,6 @@
             </div>
           </a>
         </li>
-
         <li class="contact-item reveal reveal-delay-3">
           <a href="https://vk.com/migremont_pro" target="_blank" rel="noopener">
             <div class="contact-icon">
@@ -922,7 +1048,6 @@
             </div>
           </a>
         </li>
-
         <li class="contact-item reveal reveal-delay-4">
           <a href="https://migremont.pro" target="_blank" rel="noopener">
             <div class="contact-icon">
@@ -938,31 +1063,128 @@
     </div>
   </section>
 
-  <!-- ══════════════════════════════════════
-       FOOTER
-  ══════════════════════════════════════ -->
+  <!-- ══ FOOTER ══ -->
   <footer>
     <span class="footer-copy">© 2024 Думаев. Ремонт в Челябинске</span>
     <a href="https://migremont.pro" target="_blank" rel="noopener" class="footer-link">migremont.pro</a>
   </footer>
 
-  <!-- ══════════════════════════════════════
-       JAVASCRIPT
-  ══════════════════════════════════════ -->
-  <script>
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.12 }
-    );
+  <!-- ══ BACK TO TOP ══ -->
+  <button id="back-top" aria-label="Наверх">
+    <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+  </button>
 
-    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+  <!-- ══ LIGHTBOX ══ -->
+  <div id="lightbox" role="dialog" aria-modal="true">
+    <div class="lightbox-inner">
+      <div class="lightbox-img-wrap" id="lb-img-wrap">
+        <div class="lightbox-img-placeholder">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 9h18M9 21V9"/></svg>
+        </div>
+      </div>
+      <div class="lightbox-body">
+        <p class="lightbox-label">Объект</p>
+        <h3 class="lightbox-title" id="lb-name"></h3>
+        <p class="lightbox-type" id="lb-type"></p>
+      </div>
+    </div>
+    <button class="lightbox-close" id="lb-close" aria-label="Закрыть">
+      <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+
+  <script>
+    /* ── Reveal on scroll ── */
+    const revealObs = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach((el) => revealObs.observe(el));
+
+    /* ── Navbar on scroll ── */
+    const navbar = document.getElementById('navbar');
+    const backTop = document.getElementById('back-top');
+    window.addEventListener('scroll', () => {
+      const y = window.scrollY;
+      const heroH = document.getElementById('hero').offsetHeight;
+      navbar.classList.toggle('visible', y > heroH * 0.6);
+      backTop.classList.toggle('visible', y > 400);
+    }, { passive: true });
+
+    backTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    /* ── Animated counters ── */
+    const counterObs = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (!e.isIntersecting) return;
+        const el = e.target.querySelector('[data-count]');
+        if (!el) return;
+        const target = +el.dataset.count;
+        const suffix = el.dataset.suffix || '';
+        let start = 0;
+        const duration = 1400;
+        const step = (timestamp) => {
+          if (!start) start = timestamp;
+          const progress = Math.min((timestamp - start) / duration, 1);
+          const ease = 1 - Math.pow(1 - progress, 3);
+          el.textContent = Math.floor(ease * target) + suffix;
+          if (progress < 1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+        counterObs.unobserve(e.target);
+      });
+    }, { threshold: 0.5 });
+    document.querySelectorAll('.stat-item').forEach((el) => counterObs.observe(el));
+
+    /* ── Parallax on hero photo ── */
+    const heroPhoto = document.querySelector('.hero-photo');
+    if (heroPhoto) {
+      window.addEventListener('scroll', () => {
+        const y = window.scrollY;
+        const heroH = document.getElementById('hero').offsetHeight;
+        if (y < heroH) {
+          heroPhoto.style.transform = `translateY(${y * 0.18}px)`;
+        }
+      }, { passive: true });
+    }
+
+    /* ── Lightbox ── */
+    const lightbox = document.getElementById('lightbox');
+    const lbName   = document.getElementById('lb-name');
+    const lbType   = document.getElementById('lb-type');
+    const lbImgWrap = document.getElementById('lb-img-wrap');
+    const lbClose  = document.getElementById('lb-close');
+
+    document.querySelectorAll('.portfolio-item').forEach((item) => {
+      item.addEventListener('click', () => {
+        lbName.textContent = item.dataset.name || '';
+        lbType.textContent = item.dataset.type || '';
+
+        lbImgWrap.innerHTML = '';
+        const imgSrc = item.dataset.img;
+        if (imgSrc) {
+          const img = document.createElement('img');
+          img.src = imgSrc;
+          img.alt = item.dataset.name;
+          lbImgWrap.appendChild(img);
+        } else {
+          lbImgWrap.innerHTML = `<div class="lightbox-img-placeholder"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 9h18M9 21V9"/></svg></div>`;
+        }
+
+        lightbox.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      });
+    });
+
+    const closeLightbox = () => {
+      lightbox.classList.remove('open');
+      document.body.style.overflow = '';
+    };
+
+    lbClose.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLightbox(); });
   </script>
 
 </body>
