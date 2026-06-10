@@ -388,11 +388,16 @@ section { position: relative; }
 .hero-eyebrow-line { width: 48px; height: 1px; background: var(--gold); }
 
 .hero-title {
-  font-size: clamp(3.5rem, 9vw, 9rem);
+  font-size: clamp(2rem, 9vw, 9rem);
   font-weight: 900;
   line-height: 0.95;
   letter-spacing: -0.03em;
   overflow: hidden;
+}
+
+/* На узких экранах ещё немного уменьшаем чтобы длинные слова влезали */
+@media (max-width: 480px) {
+  .hero-title { font-size: clamp(1.8rem, 8.5vw, 3rem); }
 }
 
 .hero-title-line {
