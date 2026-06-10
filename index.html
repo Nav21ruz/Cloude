@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Думаев — Ремонт квартир в Челябинске</title>
+  <meta name="description" content="Ремонт квартир и коммерческих помещений под ключ в Челябинске. 5+ лет, 80+ объектов, фиксированная смета." />
+  <meta property="og:title" content="Думаев — Ремонт в Челябинске" />
+  <meta property="og:description" content="Ремонт под ключ. 5+ лет, 80+ объектов. Фиксированная смета, личный контроль." />
+  <meta property="og:type" content="website" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%230d0d0d'/><text x='50%25' y='55%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-weight='900' font-size='20' fill='white'>Д</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Geologica:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"LocalBusiness","name":"Думаев — Ремонт","telephone":"+79090856451","address":{"@type":"PostalAddress","addressLocality":"Челябинск","addressCountry":"RU"},"url":"https://migremont.pro"}
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: #0d0d0d;
+      color: #999;
+      font-family: 'Geologica', sans-serif;
+      font-weight: 400;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    h1,h2,h3,h4 { font-family: 'Bebas Neue', sans-serif; line-height: 1; letter-spacing: 0.02em; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ── REVEAL ── */
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity .65s ease, transform .65s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .d1{transition-delay:.08s} .d2{transition-delay:.16s} .d3{transition-delay:.24s} .d4{transition-delay:.32s} .d5{transition-delay:.4s}
+
+    /* ══════════════════════════════
+       NAV
+    ══════════════════════════════ */
+    #nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      height: 58px;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 60px;
+      background: rgba(10,10,10,.9);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid #1e1e1e;
+      transform: translateY(-100%);
+      transition: transform .35s ease;
+    }
+    #nav.shown { transform: translateY(0); }
+    .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 20px; color: #fff; letter-spacing: .08em; }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a { font-size: 11px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: #555; transition: color .2s; }
+    .nav-links a:hover { color: #fff; }
+    .nav-cta {
+      font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+      padding: 9px 22px; border: 1px solid #333; color: #ccc;
+      transition: border-color .2s, color .2s;
+    }
+    .nav-cta:hover { border-color: #fff; color: #fff; }
+
+    /* ══════════════════════════════
+       HERO  (dark)
+    ══════════════════════════════ */
+    #hero {
+      background: #0d0d0d;
+      min-height: 100svh;
+      display: grid;
+      grid-template-columns: 55% 45%;
+    }
+
+    .hero-l {
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 0 64px 72px 72px;
+      position: relative;
+    }
+
+    .hero-tag {
+      position: absolute; top: 48px; left: 72px;
+      font-size: 11px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase;
+      color: #444;
+      opacity: 0; animation: fup .6s ease .1s forwards;
+    }
+
+    .hero-index {
+      position: absolute; top: 44px; right: 64px;
+      font-family: 'Bebas Neue', sans-serif; font-size: 13px; letter-spacing: .1em; color: #222;
+      opacity: 0; animation: fup .6s ease .15s forwards;
+    }
+
+    .hero-name {
+      font-size: clamp(96px, 13vw, 200px);
+      color: #fff;
+      line-height: .88;
+      letter-spacing: -.01em;
+      margin-bottom: 40px;
+      opacity: 0; animation: fup .85s ease .3s forwards;
+    }
+
+    .hero-line {
+      width: 48px; height: 1px; background: #333; margin-bottom: 28px;
+      opacity: 0; animation: fup .6s ease .5s forwards;
+    }
+
+    .hero-desc {
+      font-size: 14px; font-weight: 300; color: #777; line-height: 1.85;
+      max-width: 360px; margin-bottom: 52px;
+      opacity: 0; animation: fup .6s ease .55s forwards;
+    }
+
+    .hero-btns {
+      display: flex; gap: 12px; flex-wrap: wrap;
+      opacity: 0; animation: fup .6s ease .7s forwards;
+    }
+
+    .btn-w {
+      background: #fff; color: #0a0a0a;
+      font-family: 'Geologica', sans-serif; font-weight: 700;
+      font-size: 12px; letter-spacing: .1em; text-transform: uppercase;
+      padding: 15px 36px; transition: background .2s;
+    }
+    .btn-w:hover { background: #e5e5e5; }
+
+    .btn-o {
+      background: transparent; color: #fff;
+      font-family: 'Geologica', sans-serif; font-weight: 500;
+      font-size: 12px; letter-spacing: .1em; text-transform: uppercase;
+      padding: 14px 36px; border: 1px solid #2e2e2e; transition: border-color .2s;
+    }
+    .btn-o:hover { border-color: #666; }
+
+    /* hero right */
+    .hero-r {
+      background: #141414;
+      position: relative; overflow: hidden;
+    }
+
+    .hero-photo {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center top;
+      display: block; will-change: transform;
+    }
+
+    .hero-nophoto {
+      width: 100%; height: 100%;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px;
+    }
+    .hero-nophoto svg { width: 36px; height: 36px; stroke: #2a2a2a; fill: none; stroke-width: 1.5; }
+    .hero-nophoto span { font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: #2a2a2a; }
+
+    .hero-badge {
+      position: absolute; bottom: 32px; left: 32px;
+      font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: #2e2e2e;
+    }
+
+    /* scroll hint */
+    .scroll-hint {
+      position: absolute; bottom: 32px; right: 64px;
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      opacity: 0; animation: fup .6s ease 1s forwards;
+    }
+    .scroll-hint span { font-size: 9px; letter-spacing: .18em; text-transform: uppercase; color: #333; }
+    .scroll-hint-line {
+      width: 1px; height: 40px; background: linear-gradient(to bottom, #333, transparent);
+      animation: scrollpulse 2s ease-in-out infinite;
+    }
+    @keyframes scrollpulse { 0%,100%{opacity:.4} 50%{opacity:1} }
+    @keyframes fup { to { opacity:1; transform:translateY(0); } }
+
+    /* ══════════════════════════════
+       TICKER
+    ══════════════════════════════ */
+    .ticker {
+      background: #0a0a0a;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+      height: 44px; overflow: hidden; display: flex; align-items: center;
+    }
+    .ticker-track {
+      display: flex; gap: 0; white-space: nowrap;
+      animation: ticker 22s linear infinite;
+    }
+    .ticker-item {
+      display: flex; align-items: center; gap: 0;
+      font-size: 11px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: #2e2e2e;
+      padding: 0 32px;
+    }
+    .ticker-dot { width: 3px; height: 3px; background: #333; border-radius: 50%; margin-left: 32px; }
+    @keyframes ticker { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+    /* ══════════════════════════════
+       STATS  (light)
+    ══════════════════════════════ */
+    #stats {
+      background: #f0f0f0;
+    }
+    .stats-grid { display: grid; grid-template-columns: repeat(3,1fr); }
+    .stat-cell {
+      padding: 72px 56px;
+      border-right: 1px solid #ddd;
+    }
+    .stat-cell:last-child { border-right: none; }
+    .stat-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(64px, 7vw, 96px);
+      color: #0a0a0a; line-height: 1;
+      margin-bottom: 10px;
+    }
+    .stat-lbl { font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: #888; font-weight: 500; }
+
+    /* ══════════════════════════════
+       ABOUT  (dark)
+    ══════════════════════════════ */
+    #about {
+      background: #0d0d0d;
+      padding: 120px 72px;
+      border-top: 1px solid #1a1a1a;
+      position: relative; overflow: hidden;
+    }
+
+    .about-deco {
+      position: absolute; bottom: -40px; right: -20px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(160px, 22vw, 320px);
+      color: #141414; line-height: 1; pointer-events: none; user-select: none;
+      letter-spacing: -.02em;
+    }
+
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; position: relative; }
+
+    .sec-label { display: block; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: #444; margin-bottom: 20px; }
+
+    .about-title { font-size: clamp(44px, 5vw, 68px); color: #fff; margin-bottom: 32px; }
+
+    .about-body { font-size: 15px; font-weight: 300; color: #666; line-height: 1.95; }
+
+    .principles { display: flex; flex-direction: column; gap: 2px; }
+
+    .pcrd {
+      background: #111;
+      border: 1px solid #1e1e1e;
+      padding: 28px 30px;
+      display: flex; flex-direction: column; gap: 8px;
+      transition: transform .25s, border-color .25s, background .25s;
+    }
+    .pcrd:hover { transform: translateX(10px); border-color: #fff; background: #161616; }
+    .pcrd-n { font-size: 10px; letter-spacing: .16em; color: #2e2e2e; font-weight: 500; }
+    .pcrd-t { font-family: 'Bebas Neue', sans-serif; font-size: 23px; color: #fff; letter-spacing: .04em; }
+    .pcrd-d { font-size: 13px; font-weight: 300; color: #555; line-height: 1.75; }
+
+    /* ══════════════════════════════
+       PROCESS  (light)
+    ══════════════════════════════ */
+    #process {
+      background: #f0f0f0;
+      padding: 120px 72px;
+    }
+
+    .process-hd { margin-bottom: 64px; }
+    .process-hd .sec-label { color: #aaa; }
+    .process-hd h2 { font-size: clamp(44px,5vw,68px); color: #0a0a0a; }
+
+    .process-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 2px; }
+
+    .pcell {
+      background: #e8e8e8;
+      border: 1px solid #d8d8d8;
+      padding: 36px 30px;
+      display: flex; flex-direction: column; gap: 16px;
+      transition: background .25s, border-color .25s, transform .25s;
+    }
+    .pcell:hover { background: #fff; border-color: #bbb; transform: translateY(-4px); }
+
+    .pcell-num { font-family: 'Bebas Neue', sans-serif; font-size: 52px; color: #d0d0d0; line-height: 1; }
+    .pcell-icon { width: 38px; height: 38px; border: 1px solid #ccc; display: flex; align-items: center; justify-content: center; }
+    .pcell-icon svg { width: 16px; height: 16px; stroke: #888; fill: none; stroke-width: 1.5; }
+    .pcell-t { font-family: 'Bebas Neue', sans-serif; font-size: 22px; color: #0a0a0a; letter-spacing: .04em; }
+    .pcell-d { font-size: 13px; font-weight: 300; color: #777; line-height: 1.8; }
+
+    /* ══════════════════════════════
+       PORTFOLIO  (dark)
+    ══════════════════════════════ */
+    #portfolio {
+      background: #0d0d0d;
+      padding: 120px 72px;
+      border-top: 1px solid #1a1a1a;
+    }
+
+    .sec-hd { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 56px; }
+    .sec-hd-count { font-size: 11px; letter-spacing: .14em; color: #333; margin-bottom: 4px; }
+
+    .sec-title { font-size: clamp(40px,5vw,60px); color: #fff; }
+
+    .pgrid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; }
+
+    .pitem {
+      position: relative; background: #131313; aspect-ratio: 4/3;
+      overflow: hidden; cursor: zoom-in;
+    }
+
+    .pitem-inner {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      transition: transform .45s ease;
+    }
+    .pitem:hover .pitem-inner { transform: scale(1.06); }
+
+    .pitem img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    .pitem-ph { opacity: .08; }
+    .pitem-ph svg { width: 44px; height: 44px; stroke: #fff; fill: none; stroke-width: .8; }
+
+    .pitem-ov {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(8,8,8,.95) 0%, rgba(8,8,8,.3) 55%, transparent 100%);
+      display: flex; flex-direction: column; align-items: flex-start; justify-content: flex-end;
+      padding: 26px;
+      opacity: 0; transition: opacity .3s;
+    }
+    .pitem:hover .pitem-ov { opacity: 1; }
+    .pitem-lbl { font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: #555; margin-bottom: 5px; }
+    .pitem-name { font-family: 'Bebas Neue', sans-serif; font-size: 22px; color: #fff; letter-spacing: .04em; }
+    .pitem-type { font-size: 12px; color: #666; margin-top: 3px; font-weight: 300; }
+
+    /* ══════════════════════════════
+       REVIEWS  (light)
+    ══════════════════════════════ */
+    #reviews {
+      background: #f0f0f0;
+      padding: 120px 72px;
+    }
+
+    .reviews-hd { margin-bottom: 56px; }
+    .reviews-hd .sec-label { color: #aaa; }
+    .reviews-hd h2 { font-size: clamp(40px,5vw,60px); color: #0a0a0a; }
+
+    .rgrid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; }
+
+    .rcrd {
+      background: #e8e8e8;
+      border: 1px solid #d8d8d8;
+      padding: 36px 32px;
+      display: flex; flex-direction: column; gap: 22px;
+      transition: background .25s, border-color .25s;
+    }
+    .rcrd:hover { background: #fff; border-color: #c0c0c0; }
+
+    .rcrd-stars { display: flex; gap: 3px; }
+    .rcrd-stars span { font-size: 15px; color: #aaa; }
+
+    .rcrd-text { font-size: 14px; font-weight: 300; color: #555; line-height: 1.9; flex: 1; }
+
+    .rcrd-author {
+      padding-top: 20px; border-top: 1px solid #d0d0d0;
+      display: flex; flex-direction: column; gap: 4px;
+    }
+    .rcrd-name { font-size: 13px; font-weight: 600; color: #111; }
+    .rcrd-meta { font-size: 12px; color: #999; font-weight: 300; }
+
+    /* ══════════════════════════════
+       CONTACTS  (dark)
+    ══════════════════════════════ */
+    #contacts {
+      background: #0d0d0d;
+      padding: 120px 72px;
+      border-top: 1px solid #1a1a1a;
+    }
+
+    .cgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+
+    .contacts-title { font-size: clamp(44px,5vw,68px); color: #fff; margin-bottom: 20px; }
+    .contacts-sub { font-size: 14px; font-weight: 300; color: #555; line-height: 1.85; }
+
+    .clist { display: flex; flex-direction: column; gap: 2px; list-style: none; }
+
+    .citem {
+      background: #111; border: 1px solid #1e1e1e;
+      transition: border-color .2s, background .2s;
+    }
+    .citem:hover { border-color: #333; background: #161616; }
+    .citem a { display: flex; align-items: center; gap: 18px; padding: 20px 24px; }
+
+    .cicon {
+      width: 38px; height: 38px; border: 1px solid #1e1e1e;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .cicon svg { width: 16px; height: 16px; stroke: #555; fill: none; stroke-width: 1.5; }
+
+    .cmeta { display: flex; flex-direction: column; gap: 2px; }
+    .ctype { font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: #383838; font-weight: 500; }
+    .cval { font-size: 15px; color: #ccc; font-weight: 400; }
+
+    /* ══════════════════════════════
+       FOOTER
+    ══════════════════════════════ */
+    footer {
+      background: #080808;
+      border-top: 1px solid #181818;
+      padding: 32px 72px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .fcopy { font-size: 12px; color: #2e2e2e; letter-spacing: .04em; }
+    .flink { font-size: 12px; color: #3a3a3a; letter-spacing: .1em; text-transform: uppercase; transition: color .2s; }
+    .flink:hover { color: #888; }
+
+    /* ══════════════════════════════
+       BACK TO TOP
+    ══════════════════════════════ */
+    #btt {
+      position: fixed; bottom: 28px; right: 28px;
+      width: 44px; height: 44px;
+      background: #111; border: 1px solid #222;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; z-index: 90;
+      opacity: 0; pointer-events: none;
+      transition: opacity .3s, border-color .2s, background .2s;
+    }
+    #btt.show { opacity: 1; pointer-events: all; }
+    #btt:hover { border-color: #fff; background: #1a1a1a; }
+    #btt svg { width: 16px; height: 16px; stroke: #888; fill: none; stroke-width: 2; }
+
+    /* ══════════════════════════════
+       LIGHTBOX
+    ══════════════════════════════ */
+    #lb {
+      position: fixed; inset: 0;
+      background: rgba(5,5,5,.97);
+      z-index: 300;
+      display: flex; align-items: center; justify-content: center;
+      padding: 40px;
+      opacity: 0; pointer-events: none;
+      transition: opacity .3s;
+    }
+    #lb.open { opacity: 1; pointer-events: all; }
+
+    .lb-box {
+      max-width: 820px; width: 100%;
+      background: #111; border: 1px solid #222;
+      transform: scale(.95); transition: transform .3s;
+    }
+    #lb.open .lb-box { transform: scale(1); }
+
+    .lb-img {
+      width: 100%; aspect-ratio: 16/9; background: #141414;
+      display: flex; align-items: center; justify-content: center; overflow: hidden;
+    }
+    .lb-img img { width: 100%; height: 100%; object-fit: cover; }
+    .lb-img-ph { opacity: .08; }
+    .lb-img-ph svg { width: 60px; height: 60px; stroke: #fff; fill: none; stroke-width: .8; }
+
+    .lb-body { padding: 32px 36px; }
+    .lb-lbl { font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: #444; margin-bottom: 8px; }
+    .lb-title { font-family: 'Bebas Neue', sans-serif; font-size: 38px; color: #fff; }
+    .lb-type { font-size: 14px; color: #666; margin-top: 6px; font-weight: 300; }
+
+    .lb-close {
+      position: absolute; top: 20px; right: 20px;
+      width: 44px; height: 44px; background: #111; border: 1px solid #222;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; transition: border-color .2s;
+    }
+    .lb-close:hover { border-color: #fff; }
+    .lb-close svg { width: 16px; height: 16px; stroke: #888; fill: none; stroke-width: 2; }
+
+    /* ══════════════════════════════
+       MOBILE
+    ══════════════════════════════ */
+    @media (max-width: 900px) {
+      #nav { padding: 0 24px; }
+      .nav-links { display: none; }
+      .nav-cta { display: none; }
+
+      #hero { grid-template-columns: 1fr; grid-template-rows: 44svh 1fr; min-height: 100svh; }
+      .hero-r { order: -1; height: 44svh; }
+      .hero-l { padding: 52px 24px 60px; justify-content: flex-end; }
+      .hero-tag { left: 24px; top: 0; position: relative; margin-bottom: 24px; }
+      .hero-index { display: none; }
+      .hero-name { font-size: clamp(76px,20vw,120px); }
+      .scroll-hint { display: none; }
+
+      .stats-grid { grid-template-columns: 1fr; }
+      .stat-cell { border-right: none; border-bottom: 1px solid #ddd; padding: 44px 28px; }
+      .stat-cell:last-child { border-bottom: none; }
+
+      #about, #contacts { padding: 72px 24px; }
+      .about-grid { grid-template-columns: 1fr; gap: 48px; }
+
+      #process { padding: 72px 24px; }
+      .process-grid { grid-template-columns: 1fr 1fr; }
+
+      #portfolio { padding: 72px 24px; }
+      .pgrid { grid-template-columns: repeat(2,1fr); }
+      .sec-hd { flex-direction: column; align-items: flex-start; gap: 12px; }
+
+      #reviews { padding: 72px 24px; }
+      .rgrid { grid-template-columns: 1fr; }
+
+      .cgrid { grid-template-columns: 1fr; gap: 48px; }
+
+      footer { flex-direction: column; gap: 10px; text-align: center; padding: 28px 24px; }
+
+      .about-deco { display: none; }
+      #btt { bottom: 20px; right: 16px; }
+    }
+
+    @media (max-width: 560px) {
+      .pgrid { grid-template-columns: 1fr; }
+      .process-grid { grid-template-columns: 1fr; }
+      .hero-btns { flex-direction: column; }
+      .btn-w, .btn-o { text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ NAV ══ -->
+<nav id="nav">
+  <span class="nav-logo">Думаев</span>
+  <ul class="nav-links">
+    <li><a href="#about">О себе</a></li>
+    <li><a href="#process">Процесс</a></li>
+    <li><a href="#portfolio">Портфолио</a></li>
+    <li><a href="#reviews">Отзывы</a></li>
+    <li><a href="#contacts">Контакты</a></li>
+  </ul>
+  <a href="tel:+79090856451" class="nav-cta">Позвонить</a>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section id="hero">
+  <div class="hero-l">
+    <span class="hero-tag">Ремонт · Челябинск</span>
+    <h1 class="hero-name">Думаев</h1>
+    <div class="hero-line"></div>
+    <p class="hero-desc">
+      Ремонт квартир и коммерческих помещений под ключ.
+      Фиксированная смета и личный контроль на каждом этапе.
+    </p>
+    <div class="hero-btns">
+      <a href="tel:+79090856451" class="btn-w">Позвонить</a>
+      <a href="https://migremont.pro" target="_blank" rel="noopener" class="btn-o">migremont.pro</a>
+    </div>
+    <div class="scroll-hint">
+      <div class="scroll-hint-line"></div>
+      <span>Скролл</span>
+    </div>
+  </div>
+
+  <div class="hero-r">
+    <img src="photo.jpg" alt="Думаев" class="hero-photo"
+         onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+    <div class="hero-nophoto" style="display:none;">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+      <span>Фото</span>
+    </div>
+    <span class="hero-badge">Чел · 2024</span>
+  </div>
+
+  <span class="hero-index">01 / Hero</span>
+</section>
+
+<!-- ══ TICKER ══ -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <!-- дублируем для бесшовной анимации -->
+    <span class="ticker-item">Ремонт под ключ<span class="ticker-dot"></span></span>
+    <span class="ticker-item">Фиксированная смета<span class="ticker-dot"></span></span>
+    <span class="ticker-item">Личный контроль<span class="ticker-dot"></span></span>
+    <span class="ticker-item">Челябинск<span class="ticker-dot"></span></span>
+    <span class="ticker-item">5+ лет опыта<span class="ticker-dot"></span></span>
+    <span class="ticker-item">80+ объектов<span class="ticker-dot"></span></span>
+    <span class="ticker-item">Гарантия качества<span class="ticker-dot"></span></span>
+    <span class="ticker-item">migremont.pro<span class="ticker-dot"></span></span>
+    <span class="ticker-item">Ремонт под ключ<span class="ticker-dot"></span></span>
+    <span class="ticker-item">Фиксированная смета<span class="ticker-dot"></span></span>
+    <span class="ticker-item">Личный контроль<span class="ticker-dot"></span></span>
+    <span class="ticker-item">Челябинск<span class="ticker-dot"></span></span>
+    <span class="ticker-item">5+ лет опыта<span class="ticker-dot"></span></span>
+    <span class="ticker-item">80+ объектов<span class="ticker-dot"></span></span>
+    <span class="ticker-item">Гарантия качества<span class="ticker-dot"></span></span>
+    <span class="ticker-item">migremont.pro<span class="ticker-dot"></span></span>
+  </div>
+</div>
+
+<!-- ══ STATS (светлый) ══ -->
+<section id="stats">
+  <div class="stats-grid">
+    <div class="stat-cell reveal">
+      <div class="stat-num" data-count="5" data-suffix="+">5+</div>
+      <div class="stat-lbl">Лет опыта</div>
+    </div>
+    <div class="stat-cell reveal d2">
+      <div class="stat-num" data-count="80" data-suffix="+">80+</div>
+      <div class="stat-lbl">Объектов сдано</div>
+    </div>
+    <div class="stat-cell reveal d3">
+      <div class="stat-num" data-count="100" data-suffix="%">100%</div>
+      <div class="stat-lbl">По договору</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ABOUT (тёмный) ══ -->
+<section id="about">
+  <div class="about-deco" aria-hidden="true">5+</div>
+  <div class="about-grid">
+    <div class="reveal">
+      <span class="sec-label">О себе</span>
+      <h2 class="about-title">Строю репутацию, а не объём</h2>
+      <p class="about-body">
+        Работаю в Челябинске с 2019 года. Каждый объект веду лично —
+        от составления сметы до финальной уборки.
+        Не передаю в субподряд, не завышаю бюджет.
+        Цена фиксируется в договоре и больше не меняется.
+      </p>
+    </div>
+
+    <div class="principles">
+      <div class="pcrd reveal d1">
+        <span class="pcrd-n">01</span>
+        <span class="pcrd-t">Фиксированная смета</span>
+        <span class="pcrd-d">Сумма не меняется. Всё прописано в договоре до старта работ.</span>
+      </div>
+      <div class="pcrd reveal d2">
+        <span class="pcrd-n">02</span>
+        <span class="pcrd-t">Личный контроль</span>
+        <span class="pcrd-d">Присутствую на объекте лично и контролирую каждый этап.</span>
+      </div>
+      <div class="pcrd reveal d3">
+        <span class="pcrd-n">03</span>
+        <span class="pcrd-t">Гарантия</span>
+        <span class="pcrd-d">Устраняю недочёты бесплатно. Работаю на репутацию.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PROCESS (светлый) ══ -->
+<section id="process">
+  <div class="process-hd reveal">
+    <span class="sec-label">Как работаю</span>
+    <h2>4 этапа до результата</h2>
+  </div>
+
+  <div class="process-grid">
+    <div class="pcell reveal d1">
+      <div class="pcell-num">01</div>
+      <div class="pcell-icon"><svg viewBox="0 0 24 24"><path d="M3 12h18M3 6h18M3 18h12"/></svg></div>
+      <div class="pcell-t">Замер и смета</div>
+      <p class="pcell-d">Выезд на объект, замеры, подробная смета. Бесплатно.</p>
+    </div>
+    <div class="pcell reveal d2">
+      <div class="pcell-num">02</div>
+      <div class="pcell-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/></svg></div>
+      <div class="pcell-t">Договор</div>
+      <p class="pcell-d">Фиксируем объём, сроки и цену. Только письменно.</p>
+    </div>
+    <div class="pcell reveal d3">
+      <div class="pcell-num">03</div>
+      <div class="pcell-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
+      <div class="pcell-t">Ремонт</div>
+      <p class="pcell-d">Ежедневные фотоотчёты. Я на объекте каждый день.</p>
+    </div>
+    <div class="pcell reveal d4">
+      <div class="pcell-num">04</div>
+      <div class="pcell-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <div class="pcell-t">Сдача</div>
+      <p class="pcell-d">Принимаете по чек-листу. Уборка включена. Гарантия.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PORTFOLIO (тёмный) ══ -->
+<section id="portfolio">
+  <div class="sec-hd">
+    <div class="reveal">
+      <span class="sec-label">Портфолио</span>
+      <h2 class="sec-title">Последние объекты</h2>
+    </div>
+    <div class="sec-hd-count reveal">80+ объектов</div>
+  </div>
+
+  <div class="pgrid">
+    <div class="pitem reveal" data-name="Квартира на Комсомольском" data-type="Капитальный ремонт · 68 м²" data-img="">
+      <div class="pitem-inner"><div class="pitem-ph"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 9h18M9 21V9"/></svg></div></div>
+      <div class="pitem-ov"><span class="pitem-lbl">Объект</span><span class="pitem-name">Квартира на Комсомольском</span><span class="pitem-type">Капитальный ремонт · 68 м²</span></div>
+    </div>
+    <div class="pitem reveal d1" data-name="Офис в центре" data-type="Коммерческий ремонт · 120 м²" data-img="">
+      <div class="pitem-inner"><div class="pitem-ph"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 9h18M9 21V9"/></svg></div></div>
+      <div class="pitem-ov"><span class="pitem-lbl">Объект</span><span class="pitem-name">Офис в центре</span><span class="pitem-type">Коммерческий ремонт · 120 м²</span></div>
+    </div>
+    <div class="pitem reveal d2" data-name="Студия под ключ" data-type="Дизайнерский ремонт · 34 м²" data-img="">
+      <div class="pitem-inner"><div class="pitem-ph"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 9h18M9 21V9"/></svg></div></div>
+      <div class="pitem-ov"><span class="pitem-lbl">Объект</span><span class="pitem-name">Студия под ключ</span><span class="pitem-type">Дизайнерский ремонт · 34 м²</span></div>
+    </div>
+    <div class="pitem reveal d1" data-name="Трёхкомнатная на Тракторном" data-type="Капитальный ремонт · 84 м²" data-img="">
+      <div class="pitem-inner"><div class="pitem-ph"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 9h18M9 21V9"/></svg></div></div>
+      <div class="pitem-ov"><span class="pitem-lbl">Объект</span><span class="pitem-name">Трёхкомнатная на Тракторном</span><span class="pitem-type">Капитальный ремонт · 84 м²</span></div>
+    </div>
+    <div class="pitem reveal d2" data-name="Ванная под ключ" data-type="Санузел · 9 м²" data-img="">
+      <div class="pitem-inner"><div class="pitem-ph"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 9h18M9 21V9"/></svg></div></div>
+      <div class="pitem-ov"><span class="pitem-lbl">Объект</span><span class="pitem-name">Ванная под ключ</span><span class="pitem-type">Санузел · 9 м²</span></div>
+    </div>
+    <div class="pitem reveal d3" data-name="Загородный дом" data-type="Черновой ремонт · 160 м²" data-img="">
+      <div class="pitem-inner"><div class="pitem-ph"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 9h18M9 21V9"/></svg></div></div>
+      <div class="pitem-ov"><span class="pitem-lbl">Объект</span><span class="pitem-name">Загородный дом</span><span class="pitem-type">Черновой ремонт · 160 м²</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ REVIEWS (светлый) ══ -->
+<section id="reviews">
+  <div class="reviews-hd reveal">
+    <span class="sec-label">Отзывы</span>
+    <h2>Что говорят клиенты</h2>
+  </div>
+
+  <div class="rgrid">
+    <div class="rcrd reveal d1">
+      <div class="rcrd-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+      <p class="rcrd-text">«Делали ремонт в двушке. Смета не изменилась ни на рубль — это редкость. Максим лично контролировал бригаду каждый день. Сдали в срок, всё аккуратно.»</p>
+      <div class="rcrd-author">
+        <span class="rcrd-name">Андрей К.</span>
+        <span class="rcrd-meta">Капитальный ремонт · 2-комнатная</span>
+      </div>
+    </div>
+    <div class="rcrd reveal d2">
+      <div class="rcrd-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+      <p class="rcrd-text">«Ремонт офиса 120 кв.м. Порядок на объекте каждый день, фотоотчёты приходили регулярно. Уложились в бюджет и в срок.»</p>
+      <div class="rcrd-author">
+        <span class="rcrd-name">Светлана М.</span>
+        <span class="rcrd-meta">Коммерческий ремонт · офис 120 м²</span>
+      </div>
+    </div>
+    <div class="rcrd reveal d3">
+      <div class="rcrd-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+      <p class="rcrd-text">«Обращались уже второй раз. Ванная и кухня — оба раза без замечаний. Рекомендую всем знакомым.»</p>
+      <div class="rcrd-author">
+        <span class="rcrd-name">Ирина Т.</span>
+        <span class="rcrd-meta">Санузел + кухня под ключ</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CONTACTS (тёмный) ══ -->
+<section id="contacts">
+  <div class="cgrid">
+    <div class="reveal">
+      <span class="sec-label">Контакты</span>
+      <h2 class="contacts-title">Обсудим ваш объект</h2>
+      <p class="contacts-sub">Пишите или звоните — отвечаю в течение часа.<br/>Выезд на замер бесплатно.</p>
+    </div>
+
+    <ul class="clist">
+      <li class="citem reveal d1">
+        <a href="tel:+79090856451">
+          <div class="cicon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.01 1.18 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/></svg></div>
+          <div class="cmeta"><span class="ctype">Телефон</span><span class="cval">+7 909 085-64-51</span></div>
+        </a>
+      </li>
+      <li class="citem reveal d2">
+        <a href="https://t.me/imovv" target="_blank" rel="noopener">
+          <div class="cicon"><svg viewBox="0 0 24 24"><path d="M21.198 2.433a2.242 2.242 0 00-1.022.215l-16.5 6.5a2.25 2.25 0 00.126 4.238l3.998 1.25 2 6.5a.75.75 0 001.286.31l2.476-3.011 4.114 3.028a2.25 2.25 0 003.498-1.302l2.75-15.5a2.25 2.25 0 00-3.726-1.228z" stroke-linejoin="round"/></svg></div>
+          <div class="cmeta"><span class="ctype">Telegram</span><span class="cval">@imovv</span></div>
+        </a>
+      </li>
+      <li class="citem reveal d3">
+        <a href="https://vk.com/migremont_pro" target="_blank" rel="noopener">
+          <div class="cicon"><svg viewBox="0 0 24 24"><path d="M2 7h4.5l2 4.5L11 7h4.5l-5 8.5h-3L4 10.5V20H2V7z" stroke-linejoin="round"/><path d="M12 7h2.5c2.5 0 4.5 2 4.5 4.5v.5c0 2.5-2 4.5-4.5 4.5H12V7z" stroke-linejoin="round"/></svg></div>
+          <div class="cmeta"><span class="ctype">ВКонтакте</span><span class="cval">vk.com/migremont_pro</span></div>
+        </a>
+      </li>
+      <li class="citem reveal d4">
+        <a href="https://migremont.pro" target="_blank" rel="noopener">
+          <div class="cicon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg></div>
+          <div class="cmeta"><span class="ctype">Сайт</span><span class="cval">migremont.pro</span></div>
+        </a>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <span class="fcopy">© 2024 Думаев. Ремонт в Челябинске</span>
+  <a href="https://migremont.pro" target="_blank" rel="noopener" class="flink">migremont.pro</a>
+</footer>
+
+<!-- ══ BACK TO TOP ══ -->
+<button id="btt" aria-label="Наверх">
+  <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+</button>
+
+<!-- ══ LIGHTBOX ══ -->
+<div id="lb" role="dialog" aria-modal="true">
+  <div class="lb-box">
+    <div class="lb-img" id="lb-img">
+      <div class="lb-img-ph"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 9h18M9 21V9"/></svg></div>
+    </div>
+    <div class="lb-body">
+      <p class="lb-lbl">Объект</p>
+      <h3 class="lb-title" id="lb-name"></h3>
+      <p class="lb-type" id="lb-type"></p>
+    </div>
+  </div>
+  <button class="lb-close" id="lb-close" aria-label="Закрыть">
+    <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  </button>
+</div>
+
+<script>
+  /* reveal */
+  const ro = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); ro.unobserve(e.target); }
+  }), { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+
+  /* nav + btt */
+  const nav = document.getElementById('nav');
+  const btt = document.getElementById('btt');
+  const heroH = () => document.getElementById('hero').offsetHeight;
+  window.addEventListener('scroll', () => {
+    const y = window.scrollY;
+    nav.classList.toggle('shown', y > heroH() * 0.55);
+    btt.classList.toggle('show', y > 500);
+  }, { passive: true });
+  btt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+  /* counters */
+  const co = new IntersectionObserver(es => es.forEach(e => {
+    if (!e.isIntersecting) return;
+    const el = e.target.querySelector('[data-count]');
+    if (!el) return;
+    const target = +el.dataset.count, suffix = el.dataset.suffix || '';
+    let t0 = null;
+    const tick = ts => {
+      if (!t0) t0 = ts;
+      const p = Math.min((ts - t0) / 1400, 1);
+      el.textContent = Math.floor((1 - Math.pow(1 - p, 3)) * target) + suffix;
+      if (p < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+    co.unobserve(e.target);
+  }), { threshold: 0.5 });
+  document.querySelectorAll('.stat-cell').forEach(el => co.observe(el));
+
+  /* parallax */
+  const ph = document.querySelector('.hero-photo');
+  if (ph) window.addEventListener('scroll', () => {
+    const y = window.scrollY;
+    if (y < heroH()) ph.style.transform = `translateY(${y * 0.15}px)`;
+  }, { passive: true });
+
+  /* lightbox */
+  const lb = document.getElementById('lb');
+  const lbImg = document.getElementById('lb-img');
+  const lbName = document.getElementById('lb-name');
+  const lbType = document.getElementById('lb-type');
+
+  document.querySelectorAll('.pitem').forEach(item => {
+    item.addEventListener('click', () => {
+      lbName.textContent = item.dataset.name || '';
+      lbType.textContent = item.dataset.type || '';
+      lbImg.innerHTML = item.dataset.img
+        ? `<img src="${item.dataset.img}" alt="${item.dataset.name}">`
+        : `<div class="lb-img-ph"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 9h18M9 21V9"/></svg></div>`;
+      lb.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+
+  const closeLb = () => { lb.classList.remove('open'); document.body.style.overflow = ''; };
+  document.getElementById('lb-close').addEventListener('click', closeLb);
+  lb.addEventListener('click', e => { if (e.target === lb) closeLb(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLb(); });
+</script>
+</body>
+</html>
