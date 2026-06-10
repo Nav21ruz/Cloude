@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Контакты — МОНОЛИТ</title>
+  <meta name="description" content="Контакты компании МОНОЛИТ. Оставьте заявку на расчёт стоимости ремонта. Москва.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    .contact-reasons {
+      display: flex; flex-direction: column; gap: 12px;
+      margin-top: 32px;
+    }
+
+    .contact-reason {
+      display: flex; align-items: flex-start; gap: 14px;
+      padding: 18px 20px;
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      transition: border-color 0.3s;
+    }
+
+    .contact-reason:hover { border-color: var(--border-gold); }
+
+    .contact-reason-icon {
+      width: 36px; height: 36px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(200,151,58,0.12); color: var(--gold);
+      font-size: 0.9rem;
+    }
+
+    .contact-reason-text h5 { font-size: 0.875rem; font-weight: 700; margin-bottom: 3px; }
+    .contact-reason-text p { font-size: 0.8rem; color: var(--gray-3); line-height: 1.4; }
+
+    .working-hours {
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      padding: 24px;
+      margin-top: 16px;
+    }
+
+    .working-hours h4 {
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: 14px;
+    }
+
+    .hour-row {
+      display: flex; justify-content: space-between;
+      font-size: 0.875rem; padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .hour-row:last-child { border-bottom: none; }
+
+    .hour-row .day { color: var(--gray-2); }
+    .hour-row .time { font-weight: 600; }
+    .hour-row .time.closed { color: var(--gray-4); }
+
+    .form-select-wrapper { position: relative; }
+    .form-select-wrapper::after {
+      content: '';
+      position: absolute; right: 16px; top: 50%;
+      transform: translateY(-50%);
+      width: 0; height: 0;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-top: 6px solid var(--gray-3);
+      pointer-events: none;
+    }
+
+    .quick-consult {
+      background: var(--bg-1);
+      padding: clamp(60px, 8vw, 100px) clamp(24px, 5vw, 80px);
+    }
+
+    .quick-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1px; background: var(--border);
+      margin-top: 48px;
+    }
+
+    .quick-item {
+      background: var(--bg-1);
+      padding: 36px 32px;
+      text-align: center;
+      transition: background 0.3s;
+    }
+
+    .quick-item:hover { background: var(--bg-2); }
+
+    .quick-item-icon {
+      width: 60px; height: 60px;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(200,151,58,0.1); color: var(--gold);
+      margin: 0 auto 20px; font-size: 1.5rem;
+      transition: background 0.3s;
+    }
+
+    .quick-item:hover .quick-item-icon { background: rgba(200,151,58,0.2); }
+
+    .quick-item h3 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
+    .quick-item p { font-size: 0.85rem; color: var(--gray-2); line-height: 1.6; margin-bottom: 16px; }
+
+    .quick-item a.contact-link {
+      font-size: 1.1rem; font-weight: 700; color: var(--gold);
+      transition: color 0.25s;
+    }
+
+    .quick-item a.contact-link:hover { color: var(--gold-light); }
+
+    @media (max-width: 768px) {
+      .quick-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="preloader">
+  <div class="preloader-logo">МОН<span>О</span>ЛИТ</div>
+  <div class="preloader-bar"></div>
+</div>
+<div id="cursor-dot"></div>
+<div id="cursor-ring"></div>
+<div id="scroll-progress"></div>
+
+<!-- NAV -->
+<nav class="nav scrolled">
+  <a href="index.html" class="nav-logo">МОН<span>О</span>ЛИТ</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Главная</a></li>
+    <li><a href="services.html">Услуги</a></li>
+    <li><a href="projects.html">Проекты</a></li>
+    <li><a href="about.html">О компании</a></li>
+    <li><a href="contact.html" class="active">Контакты</a></li>
+  </ul>
+  <div class="nav-cta">
+    <span class="nav-phone">+7 (495) 123-45-67</span>
+    <a href="contact.html" class="btn-nav">Консультация</a>
+  </div>
+  <button class="nav-burger" aria-label="Меню">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<nav class="nav-mobile">
+  <a href="index.html">Главная</a>
+  <a href="services.html">Услуги</a>
+  <a href="projects.html">Проекты</a>
+  <a href="about.html">О компании</a>
+  <a href="contact.html">Контакты</a>
+</nav>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <div class="breadcrumb">
+      <a href="index.html">Главная</a>
+      <span class="breadcrumb-sep">/</span>
+      <span>Контакты</span>
+    </div>
+    <h1 class="page-title">Обсудим<br><em style="color:var(--gold)">Проект</em></h1>
+  </div>
+  <div class="page-hero-num">24/7</div>
+</div>
+
+<!-- CONTACT LAYOUT -->
+<section class="section-pad" style="background: var(--bg-0);">
+  <div class="container">
+    <div class="contact-layout">
+      <!-- INFO SIDE -->
+      <div>
+        <div class="section-label reveal">Свяжитесь с нами</div>
+        <h2 class="section-title reveal" style="font-size:clamp(1.75rem,3.5vw,2.5rem);margin-bottom:28px;">
+          Ответим в течение<br><em>2 часов</em>
+        </h2>
+
+        <div class="contact-info-card reveal">
+          <div class="label">Телефон</div>
+          <div class="value"><a href="tel:+74951234567">+7 (495) 123-45-67</a></div>
+          <div class="sub">Звонки и WhatsApp</div>
+        </div>
+        <div class="contact-info-card reveal delay-1">
+          <div class="label">Email</div>
+          <div class="value"><a href="mailto:info@monolit-build.ru">info@monolit-build.ru</a></div>
+          <div class="sub">Для технических запросов и документов</div>
+        </div>
+        <div class="contact-info-card reveal delay-2">
+          <div class="label">Офис</div>
+          <div class="value">Москва, ул. Строителей, 12</div>
+          <div class="sub">ст. м. Профсоюзная, 5 мин. пешком</div>
+        </div>
+
+        <div class="working-hours reveal delay-3">
+          <h4>Режим работы</h4>
+          <div class="hour-row">
+            <span class="day">Пн — Пт</span>
+            <span class="time">9:00 — 19:00</span>
+          </div>
+          <div class="hour-row">
+            <span class="day">Суббота</span>
+            <span class="time">10:00 — 16:00</span>
+          </div>
+          <div class="hour-row">
+            <span class="day">Воскресенье</span>
+            <span class="time closed">Выходной</span>
+          </div>
+        </div>
+
+        <div class="contact-reasons reveal">
+          <div class="contact-reason">
+            <div class="contact-reason-icon">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 1l2 6h6l-5 3.5 2 6L9 13l-5 3.5 2-6L1 7h6z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+            </div>
+            <div class="contact-reason-text">
+              <h5>Бесплатный выезд и замер</h5>
+              <p>Приедем на объект, оценим объём и ответим на все вопросы</p>
+            </div>
+          </div>
+          <div class="contact-reason">
+            <div class="contact-reason-icon">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 9h12M10 5l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </div>
+            <div class="contact-reason-text">
+              <h5>Смета за 3–5 дней</h5>
+              <p>Детальный расчёт с разбивкой по каждому виду работ</p>
+            </div>
+          </div>
+          <div class="contact-reason">
+            <div class="contact-reason-icon">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 2L2 6v5c0 4 3.14 7.74 7 8.77C13.86 18.74 17 14.99 17 11V6L9 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+            </div>
+            <div class="contact-reason-text">
+              <h5>Фиксированная цена в договоре</h5>
+              <p>После подписания смета не меняется — это наш принцип</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FORM SIDE -->
+      <div class="reveal delay-2">
+        <div style="background:var(--bg-2);border:1px solid var(--border);padding:clamp(32px,4vw,56px);">
+          <h3 style="font-size:1.5rem;font-weight:800;margin-bottom:8px;">Заявка на расчёт</h3>
+          <p style="font-size:0.875rem;color:var(--gray-2);margin-bottom:32px;line-height:1.6;">
+            Заполните форму — менеджер свяжется с вами в течение 2 часов в рабочее время.
+          </p>
+
+          <form id="contact-form" novalidate>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="name">Имя *</label>
+                <input type="text" id="name" name="name" placeholder="Иван Иванов" required>
+              </div>
+              <div class="form-group">
+                <label for="company">Компания</label>
+                <input type="text" id="company" name="company" placeholder="ООО «Название»">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="phone">Телефон *</label>
+                <input type="tel" id="phone" name="phone" placeholder="+7 (___) ___-__-__" required>
+              </div>
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="ivan@company.ru">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="object-type">Тип объекта</label>
+              <div class="form-select-wrapper">
+                <select id="object-type" name="object-type">
+                  <option value="">— Выберите тип —</option>
+                  <option value="office">Офис</option>
+                  <option value="retail">Торговое помещение / ритейл</option>
+                  <option value="restaurant">Ресторан / кафе / бар</option>
+                  <option value="medical">Медицинское учреждение</option>
+                  <option value="warehouse">Склад / производство</option>
+                  <option value="other">Другое</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="area">Площадь (м²)</label>
+                <input type="text" id="area" name="area" placeholder="например: 500">
+              </div>
+              <div class="form-group">
+                <label for="budget">Бюджет</label>
+                <div class="form-select-wrapper">
+                  <select id="budget" name="budget">
+                    <option value="">— Ориентировочно —</option>
+                    <option value="to3m">До 3 млн ₽</option>
+                    <option value="3to10m">3–10 млн ₽</option>
+                    <option value="10to30m">10–30 млн ₽</option>
+                    <option value="30plus">Более 30 млн ₽</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="message">Описание задачи</label>
+              <textarea id="message" name="message" placeholder="Расскажите о вашем проекте: что нужно сделать, в какие сроки, есть ли дизайн-проект..."></textarea>
+            </div>
+            <div class="form-group">
+              <label for="how-found">Откуда узнали о нас?</label>
+              <div class="form-select-wrapper">
+                <select id="how-found" name="how-found">
+                  <option value="">— Выберите —</option>
+                  <option value="search">Поисковик (Google, Яндекс)</option>
+                  <option value="recommend">По рекомендации</option>
+                  <option value="social">Соцсети</option>
+                  <option value="other">Другое</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-submit">
+              <button type="submit" class="btn btn-primary">
+                <span>Отправить заявку</span>
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 9h12M10 4l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+              </button>
+              <p class="form-note">Нажимая кнопку, вы соглашаетесь с политикой конфиденциальности</p>
+            </div>
+            <div id="form-success" class="form-success">
+              Заявка отправлена! Мы свяжемся с вами в течение 2 часов.
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUICK CONTACT -->
+<section class="quick-consult">
+  <div class="container">
+    <div class="section-label reveal">Быстрый контакт</div>
+    <h2 class="section-title reveal">Выберите удобный <em>способ</em></h2>
+    <div class="quick-grid">
+      <div class="quick-item reveal">
+        <div class="quick-item-icon">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M23.5 17.6c-1.1-.11-2.2-.37-3.2-.78-.36-.15-.78-.06-1.05.22l-2.07 2.07A17.65 17.65 0 016.9 9.82l2.07-2.07c.28-.28.37-.68.22-1.05-.4-1-.66-2.1-.78-3.2C8.3 2.67 7.56 2 6.67 2H3C1.9 2 1 2.9 1 4c0 13.1 10.9 24 24 24 1.1 0 2-.9 2-2v-3.67c0-.89-.67-1.63-1.5-1.73z" stroke="currentColor" stroke-width="1.5"/></svg>
+        </div>
+        <h3>Телефон</h3>
+        <p>Звоните в рабочее время — менеджер ответит сразу</p>
+        <a href="tel:+74951234567" class="contact-link">+7 (495) 123-45-67</a>
+      </div>
+      <div class="quick-item reveal delay-1">
+        <div class="quick-item-icon">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M14 1.5C7.1 1.5 1.5 7.1 1.5 14c0 2.2.58 4.28 1.59 6.08L1.5 26.5l6.58-1.56A12.44 12.44 0 0014 26.5c6.9 0 12.5-5.6 12.5-12.5S20.9 1.5 14 1.5zm5.8 16.7c-.25.7-1.47 1.37-2.03 1.46-.52.08-1.15.11-1.87-.13-.43-.14-.99-.33-1.7-.64A13.45 13.45 0 019.18 10.7c-.47-.6-.97-1.53-.97-2.45 0-.92.47-1.76 1.28-2.39.34-.26.73-.37 1.1-.37.12 0 .24 0 .36.01.31.02.47.04.68.52.25.55.85 2.09.92 2.24.08.15.13.33.03.53s-.14.31-.28.48l-.4.5c-.14.14-.28.28-.12.56.15.27.7 1.16 1.5 1.88 1.03.93 1.92 1.21 2.2 1.35.27.13.43.11.6-.07.17-.17.71-.84.9-1.12.19-.28.38-.23.64-.14l2.08.98c.3.14.5.22.57.34.08.11.08.7-.17 1.4z" fill="currentColor"/></svg>
+        </div>
+        <h3>WhatsApp</h3>
+        <p>Напишите сообщение или отправьте фото объекта</p>
+        <a href="https://wa.me/74951234567" class="contact-link">Написать в WA</a>
+      </div>
+      <div class="quick-item reveal delay-2">
+        <div class="quick-item-icon">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M24.86 3.14L2.33 11.72c-1.48.59-1.45 1.43-.28 1.8l5.53 1.72 12.86-8.1c.6-.37 1.15-.17.7.23L10.07 17.1l-.26 5.7c.38 0 .55-.17.77-.38l1.87-1.8 3.89 2.85c.72.4 1.24.19 1.42-.67L20.6 5.3c.26-1.05-.4-1.51-1.2-1.2l-.54.04z" fill="currentColor"/></svg>
+        </div>
+        <h3>Telegram</h3>
+        <p>Удобно для переписки и обмена документами</p>
+        <a href="https://t.me/monolit_build" class="contact-link">@monolit_build</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MAP -->
+<div class="map-section">
+  <div class="map-placeholder">
+    <div class="map-pin"></div>
+    <div class="map-address">
+      ул. Строителей, 12, Москва
+      <small>ст. м. Профсоюзная, 5 мин. пешком · Пн–Пт 9:00–19:00</small>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">МОН<span>О</span>ЛИТ</div>
+        <p class="footer-desc">Профессиональный коммерческий ремонт под ключ в Москве. От демонтажа до финишной отделки.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="TG"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M15.9 2.1L1.5 7.5c-.95.38-.93.92-.18 1.15l3.55 1.1 8.25-5.2c.38-.24.74-.11.45.15L6.4 10.97l-.17 3.66c.25 0 .36-.11.5-.24l1.2-1.16 2.5 1.83c.46.25.79.12.9-.43l1.62-7.6c.17-.67-.25-.97-.77-.77z" fill="currentColor"/></svg></a>
+          <a href="#" aria-label="WA"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 1C4.58 1 1 4.58 1 9c0 1.41.37 2.74 1 3.9L1 17l4.21-.98A8 8 0 009 17c4.42 0 8-3.58 8-8s-3.58-8-8-8z" fill="currentColor"/></svg></a>
+          <a href="#" aria-label="VK"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9.5 12.5H8.3c0 0-2.8 0-5.3-2.7C.5 7 .5 4.5.5 4.5H3c0 0-.1 2 1.2 3.4.8.8 1.6 1 1.6 1V4.5h2.5V8c0 0 .2.1.5-.1C9.4 7.6 10.2 6 10.2 4.5H13c0 0-.5 2.1-2.3 3.5 1.3.7 2.8 2.5 2.8 4.5h-2.5c0 0-.1-1.4-1.5-2.7v2.7z" fill="currentColor"/></svg></a>
+        </div>
+      </div>
+      <div class="footer-col"><h4>Услуги</h4><ul><li><a href="services.html">Демонтаж</a></li><li><a href="services.html">Перепланировка</a></li><li><a href="services.html">Инженерные системы</a></li><li><a href="services.html">Чистовая отделка</a></li></ul></div>
+      <div class="footer-col"><h4>Компания</h4><ul><li><a href="about.html">О компании</a></li><li><a href="projects.html">Проекты</a></li><li><a href="contact.html">Контакты</a></li></ul></div>
+      <div class="footer-col"><h4>Контакты</h4>
+        <div class="footer-contact-item"><div class="footer-contact-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1C5.24 1 3 3.24 3 6c0 4.25 5 9 5 9s5-4.75 5-9c0-2.76-2.24-5-5-5zm0 6.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3z" fill="currentColor"/></svg></div><div><div class="footer-contact-label">Адрес</div><div class="footer-contact-val">Москва, ул. Строителей, 12</div></div></div>
+        <div class="footer-contact-item"><div class="footer-contact-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13.5 10.1c-.6-.06-1.2-.2-1.8-.43-.2-.08-.43-.03-.58.12l-1.12 1.12A9.85 9.85 0 014.1 5.01l1.12-1.12c.15-.15.2-.38.12-.58A8.1 8.1 0 015.1 1.7C5.04 1.22 4.66.9 4.2.9H2.2C1.7.9 1.3 1.33 1.3 1.83 1.3 7.98 6.32 13 12.47 13c.5 0 .93-.43.93-.93v-1.9c0-.47-.36-.88-.83-.93z" fill="currentColor"/></svg></div><div><div class="footer-contact-label">Телефон</div><div class="footer-contact-val"><a href="tel:+74951234567">+7 (495) 123-45-67</a></div></div></div>
+        <div class="footer-contact-item"><div class="footer-contact-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 4l6 4.5L14 4M2 13h12V3H2v10z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg></div><div><div class="footer-contact-label">Email</div><div class="footer-contact-val"><a href="mailto:info@monolit-build.ru">info@monolit-build.ru</a></div></div></div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2024 МОНОЛИТ. Все права защищены.</span>
+      <span>ИНН 7701234567 · ОГРН 1127700000001</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
