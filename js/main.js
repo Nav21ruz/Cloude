@@ -12,15 +12,17 @@ window.addEventListener('load', () => {
 /* ===== CUSTOM CURSOR (desktop only) ===== */
 const dot = document.getElementById('cursor-dot');
 const ring = document.getElementById('cursor-ring');
-const isTouch = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+const hasMouse = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
-if (isTouch) {
+/* Скрыть при любом касании (запасной вариант) */
+document.addEventListener('touchstart', () => {
   if (dot) dot.style.display = 'none';
   if (ring) ring.style.display = 'none';
   document.body.style.cursor = 'auto';
-} else {
+}, { passive: true });
+
+if (hasMouse) {
   let ringX = 0, ringY = 0;
-  let rafId;
 
   document.addEventListener('mousemove', e => {
     const x = e.clientX, y = e.clientY;
@@ -29,13 +31,11 @@ if (isTouch) {
     ringY += (y - ringY) * 0.15;
   });
 
-  function animateCursor() {
+  (function animateCursor() {
     if (ring) { ring.style.left = ringX + 'px'; ring.style.top = ringY + 'px'; }
-    rafId = requestAnimationFrame(animateCursor);
-  }
-  animateCursor();
+    requestAnimationFrame(animateCursor);
+  })();
 
-  /* Скрыть курсор когда мышь покидает окно */
   document.addEventListener('mouseleave', () => {
     if (dot) dot.style.opacity = '0';
     if (ring) ring.style.opacity = '0';

@@ -32,43 +32,55 @@ body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   line-height: 1.6;
   overflow-x: hidden;
-  cursor: none;
 }
 
 body.menu-open { overflow: hidden; }
+
+/* Кастомный курсор только на устройствах с мышью */
+@media (hover: hover) and (pointer: fine) {
+  body { cursor: none; }
+  button { cursor: none; }
+}
 
 ::selection { background: var(--gold); color: var(--bg-0); }
 
 img { max-width: 100%; display: block; }
 a { text-decoration: none; color: inherit; }
 ul { list-style: none; }
-button { cursor: none; font-family: inherit; border: none; outline: none; background: none; }
+button { font-family: inherit; border: none; outline: none; background: none; }
 
-/* ===== CUSTOM CURSOR ===== */
-#cursor-dot {
-  position: fixed; top: 0; left: 0; z-index: 9999;
-  width: 8px; height: 8px;
-  background: var(--gold);
-  border-radius: 50%;
-  pointer-events: none;
-  transform: translate(-50%, -50%);
-  transition: width 0.2s var(--ease), height 0.2s var(--ease), background 0.2s var(--ease);
+/* ===== CUSTOM CURSOR — только на десктопе с мышью ===== */
+#cursor-dot,
+#cursor-ring { display: none; }
+
+@media (hover: hover) and (pointer: fine) {
+  #cursor-dot {
+    display: block;
+    position: fixed; top: 0; left: 0; z-index: 9999;
+    width: 8px; height: 8px;
+    background: var(--gold);
+    border-radius: 50%;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    transition: width 0.2s var(--ease), height 0.2s var(--ease), background 0.2s var(--ease);
+  }
+
+  #cursor-ring {
+    display: block;
+    position: fixed; top: 0; left: 0; z-index: 9998;
+    width: 36px; height: 36px;
+    border: 1.5px solid var(--gold);
+    border-radius: 50%;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    transition: transform 0.12s var(--ease), width 0.25s var(--ease), height 0.25s var(--ease), border-color 0.2s;
+  }
+
+  body:has(a:hover) #cursor-dot,
+  body:has(button:hover) #cursor-dot { width: 14px; height: 14px; background: var(--gold-light); }
+  body:has(a:hover) #cursor-ring,
+  body:has(button:hover) #cursor-ring { width: 54px; height: 54px; border-color: var(--gold-light); }
 }
-
-#cursor-ring {
-  position: fixed; top: 0; left: 0; z-index: 9998;
-  width: 36px; height: 36px;
-  border: 1.5px solid var(--gold);
-  border-radius: 50%;
-  pointer-events: none;
-  transform: translate(-50%, -50%);
-  transition: transform 0.12s var(--ease), width 0.25s var(--ease), height 0.25s var(--ease), border-color 0.2s;
-}
-
-body:has(a:hover) #cursor-dot,
-body:has(button:hover) #cursor-dot { width: 14px; height: 14px; background: var(--gold-light); }
-body:has(a:hover) #cursor-ring,
-body:has(button:hover) #cursor-ring { width: 54px; height: 54px; border-color: var(--gold-light); }
 
 /* ===== SCROLL PROGRESS ===== */
 #scroll-progress {
