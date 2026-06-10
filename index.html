@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Думаев — Ремонт в Челябинске</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Geologica:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: #0a0a0a;
+      color: #aaaaaa;
+      font-family: 'Geologica', sans-serif;
+      font-weight: 400;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── TYPOGRAPHY ── */
+    h1, h2, h3, h4 {
+      font-family: 'Bebas Neue', sans-serif;
+      color: #ffffff;
+      line-height: 1;
+      letter-spacing: 0.02em;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* ── REVEAL ANIMATIONS ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+    .reveal-delay-5 { transition-delay: 0.5s; }
+
+    /* ── HERO ── */
+    #hero {
+      background: #0a0a0a;
+      min-height: 100svh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: stretch;
+    }
+
+    .hero-left {
+      background: #0a0a0a;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 80px 60px 80px 80px;
+    }
+
+    .hero-label {
+      font-family: 'Geologica', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #777777;
+      margin-bottom: 28px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.7s ease 0.1s forwards;
+    }
+
+    .hero-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(80px, 10vw, 148px);
+      color: #ffffff;
+      line-height: 0.9;
+      margin-bottom: 32px;
+      opacity: 0;
+      transform: translateY(24px);
+      animation: fadeUp 0.8s ease 0.25s forwards;
+    }
+
+    .hero-desc {
+      font-size: 15px;
+      font-weight: 300;
+      color: #aaaaaa;
+      max-width: 380px;
+      line-height: 1.75;
+      margin-bottom: 44px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.7s ease 0.45s forwards;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.7s ease 0.6s forwards;
+    }
+
+    .btn-primary {
+      background: #ffffff;
+      color: #0a0a0a;
+      font-family: 'Geologica', sans-serif;
+      font-weight: 600;
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 15px 32px;
+      border: none;
+      cursor: pointer;
+      display: inline-block;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+
+    .btn-primary:hover {
+      background: #dddddd;
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: #ffffff;
+      font-family: 'Geologica', sans-serif;
+      font-weight: 500;
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 14px 32px;
+      border: 1px solid #333333;
+      cursor: pointer;
+      display: inline-block;
+      transition: border-color 0.2s ease, color 0.2s ease;
+    }
+
+    .btn-secondary:hover {
+      border-color: #ffffff;
+    }
+
+    /* ── HERO RIGHT — PHOTO PLACEHOLDER ── */
+    .hero-right {
+      background: #111111;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-photo-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      min-height: 400px;
+    }
+
+    .photo-icon {
+      width: 72px;
+      height: 72px;
+      border: 1px solid #2a2a2a;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .photo-icon svg {
+      width: 32px;
+      height: 32px;
+      stroke: #333333;
+      fill: none;
+      stroke-width: 1.5;
+    }
+
+    .photo-label {
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #333333;
+    }
+
+    .hero-right-corner {
+      position: absolute;
+      bottom: 32px;
+      right: 32px;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #2a2a2a;
+    }
+
+    @keyframes fadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ── STATS ── */
+    #stats {
+      background: #0a0a0a;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .stat-item {
+      padding: 60px 48px;
+      border-right: 1px solid #1a1a1a;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .stat-item:last-child {
+      border-right: none;
+    }
+
+    .stat-number {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(52px, 6vw, 80px);
+      color: #ffffff;
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #555555;
+      font-weight: 500;
+    }
+
+    /* ── ABOUT ── */
+    #about {
+      background: #0a0a0a;
+      padding: 120px 80px;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .about-left .section-label {
+      display: block;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #555555;
+      margin-bottom: 24px;
+    }
+
+    .about-title {
+      font-size: clamp(40px, 4vw, 60px);
+      margin-bottom: 28px;
+      color: #ffffff;
+    }
+
+    .about-text {
+      font-size: 15px;
+      font-weight: 300;
+      color: #888888;
+      line-height: 1.85;
+    }
+
+    .principles {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .principle-card {
+      background: #0f0f0f;
+      border: 1px solid #1a1a1a;
+      padding: 28px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      cursor: default;
+      transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+    }
+
+    .principle-card:hover {
+      transform: translateX(8px);
+      border-color: #ffffff;
+      background: #111111;
+    }
+
+    .principle-number {
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      color: #333333;
+      font-weight: 500;
+    }
+
+    .principle-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 24px;
+      color: #ffffff;
+      letter-spacing: 0.04em;
+    }
+
+    .principle-desc {
+      font-size: 13px;
+      font-weight: 300;
+      color: #666666;
+      line-height: 1.7;
+    }
+
+    /* ── PORTFOLIO ── */
+    #portfolio {
+      background: #0a0a0a;
+      padding: 120px 80px;
+      border-top: 1px solid #1a1a1a;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 56px;
+    }
+
+    .section-header-left .section-label {
+      display: block;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #555555;
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: clamp(36px, 4vw, 56px);
+      color: #ffffff;
+    }
+
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+
+    .portfolio-item {
+      position: relative;
+      background: #111111;
+      aspect-ratio: 4/3;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .portfolio-item-inner {
+      width: 100%;
+      height: 100%;
+      background: #111111;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.4s ease;
+    }
+
+    .portfolio-item:hover .portfolio-item-inner {
+      transform: scale(1.04);
+    }
+
+    .portfolio-placeholder-icon {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      opacity: 0.15;
+    }
+
+    .portfolio-placeholder-icon svg {
+      width: 40px;
+      height: 40px;
+      stroke: #ffffff;
+      fill: none;
+      stroke-width: 1;
+    }
+
+    .portfolio-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(10, 10, 10, 0.88);
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-end;
+      padding: 28px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .portfolio-item:hover .portfolio-overlay {
+      opacity: 1;
+    }
+
+    .portfolio-obj-label {
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #555555;
+      margin-bottom: 6px;
+    }
+
+    .portfolio-obj-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22px;
+      color: #ffffff;
+      letter-spacing: 0.04em;
+    }
+
+    .portfolio-obj-type {
+      font-size: 12px;
+      color: #777777;
+      margin-top: 4px;
+      font-weight: 300;
+    }
+
+    /* ── CONTACTS ── */
+    #contacts {
+      background: #0a0a0a;
+      padding: 120px 80px;
+      border-top: 1px solid #1a1a1a;
+    }
+
+    .contacts-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .contacts-left .section-label {
+      display: block;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #555555;
+      margin-bottom: 24px;
+    }
+
+    .contacts-title {
+      font-size: clamp(40px, 4vw, 60px);
+      margin-bottom: 20px;
+      color: #ffffff;
+    }
+
+    .contacts-subtitle {
+      font-size: 14px;
+      font-weight: 300;
+      color: #666666;
+      line-height: 1.75;
+    }
+
+    .contact-list {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      list-style: none;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      padding: 20px 24px;
+      background: #0f0f0f;
+      border: 1px solid #1a1a1a;
+      transition: border-color 0.2s ease, background 0.2s ease;
+    }
+
+    .contact-item a {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      width: 100%;
+      color: inherit;
+    }
+
+    .contact-item:hover {
+      border-color: #333333;
+      background: #111111;
+    }
+
+    .contact-icon {
+      width: 36px;
+      height: 36px;
+      border: 1px solid #222222;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .contact-icon svg {
+      width: 16px;
+      height: 16px;
+      stroke: #777777;
+      fill: none;
+      stroke-width: 1.5;
+    }
+
+    .contact-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .contact-type {
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #444444;
+      font-weight: 500;
+    }
+
+    .contact-value {
+      font-size: 15px;
+      color: #cccccc;
+      font-weight: 400;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #0a0a0a;
+      border-top: 1px solid #1a1a1a;
+      padding: 36px 80px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-copy {
+      font-size: 12px;
+      color: #333333;
+      letter-spacing: 0.04em;
+    }
+
+    .footer-link {
+      font-size: 12px;
+      color: #444444;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: color 0.2s ease;
+    }
+
+    .footer-link:hover {
+      color: #aaaaaa;
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 900px) {
+      #hero {
+        grid-template-columns: 1fr;
+        grid-template-rows: 40svh 1fr;
+        min-height: 100svh;
+      }
+
+      .hero-right {
+        order: -1;
+        height: 40svh;
+      }
+
+      .hero-left {
+        background: #0a0a0a;
+        padding: 48px 24px 56px;
+        order: 1;
+      }
+
+      .hero-name {
+        font-size: clamp(72px, 18vw, 110px);
+      }
+
+      #stats {
+        background: #0a0a0a;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .stat-item {
+        border-right: none;
+        border-bottom: 1px solid #1a1a1a;
+        padding: 36px 24px;
+      }
+
+      .stat-item:last-child {
+        border-bottom: none;
+      }
+
+      #about {
+        background: #0a0a0a;
+        padding: 72px 24px;
+      }
+
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+
+      #portfolio {
+        background: #0a0a0a;
+        padding: 72px 24px;
+      }
+
+      .portfolio-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+      }
+
+      #contacts {
+        background: #0a0a0a;
+        padding: 72px 24px;
+      }
+
+      .contacts-grid {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+
+      footer {
+        flex-direction: column;
+        gap: 12px;
+        text-align: center;
+        padding: 32px 24px;
+        background: #0a0a0a;
+      }
+    }
+
+    @media (max-width: 500px) {
+      .portfolio-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-buttons {
+        flex-direction: column;
+      }
+
+      .btn-primary, .btn-secondary {
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══════════════════════════════════════
+       HERO
+  ══════════════════════════════════════ -->
+  <section id="hero">
+    <div class="hero-left">
+      <span class="hero-label">Ремонт · Челябинск</span>
+      <h1 class="hero-name">Думаев</h1>
+      <p class="hero-desc">
+        Ремонт квартир и коммерческих помещений под ключ.
+        Фиксированная смета — никаких неожиданных доплат.
+        Личный контроль на каждом этапе.
+      </p>
+      <div class="hero-buttons">
+        <a href="tel:+79090856451" class="btn-primary">Позвонить</a>
+        <a href="https://migremont.pro" target="_blank" rel="noopener" class="btn-secondary">migremont.pro</a>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <div class="hero-photo-placeholder">
+        <div class="photo-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+        </div>
+        <span class="photo-label">Фото</span>
+      </div>
+      <span class="hero-right-corner">Ремонт·Чел·2024</span>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       STATS
+  ══════════════════════════════════════ -->
+  <section id="stats">
+    <div class="stats-grid">
+      <div class="stat-item reveal">
+        <span class="stat-number">5+</span>
+        <span class="stat-label">Лет опыта</span>
+      </div>
+      <div class="stat-item reveal reveal-delay-2">
+        <span class="stat-number">80+</span>
+        <span class="stat-label">Объектов сдано</span>
+      </div>
+      <div class="stat-item reveal reveal-delay-3">
+        <span class="stat-number">100%</span>
+        <span class="stat-label">По договору</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       ABOUT
+  ══════════════════════════════════════ -->
+  <section id="about">
+    <div class="about-grid">
+      <div class="about-left reveal">
+        <span class="section-label">О себе</span>
+        <h2 class="about-title">Строю репутацию, а не объём</h2>
+        <p class="about-text">
+          Работаю в Челябинске с 2019 года. Каждый объект веду лично — от составления сметы до финальной уборки.
+          Не передаю в субподряд, не завышаю бюджет в процессе.
+          Цена фиксируется в договоре и не меняется.
+          Для меня важны не масштаб, а качество и доверие клиента.
+        </p>
+      </div>
+
+      <div class="principles">
+        <div class="principle-card reveal reveal-delay-1">
+          <span class="principle-number">01</span>
+          <span class="principle-title">Фиксированная смета</span>
+          <span class="principle-desc">Согласованная сумма не меняется. Всё прописано в договоре до начала работ.</span>
+        </div>
+        <div class="principle-card reveal reveal-delay-2">
+          <span class="principle-number">02</span>
+          <span class="principle-title">Личный контроль</span>
+          <span class="principle-desc">Я лично присутствую на объекте и контролирую каждый этап ремонта.</span>
+        </div>
+        <div class="principle-card reveal reveal-delay-3">
+          <span class="principle-number">03</span>
+          <span class="principle-title">Гарантия</span>
+          <span class="principle-desc">Устраняю недочёты бесплатно. Работаю на репутацию, а не на сделку.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       PORTFOLIO
+  ══════════════════════════════════════ -->
+  <section id="portfolio">
+    <div class="section-header">
+      <div class="section-header-left reveal">
+        <span class="section-label">Портфолио</span>
+        <h2 class="section-title">Последние объекты</h2>
+      </div>
+    </div>
+
+    <div class="portfolio-grid">
+      <div class="portfolio-item reveal">
+        <div class="portfolio-item-inner">
+          <div class="portfolio-placeholder-icon">
+            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 9h18M9 21V9"/></svg>
+          </div>
+        </div>
+        <div class="portfolio-overlay">
+          <span class="portfolio-obj-label">Объект</span>
+          <span class="portfolio-obj-name">Квартира на Комсомольском</span>
+          <span class="portfolio-obj-type">Капитальный ремонт · 68 м²</span>
+        </div>
+      </div>
+
+      <div class="portfolio-item reveal reveal-delay-1">
+        <div class="portfolio-item-inner">
+          <div class="portfolio-placeholder-icon">
+            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 9h18M9 21V9"/></svg>
+          </div>
+        </div>
+        <div class="portfolio-overlay">
+          <span class="portfolio-obj-label">Объект</span>
+          <span class="portfolio-obj-name">Офис в центре города</span>
+          <span class="portfolio-obj-type">Коммерческий ремонт · 120 м²</span>
+        </div>
+      </div>
+
+      <div class="portfolio-item reveal reveal-delay-2">
+        <div class="portfolio-item-inner">
+          <div class="portfolio-placeholder-icon">
+            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 9h18M9 21V9"/></svg>
+          </div>
+        </div>
+        <div class="portfolio-overlay">
+          <span class="portfolio-obj-label">Объект</span>
+          <span class="portfolio-obj-name">Студия под ключ</span>
+          <span class="portfolio-obj-type">Дизайнерский ремонт · 34 м²</span>
+        </div>
+      </div>
+
+      <div class="portfolio-item reveal reveal-delay-1">
+        <div class="portfolio-item-inner">
+          <div class="portfolio-placeholder-icon">
+            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 9h18M9 21V9"/></svg>
+          </div>
+        </div>
+        <div class="portfolio-overlay">
+          <span class="portfolio-obj-label">Объект</span>
+          <span class="portfolio-obj-name">Трёхкомнатная на Тракторном</span>
+          <span class="portfolio-obj-type">Капитальный ремонт · 84 м²</span>
+        </div>
+      </div>
+
+      <div class="portfolio-item reveal reveal-delay-2">
+        <div class="portfolio-item-inner">
+          <div class="portfolio-placeholder-icon">
+            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 9h18M9 21V9"/></svg>
+          </div>
+        </div>
+        <div class="portfolio-overlay">
+          <span class="portfolio-obj-label">Объект</span>
+          <span class="portfolio-obj-name">Ванная комната</span>
+          <span class="portfolio-obj-type">Санузел под ключ · 9 м²</span>
+        </div>
+      </div>
+
+      <div class="portfolio-item reveal reveal-delay-3">
+        <div class="portfolio-item-inner">
+          <div class="portfolio-placeholder-icon">
+            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 9h18M9 21V9"/></svg>
+          </div>
+        </div>
+        <div class="portfolio-overlay">
+          <span class="portfolio-obj-label">Объект</span>
+          <span class="portfolio-obj-name">Загородный дом</span>
+          <span class="portfolio-obj-type">Черновой ремонт · 160 м²</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       CONTACTS
+  ══════════════════════════════════════ -->
+  <section id="contacts">
+    <div class="contacts-grid">
+      <div class="contacts-left reveal">
+        <span class="section-label">Контакты</span>
+        <h2 class="contacts-title">Давайте обсудим ваш объект</h2>
+        <p class="contacts-subtitle">
+          Пишите или звоните — отвечаю в течение часа.<br />
+          Выезд на замер бесплатно.
+        </p>
+      </div>
+
+      <ul class="contact-list">
+        <li class="contact-item reveal reveal-delay-1">
+          <a href="tel:+79090856451">
+            <div class="contact-icon">
+              <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.01 1.18 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/></svg>
+            </div>
+            <div class="contact-meta">
+              <span class="contact-type">Телефон</span>
+              <span class="contact-value">+7 909 085-64-51</span>
+            </div>
+          </a>
+        </li>
+
+        <li class="contact-item reveal reveal-delay-2">
+          <a href="https://t.me/imovv" target="_blank" rel="noopener">
+            <div class="contact-icon">
+              <svg viewBox="0 0 24 24"><path d="M21.198 2.433a2.242 2.242 0 00-1.022.215l-16.5 6.5a2.25 2.25 0 00.126 4.238l3.998 1.25 2 6.5a.75.75 0 001.286.31l2.476-3.011 4.114 3.028a2.25 2.25 0 003.498-1.302l2.75-15.5a2.25 2.25 0 00-3.726-1.228z" stroke-linejoin="round"/></svg>
+            </div>
+            <div class="contact-meta">
+              <span class="contact-type">Telegram</span>
+              <span class="contact-value">@imovv</span>
+            </div>
+          </a>
+        </li>
+
+        <li class="contact-item reveal reveal-delay-3">
+          <a href="https://vk.com/migremont_pro" target="_blank" rel="noopener">
+            <div class="contact-icon">
+              <svg viewBox="0 0 24 24"><path d="M2 7h4.5l2 4.5L11 7h4.5l-5 8.5h-3L4 10.5V20H2V7z" stroke-linejoin="round"/><path d="M12 7h2.5c2.5 0 4.5 2 4.5 4.5v.5c0 2.5-2 4.5-4.5 4.5H12V7z" stroke-linejoin="round"/></svg>
+            </div>
+            <div class="contact-meta">
+              <span class="contact-type">ВКонтакте</span>
+              <span class="contact-value">vk.com/migremont_pro</span>
+            </div>
+          </a>
+        </li>
+
+        <li class="contact-item reveal reveal-delay-4">
+          <a href="https://migremont.pro" target="_blank" rel="noopener">
+            <div class="contact-icon">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+            </div>
+            <div class="contact-meta">
+              <span class="contact-type">Сайт компании</span>
+              <span class="contact-value">migremont.pro</span>
+            </div>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       FOOTER
+  ══════════════════════════════════════ -->
+  <footer>
+    <span class="footer-copy">© 2024 Думаев. Ремонт в Челябинске</span>
+    <a href="https://migremont.pro" target="_blank" rel="noopener" class="footer-link">migremont.pro</a>
+  </footer>
+
+  <!-- ══════════════════════════════════════
+       JAVASCRIPT
+  ══════════════════════════════════════ -->
+  <script>
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12 }
+    );
+
+    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+  </script>
+
+</body>
+</html>
