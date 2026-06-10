@@ -9,27 +9,42 @@ window.addEventListener('load', () => {
   }, 1400);
 });
 
-/* ===== CUSTOM CURSOR ===== */
+/* ===== CUSTOM CURSOR (desktop only) ===== */
 const dot = document.getElementById('cursor-dot');
 const ring = document.getElementById('cursor-ring');
-let ringX = 0, ringY = 0;
+const isTouch = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
 
-document.addEventListener('mousemove', e => {
-  const x = e.clientX, y = e.clientY;
-  dot.style.left = x + 'px';
-  dot.style.top = y + 'px';
-  ringX += (x - ringX) * 0.15;
-  ringY += (y - ringY) * 0.15;
-  ring.style.left = ringX + 'px';
-  ring.style.top = ringY + 'px';
-});
+if (isTouch) {
+  if (dot) dot.style.display = 'none';
+  if (ring) ring.style.display = 'none';
+  document.body.style.cursor = 'auto';
+} else {
+  let ringX = 0, ringY = 0;
+  let rafId;
 
-function animateCursor() {
-  ring.style.left = ringX + 'px';
-  ring.style.top = ringY + 'px';
-  requestAnimationFrame(animateCursor);
+  document.addEventListener('mousemove', e => {
+    const x = e.clientX, y = e.clientY;
+    if (dot) { dot.style.left = x + 'px'; dot.style.top = y + 'px'; }
+    ringX += (x - ringX) * 0.15;
+    ringY += (y - ringY) * 0.15;
+  });
+
+  function animateCursor() {
+    if (ring) { ring.style.left = ringX + 'px'; ring.style.top = ringY + 'px'; }
+    rafId = requestAnimationFrame(animateCursor);
+  }
+  animateCursor();
+
+  /* Скрыть курсор когда мышь покидает окно */
+  document.addEventListener('mouseleave', () => {
+    if (dot) dot.style.opacity = '0';
+    if (ring) ring.style.opacity = '0';
+  });
+  document.addEventListener('mouseenter', () => {
+    if (dot) dot.style.opacity = '1';
+    if (ring) ring.style.opacity = '1';
+  });
 }
-animateCursor();
 
 /* ===== SCROLL PROGRESS ===== */
 const progressBar = document.getElementById('scroll-progress');
