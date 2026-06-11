@@ -1,39 +1,51 @@
 const reviews = [
   {
-    name: "Андрей Митрофанов",
-    role: "Генеральный директор, ООО «Синара-ТМ»",
-    avatar: "АМ",
-    text: "Заказывали ремонт офиса 1200 м². Сдали ровно в срок, как и договаривались. Качество работ превзошло ожидания — особенно понравились акустические решения в переговорных комнатах. Всё аккуратно, без мусора, без лишних вопросов. Рекомендую без сомнений.",
+    name: "Андрей Соловьёв",
+    role: "Застройщик, ООО «УралСтрой»",
+    avatar: "АС",
+    text: "Сотрудничаем с МехШтукатур74 уже третий год. Сдали три жилых комплекса суммарно 18 000 м². Всегда в срок, качество стабильное. Цена на 15% ниже, чем у конкурентов за то же самое. Рекомендуем всем застройщикам.",
     rating: 5,
-    date: "Ноябрь 2024",
-    type: "Офис 1200 м²",
+    project: "ЖК «Северный парк», 4 800 м²",
   },
   {
-    name: "Светлана Козлова",
-    role: "Владелец, кафе «Берёзка»",
-    avatar: "СК",
-    text: "Делали ремонт кафе 180 м² под ключ. Прораб был на связи 24/7, отвечал на любые вопросы. Очень важно было всё сделать по СанПиНу для Роспотребнадзора — с этим справились отлично. Открылись без единого замечания.",
+    name: "Елена Крылова",
+    role: "Владелец квартиры",
+    avatar: "ЕК",
+    text: "Делали штукатурку в новой квартире 94 м². Приехали на следующий день после звонка, всё измерили, сделали смету. За 4 дня — всё готово. Стены идеально ровные, прораб показал как проверить уровнем. Очень довольна.",
     rating: 5,
-    date: "Август 2024",
-    type: "Ресторан 180 м²",
+    project: "Квартира 94 м², Северо-Запад",
   },
   {
-    name: "Игорь Степанов",
-    role: "Директор по развитию, сеть «Монетка»",
-    avatar: "ИС",
-    text: "Уже третий магазин с КомСтрой74. Работают быстро, держат бюджет, умеют работать в сжатые сроки. Для торговых объектов это критично — каждый день простоя стоит денег. Ни разу не подвели.",
+    name: "Игорь Петренко",
+    role: "Прораб, строительная компания",
+    avatar: "ИП",
+    text: "Работаем с ребятами на коммерческих объектах. Торговый центр 2200 м² сделали за 12 дней — это нереальный темп для ручного труда. Документация в порядке, акты подписываем без замечаний. Буду обращаться ещё.",
     rating: 5,
-    date: "Сентябрь 2024",
-    type: "Торговый объект 850 м²",
+    project: "ТЦ «Горки», 2 200 м²",
   },
   {
-    name: "Марина Федорова",
-    role: "Главный врач, «Евромед Клиник»",
-    avatar: "МФ",
-    text: "Очень сложный объект — медицинский центр с операционной зоной. Требования серьёзные. КомСтрой74 разобрались в нормативной базе лучше многих. Сдали с первого раза, лицензию получили без вопросов.",
+    name: "Марина Тихонова",
+    role: "Хозяйка коттеджа",
+    avatar: "МТ",
+    text: "Строили коттедж в Сосновом Бору, нужна была штукатурка внутри и фасад. Бригада приехала вовремя, работали аккуратно. Особенно понравился фасад — декоративная штукатурка под шубу смотрится отлично. Гарантийный талон выдали.",
     rating: 5,
-    date: "Июнь 2024",
-    type: "Медцентр 650 м²",
+    project: "Коттедж 320 м², Сосновый Бор",
+  },
+  {
+    name: "Дмитрий Захаров",
+    role: "Технадзор, ЖСК",
+    avatar: "ДЗ",
+    text: "Проверял качество работ на сдаче. Отклонение не более 1,5 мм на 2 м — это очень хороший результат. Все углы ровные, поверхность однородная. Документация соответствует требованиям. Рекомендую как технадзорщик.",
+    rating: 5,
+    project: "ЖК «Видный», Магнитогорск",
+  },
+  {
+    name: "Ольга Сергеева",
+    role: "Дизайнер интерьеров",
+    avatar: "ОС",
+    text: "Часто рекомендую клиентам МехШтукатур74. Стены получаются действительно готовые под покраску — без дополнительного шпатлевания. Это экономит время и деньги. Сотрудничаем уже 2 года, ни разу не подвели.",
+    rating: 5,
+    project: "Несколько квартир, Челябинск",
   },
 ];
 
@@ -41,97 +53,70 @@ export default function Testimonials() {
   return (
     <section id="testimonials" className="py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-2 bg-orange-100 rounded-full px-4 py-2 mb-4">
             <span className="text-orange-600 text-sm font-semibold uppercase tracking-wider">
               Отзывы клиентов
             </span>
           </div>
-          <h2
-            className="section-title mb-4"
-            style={{ fontFamily: "var(--font-montserrat)" }}
-          >
-            Нам доверяют
-            <span className="text-gradient block">380+ компаний</span>
+          <h2 className="section-title mb-4" style={{ fontFamily: "var(--font-montserrat)" }}>
+            Нас рекомендуют
+            <span className="text-gradient block">застройщики и жители</span>
           </h2>
-          <p className="section-subtitle max-w-xl mx-auto">
-            Реальные отзывы руководителей компаний, с которыми мы работали
+          <p className="section-subtitle max-w-2xl mx-auto">
+            97% клиентов оценивают нашу работу на «отлично». Вот что они говорят.
           </p>
         </div>
 
-        {/* Reviews grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {reviews.map((review) => (
-            <div
-              key={review.name}
-              className="bg-slate-50 border border-slate-200 rounded-2xl p-7 hover:border-orange-200 hover:shadow-md transition-all duration-300"
-            >
-              {/* Stars */}
-              <div className="flex gap-1 mb-4">
+            <div key={review.name} className="bg-slate-50 rounded-2xl p-7 border border-slate-100 card-hover flex flex-col">
+              <div className="flex items-center gap-1 mb-4">
                 {Array.from({ length: review.rating }).map((_, i) => (
-                  <svg
-                    key={i}
-                    width="18"
-                    height="18"
-                    viewBox="0 0 24 24"
-                    fill="#f97316"
-                    stroke="none"
-                  >
+                  <svg key={i} width="16" height="16" viewBox="0 0 24 24" fill="#f97316" stroke="none">
                     <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
                   </svg>
                 ))}
               </div>
 
-              <blockquote className="text-slate-700 text-base leading-relaxed mb-6 italic">
-                &ldquo;{review.text}&rdquo;
-              </blockquote>
+              <p className="text-slate-600 text-sm leading-relaxed mb-6 flex-1">"{review.text}"</p>
 
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="w-11 h-11 gradient-orange rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
+              <div className="pt-4 border-t border-slate-200">
+                <div className="flex items-center gap-3 mb-2">
+                  <div className="w-10 h-10 gradient-orange rounded-full flex items-center justify-center text-white text-sm font-bold flex-shrink-0">
                     {review.avatar}
                   </div>
                   <div>
-                    <div className="text-slate-900 font-bold text-sm">
-                      {review.name}
-                    </div>
+                    <div className="font-bold text-slate-900 text-sm">{review.name}</div>
                     <div className="text-slate-400 text-xs">{review.role}</div>
                   </div>
                 </div>
-                <div className="text-right">
-                  <div className="text-orange-500 text-xs font-semibold">
-                    {review.type}
-                  </div>
-                  <div className="text-slate-400 text-xs mt-0.5">
-                    {review.date}
-                  </div>
+                <div className="flex items-center gap-1.5 text-xs text-orange-500 font-medium">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <rect x="3" y="3" width="18" height="18" rx="2" />
+                  </svg>
+                  {review.project}
                 </div>
               </div>
             </div>
           ))}
         </div>
 
-        {/* Social proof bar */}
-        <div className="mt-14 bg-slate-900 rounded-2xl p-8 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-          {[
-            { n: "4.9/5", l: "Средняя оценка" },
-            { n: "380+", l: "Отзывов написано" },
-            { n: "94%", l: "Повторных заказов" },
-            { n: "87%", l: "Приходят по рекомендации" },
-          ].map((s) => (
-            <div key={s.l}>
-              <div
-                className="text-2xl font-black text-orange-400 mb-1"
-                style={{ fontFamily: "var(--font-montserrat)" }}
-              >
-                {s.n}
-              </div>
-              <div className="text-slate-400 text-xs uppercase tracking-wide">
-                {s.l}
-              </div>
-            </div>
-          ))}
+        <div className="mt-14 bg-slate-900 rounded-3xl p-10 text-center">
+          <div className="flex justify-center items-center gap-2 mb-4">
+            {Array.from({ length: 5 }).map((_, i) => (
+              <svg key={i} width="24" height="24" viewBox="0 0 24 24" fill="#f97316" stroke="none">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+              </svg>
+            ))}
+          </div>
+          <p className="text-3xl font-black text-white mb-2" style={{ fontFamily: "var(--font-montserrat)" }}>
+            4.9 / 5 — средняя оценка
+          </p>
+          <p className="text-slate-400 mb-8">На основе 200+ отзывов на Яндекс.Картах, 2ГИС и авито</p>
+          <a href="#contact" className="btn-primary inline-flex">
+            Стать нашим клиентом
+          </a>
         </div>
       </div>
     </section>

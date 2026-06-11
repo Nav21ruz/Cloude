@@ -14,8 +14,9 @@ export default function Header() {
 
   const links = [
     { label: "Услуги", href: "#services" },
-    { label: "О нас", href: "#about" },
-    { label: "Портфолио", href: "#portfolio" },
+    { label: "Преимущества", href: "#about" },
+    { label: "Процесс", href: "#process" },
+    { label: "Объекты", href: "#portfolio" },
     { label: "Отзывы", href: "#testimonials" },
     { label: "Контакты", href: "#contact" },
   ];
@@ -30,39 +31,23 @@ export default function Header() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-18 py-4">
-          {/* Logo */}
           <a href="#" className="flex items-center gap-3 group">
             <div className="w-10 h-10 rounded-lg gradient-orange flex items-center justify-center shadow-lg">
-              <svg
-                width="22"
-                height="22"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="white"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-                <polyline points="9 22 9 12 15 12 15 22" />
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M3 12h18M3 6h18M3 18h12" />
               </svg>
             </div>
             <div>
-              <div
-                className="text-white font-black text-xl leading-none tracking-wide"
-                style={{ fontFamily: "var(--font-montserrat)" }}
-              >
-                КомСтрой
-                <span className="text-orange-400">74</span>
+              <div className="text-white font-black text-xl leading-none tracking-wide" style={{ fontFamily: "var(--font-montserrat)" }}>
+                МехШтукатур<span className="text-orange-400">74</span>
               </div>
               <div className="text-slate-400 text-xs tracking-widest uppercase leading-none mt-0.5">
-                Челябинск
+                Челябинская область
               </div>
             </div>
           </a>
 
-          {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden md:flex items-center gap-7">
             {links.map((link) => (
               <a
                 key={link.href}
@@ -74,46 +59,27 @@ export default function Header() {
             ))}
           </nav>
 
-          {/* CTA */}
           <div className="hidden md:flex items-center gap-3">
-            <a
-              href="tel:+73512000000"
-              className="text-white font-bold text-sm hover:text-orange-400 transition-colors"
-            >
+            <a href="tel:+73512000000" className="text-white font-bold text-sm hover:text-orange-400 transition-colors">
               +7 (351) 200-00-00
             </a>
             <a href="#contact" className="btn-primary text-sm py-3 px-6">
-              Бесплатная смета
+              Бесплатный замер
             </a>
           </div>
 
-          {/* Mobile menu button */}
           <button
             className="md:hidden text-white p-2"
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label="Меню"
           >
             {menuOpen ? (
-              <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-              >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <line x1="18" y1="6" x2="6" y2="18" />
                 <line x1="6" y1="6" x2="18" y2="18" />
               </svg>
             ) : (
-              <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-              >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <line x1="3" y1="6" x2="21" y2="6" />
                 <line x1="3" y1="12" x2="21" y2="12" />
                 <line x1="3" y1="18" x2="21" y2="18" />
@@ -122,7 +88,6 @@ export default function Header() {
           </button>
         </div>
 
-        {/* Mobile Menu */}
         {menuOpen && (
           <div className="md:hidden bg-slate-900 border-t border-slate-700 pb-4">
             {links.map((link) => (
@@ -136,14 +101,11 @@ export default function Header() {
               </a>
             ))}
             <div className="px-4 pt-4 flex flex-col gap-3">
-              <a
-                href="tel:+73512000000"
-                className="text-white font-bold text-center"
-              >
+              <a href="tel:+73512000000" className="text-white font-bold text-center">
                 +7 (351) 200-00-00
               </a>
               <a href="#contact" className="btn-primary text-center justify-center">
-                Бесплатная смета
+                Бесплатный замер
               </a>
             </div>
           </div>
