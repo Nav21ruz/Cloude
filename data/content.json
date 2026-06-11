@@ -56,15 +56,14 @@
     },
     {
       "id": "p3",
-      "title": "Шоурум Maison",
-      "category": "retail",
-      "area": "320 м²",
-      "year": "2024",
-      "location": "Челябинск",
-      "duration": "",
-      "image": "",
-      "tall": false,
-      "featured": false
+      "title": "Отделение банка «УБРиР»",
+      "category": "office",
+      "year": "2026",
+      "area": "820 м²",
+      "duration": "40 дней",
+      "image": "https://drive.google.com/file/d/16sDU5rogsp6drzVLZ4iMmmaduy_oQsUS/view?usp=drivesdk",
+      "featured": true,
+      "tall": false
     },
     {
       "id": "p4",
