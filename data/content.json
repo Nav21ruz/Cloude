@@ -37,18 +37,18 @@
       "title": "Офис завода",
       "category": "office",
       "year": "2024",
-      "area": "1000",
+      "area": "1000 м²",
       "duration": "4 мес.",
       "image": "https://drive.google.com/file/d/1iWVY25fmtQwZGMsl_y13iSFRliwXSTEa/view?usp=drivesdk",
       "featured": true,
-      "tall": true
+      "tall": false
     },
     {
       "id": "p2",
       "title": "Кафе «Навруз»",
       "category": "restaurant",
       "year": "2026",
-      "area": "145",
+      "area": "145 м²",
       "duration": "15 дней",
       "image": "https://drive.google.com/file/d/1am1rc6q8i9rLcEo4jcUIe5ewZevo1yst/view?usp=drivesdk",
       "featured": false,
