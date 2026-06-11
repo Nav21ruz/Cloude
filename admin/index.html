@@ -98,6 +98,12 @@ button{font-family:inherit;cursor:pointer}
 .field-group input:focus,.field-group select:focus{border-color:var(--gold)}
 .field-group .hint{font-size:.72rem;color:var(--text3);margin-top:4px}
 .stats-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.field-group textarea{width:100%;padding:10px 12px;border:1px solid var(--border);outline:none;font-size:.875rem;transition:border .2s;resize:vertical;font-family:inherit}
+.field-group textarea:focus{border-color:var(--gold)}
+.settings-card-wide{grid-column:1/-1}
+.hero-fields-2col{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.hero-fields-3col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-top:8px}
+@media(max-width:800px){.hero-fields-2col,.hero-fields-3col{grid-template-columns:1fr}}
 
 /* ── MODAL ── */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:1000;display:none;align-items:flex-start;justify-content:center;padding:32px 16px;overflow-y:auto}
@@ -236,6 +242,49 @@ button{font-family:inherit;cursor:pointer}
         </div>
         <div class="settings-grid">
 
+          <!-- HOME PAGE SECTION -->
+          <div class="settings-card settings-card-wide">
+            <h3>Главная страница</h3>
+            <div class="hero-fields-2col">
+              <div class="field-group">
+                <label>Фото — баннер (секция «Герой»)</label>
+                <input type="url" id="s-hero-image" placeholder="https://... или Google Drive ссылка">
+                <div class="hint">Фоновое изображение главного баннера</div>
+                <div class="image-preview" id="s-hero-preview">
+                  <img id="s-hero-preview-img" alt="">
+                  <span id="s-hero-preview-hint">Предпросмотр появится после ввода ссылки</span>
+                </div>
+              </div>
+              <div class="field-group">
+                <label>Фото — секция «О компании»</label>
+                <input type="url" id="s-about-image" placeholder="https://... или Google Drive ссылка">
+                <div class="hint">Фотография в блоке «О нас»</div>
+                <div class="image-preview" id="s-about-preview">
+                  <img id="s-about-preview-img" alt="">
+                  <span id="s-about-preview-hint">Предпросмотр появится после ввода ссылки</span>
+                </div>
+              </div>
+            </div>
+            <div class="hero-fields-3col">
+              <div class="field-group">
+                <label>Заголовок — строка 1</label>
+                <input type="text" id="s-hero-line1" placeholder="СТРОИМ">
+              </div>
+              <div class="field-group">
+                <label>Заголовок — строка 2</label>
+                <input type="text" id="s-hero-line2" placeholder="ПРОСТРАНСТВО">
+              </div>
+              <div class="field-group">
+                <label>Заголовок — строка 3</label>
+                <input type="text" id="s-hero-line3" placeholder="ДЛЯ БИЗНЕСА">
+              </div>
+            </div>
+            <div class="field-group">
+              <label>Текст под заголовком</label>
+              <textarea id="s-hero-desc" rows="3" placeholder="От демонтажа до финишной отделки — полный цикл коммерческого ремонта…"></textarea>
+            </div>
+          </div>
+
           <div class="settings-card">
             <h3>Контакты</h3>
             <div class="field-group">
@@ -341,7 +390,7 @@ button{font-family:inherit;cursor:pointer}
         <label>Категория</label>
         <select id="m-category">
           <option value="office">Офис</option>
-          <option value="retail">Ритейл</option>
+          <option value="retail">Магазин</option>
           <option value="restaurant">Ресторан / HoReCa</option>
           <option value="medical">Медицина</option>
           <option value="warehouse">Склад / производство</option>
@@ -399,7 +448,7 @@ button{font-family:inherit;cursor:pointer}
 const REPO = 'Nav21ruz/Cloude';
 const FILE = 'data/content.json';
 const API  = `https://api.github.com/repos/${REPO}/contents/${FILE}`;
-const CAT_LABELS = {office:'Офис',retail:'Ритейл',restaurant:'Ресторан',medical:'Медицина',warehouse:'Склад'};
+const CAT_LABELS = {office:'Офис',retail:'Магазин',restaurant:'Ресторан',medical:'Медицина',warehouse:'Склад'};
 
 let token = '', fileSha = '', data = null, editingId = null, dirty = false;
 
@@ -555,6 +604,18 @@ function fillSettings() {
   const c = data.contacts || {};
   const s = data.stats || {};
   const h = c.hours || {};
+  const hero = data.hero || {};
+  const about = data.about || {};
+
+  $('s-hero-image').value   = hero.image || '';
+  $('s-about-image').value  = about.image || '';
+  $('s-hero-line1').value   = (hero.title || [])[0] || '';
+  $('s-hero-line2').value   = (hero.title || [])[1] || '';
+  $('s-hero-line3').value   = (hero.title || [])[2] || '';
+  $('s-hero-desc').value    = hero.description || '';
+  updateSettingsPreview('s-hero-image', 's-hero-preview-img', 's-hero-preview-hint');
+  updateSettingsPreview('s-about-image', 's-about-preview-img', 's-about-preview-hint');
+
   $('s-phone').value         = c.phone || '';
   $('s-phone-raw').value     = c.phoneRaw || '';
   $('s-email').value         = c.email || '';
@@ -570,14 +631,54 @@ function fillSettings() {
   $('s-stat-satisfaction').value = s.satisfaction || '';
   $('s-stat-employees').value    = s.employees || '';
 
-  document.querySelectorAll('#tab-settings input, #tab-settings select').forEach(el => {
-    el.addEventListener('change', markDirty);
-    el.addEventListener('input', markDirty);
+  $('s-hero-image').addEventListener('input', () => {
+    updateSettingsPreview('s-hero-image', 's-hero-preview-img', 's-hero-preview-hint');
+    markDirty();
   });
+  $('s-about-image').addEventListener('input', () => {
+    updateSettingsPreview('s-about-image', 's-about-preview-img', 's-about-preview-hint');
+    markDirty();
+  });
+
+  document.querySelectorAll('#tab-settings input, #tab-settings select, #tab-settings textarea').forEach(el => {
+    if (el.id !== 's-hero-image' && el.id !== 's-about-image') {
+      el.addEventListener('change', markDirty);
+      el.addEventListener('input', markDirty);
+    }
+  });
+}
+
+function updateSettingsPreview(inputId, imgId, hintId) {
+  const url = $(inputId).value.trim();
+  const resolved = gdrive(url);
+  const img = $(imgId);
+  const hint = $(hintId);
+  if (resolved) {
+    img.src = resolved;
+    img.style.display = 'block';
+    hint.style.display = 'none';
+    img.onerror = () => { img.style.display = 'none'; hint.style.display = 'block'; hint.textContent = 'Не удалось загрузить фото. Проверьте ссылку.'; };
+  } else {
+    img.style.display = 'none';
+    img.src = '';
+    hint.style.display = 'block';
+    hint.textContent = 'Предпросмотр появится после ввода ссылки';
+  }
 }
 
 function collectSettings() {
   if (!data) return;
+  const line1 = $('s-hero-line1').value.trim();
+  const line2 = $('s-hero-line2').value.trim();
+  const line3 = $('s-hero-line3').value.trim();
+  data.hero = {
+    image: $('s-hero-image').value.trim(),
+    title: [line1, line2, line3].filter(Boolean),
+    description: $('s-hero-desc').value.trim()
+  };
+  data.about = {
+    image: $('s-about-image').value.trim()
+  };
   data.contacts = {
     phone: $('s-phone').value.trim(),
     phoneRaw: $('s-phone-raw').value.trim(),
