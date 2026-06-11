@@ -358,6 +358,90 @@ button{font-family:inherit;cursor:pointer}
             </div>
           </div>
 
+          <!-- HOME ABOUT BLOCK -->
+          <div class="settings-card settings-card-wide">
+            <h3>Главная — блок «О компании»</h3>
+            <div class="hero-fields-2col">
+              <div class="field-group">
+                <label>Подпись-метка (label)</label>
+                <input type="text" id="s-home-about-label" placeholder="О компании">
+              </div>
+              <div class="field-group">
+                <label>Заголовок</label>
+                <input type="text" id="s-home-about-heading" placeholder="Мы знаем, как выглядит результат">
+              </div>
+              <div class="field-group">
+                <label>Подзаголовок (tagline)</label>
+                <textarea id="s-home-about-tagline" rows="2" placeholder="DUMAEV — это команда профессионалов…"></textarea>
+              </div>
+              <div class="field-group">
+                <label>Описание (второй абзац)</label>
+                <textarea id="s-home-about-desc" rows="2" placeholder="Мы не делаем квартирный ремонт…"></textarea>
+              </div>
+            </div>
+            <div class="hero-fields-3col">
+              <div class="field-group">
+                <label>Преимущество 1 — заголовок</label>
+                <input type="text" id="s-home-feat1-title" placeholder="Гарантия 3 года">
+              </div>
+              <div class="field-group">
+                <label>Преимущество 2 — заголовок</label>
+                <input type="text" id="s-home-feat2-title" placeholder="Точно в срок">
+              </div>
+              <div class="field-group">
+                <label>Преимущество 3 — заголовок</label>
+                <input type="text" id="s-home-feat3-title" placeholder="Фиксированная смета">
+              </div>
+              <div class="field-group">
+                <label>Преимущество 1 — описание</label>
+                <input type="text" id="s-home-feat1-desc" placeholder="На все выполненные работы">
+              </div>
+              <div class="field-group">
+                <label>Преимущество 2 — описание</label>
+                <input type="text" id="s-home-feat2-desc" placeholder="Штраф 0.1% за каждый день просрочки">
+              </div>
+              <div class="field-group">
+                <label>Преимущество 3 — описание</label>
+                <input type="text" id="s-home-feat3-desc" placeholder="Цена не меняется в процессе работ">
+              </div>
+            </div>
+          </div>
+
+          <!-- ABOUT PAGE STORY BLOCK -->
+          <div class="settings-card settings-card-wide">
+            <h3>Страница «О компании» — История</h3>
+            <div class="hero-fields-3col">
+              <div class="field-group">
+                <label>Подпись-метка (label)</label>
+                <input type="text" id="s-about-story-label" placeholder="История">
+              </div>
+              <div class="field-group">
+                <label>Заголовок (текст после числа лет)</label>
+                <input type="text" id="s-about-story-heading" placeholder="лет строим">
+              </div>
+              <div class="field-group">
+                <label>Заголовок — выделенное слово</label>
+                <input type="text" id="s-about-story-heading-em" placeholder="репутацию">
+              </div>
+            </div>
+            <div class="field-group">
+              <label>Большая цитата</label>
+              <textarea id="s-about-story-quote" rows="2" placeholder="«Мы основали компанию с одной целью…»"></textarea>
+            </div>
+            <div class="field-group">
+              <label>Абзац 1</label>
+              <textarea id="s-about-story-p1" rows="3" placeholder="В 2012 году Сергей Монахов…"></textarea>
+            </div>
+            <div class="field-group">
+              <label>Абзац 2</label>
+              <textarea id="s-about-story-p2" rows="3" placeholder="Сегодня DUMAEV — это 65 человек…"></textarea>
+            </div>
+            <div class="field-group">
+              <label>Абзац 3</label>
+              <textarea id="s-about-story-p3" rows="2" placeholder="Главный принцип неизменен…"></textarea>
+            </div>
+          </div>
+
           <div class="settings-card" style="border-color:rgba(200,151,58,.4);">
             <h3>Публикация фото</h3>
             <p style="font-size:.825rem;color:var(--text2);line-height:1.7;margin-bottom:12px;">
@@ -635,6 +719,28 @@ function fillSettings() {
   $('s-stat-satisfaction').value = s.satisfaction || '';
   $('s-stat-employees').value    = s.employees || '';
 
+  const ph = (data.pages && data.pages.home)  || {};
+  const pa = (data.pages && data.pages.about) || {};
+
+  $('s-home-about-label').value   = ph.about_label   || '';
+  $('s-home-about-heading').value = ph.about_heading || '';
+  $('s-home-about-tagline').value = ph.about_tagline || '';
+  $('s-home-about-desc').value    = ph.about_desc    || '';
+  $('s-home-feat1-title').value   = ph.feat1_title   || '';
+  $('s-home-feat1-desc').value    = ph.feat1_desc    || '';
+  $('s-home-feat2-title').value   = ph.feat2_title   || '';
+  $('s-home-feat2-desc').value    = ph.feat2_desc    || '';
+  $('s-home-feat3-title').value   = ph.feat3_title   || '';
+  $('s-home-feat3-desc').value    = ph.feat3_desc    || '';
+
+  $('s-about-story-label').value      = pa.story_label      || '';
+  $('s-about-story-heading').value    = pa.story_heading    || '';
+  $('s-about-story-heading-em').value = pa.story_heading_em || '';
+  $('s-about-story-quote').value      = pa.story_quote      || '';
+  $('s-about-story-p1').value         = pa.story_p1         || '';
+  $('s-about-story-p2').value         = pa.story_p2         || '';
+  $('s-about-story-p3').value         = pa.story_p3         || '';
+
   $('s-hero-image').addEventListener('input', () => {
     updateSettingsPreview('s-hero-image', 's-hero-preview-img', 's-hero-preview-hint');
     markDirty();
@@ -702,6 +808,28 @@ function collectSettings() {
     projects: +$('s-stat-projects').value || 0,
     satisfaction: +$('s-stat-satisfaction').value || 0,
     employees: +$('s-stat-employees').value || 0
+  };
+  if (!data.pages) data.pages = {};
+  data.pages.home = {
+    about_label:   $('s-home-about-label').value.trim(),
+    about_heading: $('s-home-about-heading').value.trim(),
+    about_tagline: $('s-home-about-tagline').value.trim(),
+    about_desc:    $('s-home-about-desc').value.trim(),
+    feat1_title:   $('s-home-feat1-title').value.trim(),
+    feat1_desc:    $('s-home-feat1-desc').value.trim(),
+    feat2_title:   $('s-home-feat2-title').value.trim(),
+    feat2_desc:    $('s-home-feat2-desc').value.trim(),
+    feat3_title:   $('s-home-feat3-title').value.trim(),
+    feat3_desc:    $('s-home-feat3-desc').value.trim()
+  };
+  data.pages.about = {
+    story_label:      $('s-about-story-label').value.trim(),
+    story_heading:    $('s-about-story-heading').value.trim(),
+    story_heading_em: $('s-about-story-heading-em').value.trim(),
+    story_quote:      $('s-about-story-quote').value.trim(),
+    story_p1:         $('s-about-story-p1').value.trim(),
+    story_p2:         $('s-about-story-p2').value.trim(),
+    story_p3:         $('s-about-story-p3').value.trim()
   };
 }
 
