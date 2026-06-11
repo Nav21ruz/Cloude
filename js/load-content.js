@@ -50,7 +50,7 @@ function projectCardMasonry(p) {
     </div>`;
 }
 
-fetch('/data/content.json')
+fetch('https://raw.githubusercontent.com/Nav21ruz/Cloude/main/data/content.json')
   .then(r => r.ok ? r.json() : null)
   .catch(() => null)
   .then(data => {
