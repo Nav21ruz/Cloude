@@ -51,7 +51,7 @@
       "area": "145 м²",
       "duration": "15 дней",
       "image": "https://drive.google.com/file/d/1am1rc6q8i9rLcEo4jcUIe5ewZevo1yst/view?usp=drivesdk",
-      "featured": false,
+      "featured": true,
       "tall": false
     },
     {
@@ -178,7 +178,7 @@
       "title": "Магазин ELIS",
       "category": "retail",
       "year": "2025",
-      "area": "50",
+      "area": "50 м²",
       "duration": "7 дней",
       "image": "https://drive.google.com/file/d/1ca7xMjixfKjVhNdaI-wMxm3dmB72ZGRj/view?usp=drivesdk",
       "featured": true,
