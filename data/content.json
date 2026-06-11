@@ -9,7 +9,7 @@
     "description": "От демонтажа до финишной отделки — полный цикл коммерческого ремонта. Офисы, торговые залы, рестораны, медицинские центры. Без посредников, в срок, с гарантией 3 года."
   },
   "about": {
-    "image": ""
+    "image": "https://drive.google.com/file/d/1bGh9FpckpSaCBb6w_0tR87FfrB-gDV-V/view?usp=drivesdk"
   },
   "contacts": {
     "phone": "+7 (909) 085-64-51",
@@ -18,7 +18,7 @@
     "whatsapp": "+79090856451",
     "telegram": "imovv",
     "address": "Челябинск, ул. Калинина, 5а",
-    "addressNote": "",
+    "addressNote": "Остановка «Калинина»",
     "hours": {
       "weekdays": "9:00 — 19:00",
       "saturday": "10:00 — 16:00",
@@ -57,39 +57,36 @@
   "projects": [
     {
       "id": "p1",
-      "title": "Бизнес-центр «Аврора»",
+      "title": "Офис завода",
       "category": "office",
-      "area": "2400 м²",
       "year": "2024",
-      "location": "Челябинск",
+      "area": "1000 м²",
       "duration": "4 мес.",
-      "image": "",
-      "tall": true,
-      "featured": false
+      "image": "https://drive.google.com/file/d/1iWVY25fmtQwZGMsl_y13iSFRliwXSTEa/view?usp=drivesdk",
+      "featured": true,
+      "tall": false
     },
     {
       "id": "p2",
-      "title": "Ресторан Grotto",
+      "title": "Кафе «Навруз»",
       "category": "restaurant",
-      "area": "680 м²",
-      "year": "2024",
-      "location": "Челябинск",
-      "duration": "",
-      "image": "",
-      "tall": false,
-      "featured": false
+      "year": "2026",
+      "area": "145 м²",
+      "duration": "15 дней",
+      "image": "https://drive.google.com/file/d/1am1rc6q8i9rLcEo4jcUIe5ewZevo1yst/view?usp=drivesdk",
+      "featured": true,
+      "tall": false
     },
     {
       "id": "p3",
-      "title": "Шоурум Maison",
-      "category": "retail",
-      "area": "320 м²",
-      "year": "2024",
-      "location": "Челябинск",
-      "duration": "",
-      "image": "",
-      "tall": false,
-      "featured": false
+      "title": "Отделение банка «УБРиР»",
+      "category": "office",
+      "year": "2026",
+      "area": "820 м²",
+      "duration": "40 дней",
+      "image": "https://drive.google.com/file/d/16sDU5rogsp6drzVLZ4iMmmaduy_oQsUS/view?usp=drivesdk",
+      "featured": true,
+      "tall": false
     },
     {
       "id": "p4",
@@ -204,7 +201,7 @@
       "title": "Магазин ELIS",
       "category": "retail",
       "year": "2025",
-      "area": "50",
+      "area": "50 м²",
       "duration": "7 дней",
       "image": "https://drive.google.com/file/d/1ca7xMjixfKjVhNdaI-wMxm3dmB72ZGRj/view?usp=drivesdk",
       "featured": true,
