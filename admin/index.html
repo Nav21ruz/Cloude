@@ -511,7 +511,8 @@ async function loadContent(t) {
   if (!r.ok) return false;
   const json = await r.json();
   fileSha = json.sha;
-  data = JSON.parse(atob(json.content.replace(/\n/g, '')));
+  const bytes = Uint8Array.from(atob(json.content.replace(/\n/g, '')), c => c.charCodeAt(0));
+  data = JSON.parse(new TextDecoder('utf-8').decode(bytes));
   return true;
 }
 
