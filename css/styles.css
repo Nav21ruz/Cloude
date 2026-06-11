@@ -592,6 +592,9 @@ section { position: relative; }
 }
 
 .service-card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
   background: var(--bg-1);
   padding: 40px 36px;
   position: relative; overflow: hidden;
