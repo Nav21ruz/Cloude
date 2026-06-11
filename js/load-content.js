@@ -92,6 +92,7 @@ fetch('https://raw.githubusercontent.com/Nav21ruz/Cloude/main/data/content.json?
             ${featured[1] ? `<div class="proj-card" style="margin-bottom:16px;">${projectCardHome(featured[1])}</div>` : ''}
             ${featured[2] ? `<div class="proj-card">${projectCardHome(featured[2])}</div>` : ''}
           </div>`;
+        homeGrid.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(el => el.classList.add('visible'));
       }
     }
 
@@ -144,7 +145,15 @@ fetch('https://raw.githubusercontent.com/Nav21ruz/Cloude/main/data/content.json?
       const s = data.stats;
       document.querySelectorAll('.counter').forEach(el => {
         const field = el.dataset.statField;
-        if (field && s[field] !== undefined) el.dataset.target = s[field];
+        if (field && s[field] !== undefined) {
+          el.dataset.target = s[field];
+          const suffix = el.dataset.suffix || '';
+          if (typeof animateCounter === 'function') {
+            animateCounter(el, s[field], suffix);
+          } else {
+            el.textContent = s[field] + suffix;
+          }
+        }
       });
     }
   });
