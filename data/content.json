@@ -34,15 +34,14 @@
   "projects": [
     {
       "id": "p1",
-      "title": "Бизнес-центр «Аврора»",
+      "title": "Офис завода",
       "category": "office",
-      "area": "2400 м²",
       "year": "2024",
-      "location": "Челябинск",
+      "area": "1000",
       "duration": "4 мес.",
-      "image": "",
-      "tall": true,
-      "featured": false
+      "image": "https://drive.google.com/file/d/1iWVY25fmtQwZGMsl_y13iSFRliwXSTEa/view?usp=drivesdk",
+      "featured": true,
+      "tall": true
     },
     {
       "id": "p2",
