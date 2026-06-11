@@ -14,7 +14,6 @@ const dot = document.getElementById('cursor-dot');
 const ring = document.getElementById('cursor-ring');
 const hasMouse = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
-/* Скрыть при любом касании (запасной вариант) */
 document.addEventListener('touchstart', () => {
   if (dot) dot.style.display = 'none';
   if (ring) ring.style.display = 'none';
@@ -23,19 +22,16 @@ document.addEventListener('touchstart', () => {
 
 if (hasMouse) {
   let ringX = 0, ringY = 0;
-
   document.addEventListener('mousemove', e => {
     const x = e.clientX, y = e.clientY;
     if (dot) { dot.style.left = x + 'px'; dot.style.top = y + 'px'; }
     ringX += (x - ringX) * 0.15;
     ringY += (y - ringY) * 0.15;
   });
-
   (function animateCursor() {
     if (ring) { ring.style.left = ringX + 'px'; ring.style.top = ringY + 'px'; }
     requestAnimationFrame(animateCursor);
   })();
-
   document.addEventListener('mouseleave', () => {
     if (dot) dot.style.opacity = '0';
     if (ring) ring.style.opacity = '0';
@@ -64,14 +60,12 @@ window.addEventListener('scroll', () => {
 /* ===== MOBILE MENU ===== */
 const burger = document.querySelector('.nav-burger');
 const mobileMenu = document.querySelector('.nav-mobile');
-
 if (burger && mobileMenu) {
   burger.addEventListener('click', () => {
     const open = burger.classList.toggle('open');
     mobileMenu.classList.toggle('open', open);
     document.body.classList.toggle('menu-open', open);
   });
-
   mobileMenu.querySelectorAll('a').forEach(a => {
     a.addEventListener('click', () => {
       burger.classList.remove('open');
@@ -142,7 +136,6 @@ filterBtns.forEach(btn => {
   btn.addEventListener('click', () => {
     filterBtns.forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
-
     const filter = btn.dataset.filter;
     projectItems.forEach(item => {
       const cat = item.dataset.cat;
@@ -152,12 +145,10 @@ filterBtns.forEach(btn => {
       setTimeout(() => {
         item.style.display = show ? '' : 'none';
         item.classList.toggle('project-item-hidden', !show);
-        if (show) {
-          requestAnimationFrame(() => {
-            item.style.opacity = '1';
-            item.style.transform = 'scale(1)';
-          });
-        }
+        if (show) requestAnimationFrame(() => {
+          item.style.opacity = '1';
+          item.style.transform = 'scale(1)';
+        });
       }, 200);
     });
   });
@@ -167,21 +158,45 @@ projectItems.forEach(item => {
   item.style.transition = 'opacity 0.3s, transform 0.3s';
 });
 
-/* ===== CONTACT FORM ===== */
+/* ===== CONTACT FORM — отправка через Vercel API → Telegram ===== */
 const contactForm = document.getElementById('contact-form');
 if (contactForm) {
-  contactForm.addEventListener('submit', (e) => {
+  contactForm.addEventListener('submit', async (e) => {
     e.preventDefault();
+
     const btn = contactForm.querySelector('button[type="submit"]');
-    btn.textContent = 'Отправляем...';
+    const originalHTML = btn.innerHTML;
+    btn.innerHTML = '<span>Отправляем…</span>';
     btn.disabled = true;
 
-    setTimeout(() => {
-      const success = document.getElementById('form-success');
-      if (success) success.style.display = 'block';
-      btn.textContent = 'Отправлено';
-      contactForm.reset();
-    }, 1500);
+    const data = {};
+    new FormData(contactForm).forEach((v, k) => { data[k] = v; });
+
+    const errEl = document.getElementById('form-error');
+    const successEl = document.getElementById('form-success');
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+
+      if (res.ok) {
+        if (successEl) successEl.style.display = 'block';
+        if (errEl) errEl.style.display = 'none';
+        contactForm.reset();
+        btn.innerHTML = '<span>✓ Отправлено</span>';
+        setTimeout(() => { btn.innerHTML = originalHTML; btn.disabled = false; }, 4000);
+      } else {
+        throw new Error('Server error ' + res.status);
+      }
+    } catch (err) {
+      console.error(err);
+      if (errEl) errEl.style.display = 'block';
+      btn.innerHTML = originalHTML;
+      btn.disabled = false;
+    }
   });
 }
 
@@ -192,3 +207,36 @@ if (heroBg) {
     heroBg.style.transform = `translateY(${window.scrollY * 0.3}px)`;
   }, { passive: true });
 }
+
+/* ===== COOKIE CONSENT BANNER ===== */
+(function initCookieBanner() {
+  if (localStorage.getItem('cookie_consent')) return;
+
+  const banner = document.createElement('div');
+  banner.id = 'cookie-banner';
+  banner.innerHTML = `
+    <div class="cookie-inner">
+      <div class="cookie-text">
+        <strong>Мы используем cookies</strong>
+        <span>для улучшения сайта и анализа трафика. Продолжая пользоваться сайтом, вы соглашаетесь с нашей
+        <a href="privacy.html">политикой конфиденциальности</a>.</span>
+      </div>
+      <div class="cookie-actions">
+        <button id="cookie-accept" class="cookie-btn-accept">Принять</button>
+        <button id="cookie-reject" class="cookie-btn-reject">Отклонить</button>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(banner);
+
+  setTimeout(() => banner.classList.add('cookie-visible'), 800);
+
+  function closeBanner(accepted) {
+    localStorage.setItem('cookie_consent', accepted ? 'accepted' : 'rejected');
+    banner.classList.remove('cookie-visible');
+    setTimeout(() => banner.remove(), 400);
+  }
+
+  document.getElementById('cookie-accept').addEventListener('click', () => closeBanner(true));
+  document.getElementById('cookie-reject').addEventListener('click', () => closeBanner(false));
+})();
