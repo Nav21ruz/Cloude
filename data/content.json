@@ -1,6 +1,6 @@
 {
   "hero": {
-    "image": "https://drive.google.com/file/d/1bGh9FpckpSaCBb6w_0tR87FfrB-gDV-V/view?usp=drivesdk",
+    "image": "",
     "title": [
       "СТРОИМ",
       "ПРОСТРАНСТВО",
@@ -9,7 +9,7 @@
     "description": "От демонтажа до финишной отделки — полный цикл коммерческого ремонта. Офисы, торговые залы, рестораны, медицинские центры. Без посредников, в срок, с гарантией 3 года."
   },
   "about": {
-    "image": ""
+    "image": "https://drive.google.com/file/d/1bGh9FpckpSaCBb6w_0tR87FfrB-gDV-V/view?usp=drivesdk"
   },
   "contacts": {
     "phone": "+7 (909) 085-64-51",
