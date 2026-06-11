@@ -45,15 +45,14 @@
     },
     {
       "id": "p2",
-      "title": "Ресторан Grotto",
+      "title": "Кафе «Навруз»",
       "category": "restaurant",
-      "area": "680 м²",
-      "year": "2024",
-      "location": "Челябинск",
-      "duration": "",
-      "image": "",
-      "tall": false,
-      "featured": false
+      "year": "2026",
+      "area": "145",
+      "duration": "15 дней",
+      "image": "https://drive.google.com/file/d/1am1rc6q8i9rLcEo4jcUIe5ewZevo1yst/view?usp=drivesdk",
+      "featured": false,
+      "tall": false
     },
     {
       "id": "p3",
