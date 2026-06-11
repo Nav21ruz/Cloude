@@ -156,4 +156,54 @@ fetch('https://raw.githubusercontent.com/Nav21ruz/Cloude/main/data/content.json?
         }
       });
     }
+
+    /* ── PAGES ── */
+    if (data.pages) {
+      const setField = (field, val) => {
+        if (!val) return;
+        document.querySelectorAll(`[data-field="${field}"]`).forEach(el => el.textContent = val);
+      };
+
+      const h = data.pages.home || {};
+      const a = data.pages.about || {};
+
+      // Home page about section
+      setField('home-about-label', h.about_label);
+      setField('home-about-heading', h.about_heading);
+      setField('home-about-tagline', h.about_tagline);
+      if (h.about_desc) {
+        document.querySelectorAll('[data-field="home-about-desc"]').forEach(el => {
+          el.textContent = h.about_desc;
+          el.style.display = '';
+        });
+      }
+      setField('home-feat1-title', h.feat1_title);
+      setField('home-feat1-desc', h.feat1_desc);
+      setField('home-feat2-title', h.feat2_title);
+      setField('home-feat2-desc', h.feat2_desc);
+      setField('home-feat3-title', h.feat3_title);
+      setField('home-feat3-desc', h.feat3_desc);
+
+      // About page story
+      setField('about-story-label', a.story_label);
+      setField('about-story-heading-em', a.story_heading_em);
+      setField('about-story-quote', a.story_quote);
+      setField('about-story-p1', a.story_p1);
+      setField('about-story-p2', a.story_p2);
+      setField('about-story-p3', a.story_p3);
+
+      // About story heading with years: "{years} лет строим"
+      if (data.stats && data.stats.years) {
+        document.querySelectorAll('[data-field="about-story-heading"]').forEach(el => {
+          el.textContent = data.stats.years + ' ' + (a.story_heading || 'лет строим');
+        });
+      }
+
+      // Badge years on both index.html and about.html
+      if (data.stats && data.stats.years) {
+        document.querySelectorAll('[data-field="about-badge-years"]').forEach(el => {
+          el.textContent = data.stats.years;
+        });
+      }
+    }
   });
