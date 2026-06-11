@@ -392,7 +392,8 @@ section { position: relative; }
   font-weight: 900;
   line-height: 0.95;
   letter-spacing: -0.03em;
-  overflow: hidden;
+  overflow: visible;
+  clip-path: inset(0 -2000px 0 -2000px);
 }
 
 /* На узких экранах ещё немного уменьшаем чтобы длинные слова влезали */
