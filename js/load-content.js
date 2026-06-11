@@ -1,7 +1,5 @@
-/* Загружает data/content.json и обновляет страницы динамически */
-
 const CAT_LABELS = {
-  office: 'Офис', retail: 'Ритейл', restaurant: 'Ресторан',
+  office: 'Офис', retail: 'Магазин', restaurant: 'Ресторан',
   medical: 'Медицина', warehouse: 'Склад', horeca: 'HoReCa'
 };
 
@@ -30,9 +28,7 @@ function projectCardHome(p) {
 
 function projectCardMasonry(p) {
   const bg = gdrive(p.image);
-  const bgStyle = bg
-    ? `background-image:url('${bg}');background-size:cover;background-position:center;`
-    : '';
+  const bgStyle = bg ? `background-image:url('${bg}');background-size:cover;background-position:center;` : '';
   const heightStyle = p.tall ? 'padding-bottom:140%' : '';
   return `
     <div class="project-item${p.tall ? ' tall' : ''}" data-cat="${p.category}" style="transition:opacity 0.3s,transform 0.3s;">
@@ -50,16 +46,45 @@ function projectCardMasonry(p) {
     </div>`;
 }
 
-fetch('https://raw.githubusercontent.com/Nav21ruz/Cloude/main/data/content.json')
+fetch('https://raw.githubusercontent.com/Nav21ruz/Cloude/main/data/content.json?t=' + Date.now())
   .then(r => r.ok ? r.json() : null)
   .catch(() => null)
   .then(data => {
     if (!data) return;
 
+    /* ── HERO IMAGE ── */
+    if (data.hero && data.hero.image) {
+      const bg = gdrive(data.hero.image);
+      if (bg) {
+        const heroBg = document.querySelector('.hero-bg');
+        if (heroBg) {
+          heroBg.style.backgroundImage = `url('${bg}')`;
+          heroBg.style.backgroundSize = 'cover';
+          heroBg.style.backgroundPosition = 'center';
+        }
+      }
+    }
+
+    /* ── ABOUT IMAGE ── */
+    if (data.about && data.about.image) {
+      const bg = gdrive(data.about.image);
+      if (bg) {
+        const el = document.querySelector('.about-visual-img');
+        if (el) {
+          el.style.backgroundImage = `url('${bg}')`;
+          el.style.backgroundSize = 'cover';
+          el.style.backgroundPosition = 'center';
+        }
+      }
+    }
+
     /* ── PROJECTS HOME ── */
     const homeGrid = document.getElementById('projects-home-grid');
     if (homeGrid && data.projects) {
-      const featured = data.projects.filter(p => p.featured);
+      /* сначала проекты с фото, потом без */
+      const featured = data.projects
+        .filter(p => p.featured)
+        .sort((a, b) => (b.image ? 1 : 0) - (a.image ? 1 : 0));
       if (featured.length >= 1) {
         homeGrid.innerHTML = `
           <div class="proj-card large reveal-left">${projectCardHome(featured[0])}</div>
@@ -74,7 +99,6 @@ fetch('https://raw.githubusercontent.com/Nav21ruz/Cloude/main/data/content.json'
     const masonry = document.getElementById('projects-masonry-grid');
     if (masonry && data.projects) {
       masonry.innerHTML = data.projects.map(projectCardMasonry).join('');
-      /* restore filter functionality */
       document.querySelectorAll('.filter-btn').forEach(btn => {
         btn.addEventListener('click', () => {
           document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
@@ -118,12 +142,9 @@ fetch('https://raw.githubusercontent.com/Nav21ruz/Cloude/main/data/content.json'
     /* ── STATS ── */
     if (data.stats) {
       const s = data.stats;
-      const counters = document.querySelectorAll('.counter');
-      counters.forEach(el => {
+      document.querySelectorAll('.counter').forEach(el => {
         const field = el.dataset.statField;
-        if (field && s[field] !== undefined) {
-          el.dataset.target = s[field];
-        }
+        if (field && s[field] !== undefined) el.dataset.target = s[field];
       });
     }
   });

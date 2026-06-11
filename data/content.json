@@ -1,6 +1,14 @@
 {
+  "hero": {
+    "image": "",
+    "title": ["СТРОИМ", "ПРОСТРАНСТВО", "ДЛЯ БИЗНЕСА"],
+    "description": "От демонтажа до финишной отделки — полный цикл коммерческого ремонта. Офисы, торговые залы, рестораны, медицинские центры. Без посредников, в срок, с гарантией 3 года."
+  },
+  "about": {
+    "image": ""
+  },
   "contacts": {
-    "phone": "+7 909 085 67 51",
+    "phone": "+7 (909) 085-64-51",
     "phoneRaw": "+79090856451",
     "email": "navruz@dumaev.ru",
     "whatsapp": "+79090856451",
@@ -30,7 +38,7 @@
       "duration": "4 ÃÂ¼ÃÂµÃÂ.",
       "image": "",
       "tall": true,
-      "featured": true
+      "featured": false
     },
     {
       "id": "p2",
@@ -42,7 +50,7 @@
       "duration": "",
       "image": "",
       "tall": false,
-      "featured": true
+      "featured": false
     },
     {
       "id": "p3",
@@ -54,7 +62,7 @@
       "duration": "",
       "image": "",
       "tall": false,
-      "featured": true
+      "featured": false
     },
     {
       "id": "p4",
