@@ -65,6 +65,16 @@
       font-size: 0.75rem; letter-spacing: 0.1em;
       text-transform: uppercase; color: var(--gray-3);
     }
+
+    @media(max-width: 640px) {
+      .projects-stats { display: grid; grid-template-columns: repeat(3, 1fr); }
+      .projects-stat { padding: 14px 6px; border-right: 1px solid var(--border); }
+      .projects-stat:nth-child(3n) { border-right: none; }
+      .projects-stat:nth-child(-n+3) { border-bottom: 1px solid var(--border); }
+      .projects-stat:last-child { border-right: none; }
+      .projects-stat-num { font-size: 1.4rem; }
+      .projects-stat-label { font-size: 0.65rem; letter-spacing: 0.06em; }
+    }
   </style>
 </head>
 <body>
