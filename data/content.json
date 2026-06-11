@@ -1,0 +1,168 @@
+{
+  "contacts": {
+    "phone": "+7 (351) 200-40-60",
+    "phoneRaw": "+79090856451",
+    "email": "navruz@dumaev.ru",
+    "address": "Челябинск, ул. Калинина, 5а",
+    "addressNote": "",
+    "whatsapp": "+79090856451",
+    "telegram": "dumaev_build",
+    "hours": {
+      "weekdays": "9:00 — 19:00",
+      "saturday": "10:00 — 16:00",
+      "sunday": "Выходной"
+    }
+  },
+  "stats": {
+    "years": 12,
+    "projects": 340,
+    "satisfaction": 98,
+    "employees": 65
+  },
+  "projects": [
+    {
+      "id": "p1",
+      "title": "Бизнес-центр «Аврора»",
+      "category": "office",
+      "area": "2400 м²",
+      "year": "2024",
+      "location": "Челябинск",
+      "duration": "4 мес.",
+      "image": "",
+      "tall": true,
+      "featured": true
+    },
+    {
+      "id": "p2",
+      "title": "Ресторан Grotto",
+      "category": "restaurant",
+      "area": "680 м²",
+      "year": "2024",
+      "location": "Челябинск",
+      "duration": "",
+      "image": "",
+      "tall": false,
+      "featured": true
+    },
+    {
+      "id": "p3",
+      "title": "Шоурум Maison",
+      "category": "retail",
+      "area": "320 м²",
+      "year": "2024",
+      "location": "Челябинск",
+      "duration": "",
+      "image": "",
+      "tall": false,
+      "featured": true
+    },
+    {
+      "id": "p4",
+      "title": "Офис TechSpace Group",
+      "category": "office",
+      "area": "1200 м²",
+      "year": "2024",
+      "location": "Челябинск",
+      "duration": "",
+      "image": "",
+      "tall": false,
+      "featured": false
+    },
+    {
+      "id": "p5",
+      "title": "Клиника «МедИнтегра»",
+      "category": "medical",
+      "area": "850 м²",
+      "year": "2023",
+      "location": "Челябинск",
+      "duration": "",
+      "image": "",
+      "tall": false,
+      "featured": false
+    },
+    {
+      "id": "p6",
+      "title": "Торговый зал FashionGroup",
+      "category": "retail",
+      "area": "480 м²",
+      "year": "2023",
+      "location": "Челябинск",
+      "duration": "2 мес.",
+      "image": "",
+      "tall": true,
+      "featured": false
+    },
+    {
+      "id": "p7",
+      "title": "Кофейня BREW Concept",
+      "category": "restaurant",
+      "area": "180 м²",
+      "year": "2023",
+      "location": "Челябинск",
+      "duration": "",
+      "image": "",
+      "tall": false,
+      "featured": false
+    },
+    {
+      "id": "p8",
+      "title": "Логистический центр Nord",
+      "category": "warehouse",
+      "area": "4200 м²",
+      "year": "2023",
+      "location": "Челябинск",
+      "duration": "",
+      "image": "",
+      "tall": false,
+      "featured": false
+    },
+    {
+      "id": "p9",
+      "title": "Корпоративный офис РосБанк",
+      "category": "office",
+      "area": "3100 м²",
+      "year": "2023",
+      "location": "Челябинск",
+      "duration": "",
+      "image": "",
+      "tall": false,
+      "featured": false
+    },
+    {
+      "id": "p10",
+      "title": "Стоматологическая сеть SmilePro",
+      "category": "medical",
+      "area": "5 объектов",
+      "year": "2022–2023",
+      "location": "Челябинск",
+      "duration": "",
+      "image": "",
+      "tall": false,
+      "featured": false
+    },
+    {
+      "id": "p11",
+      "title": "Ресторан SAKURA Garden",
+      "category": "restaurant",
+      "area": "920 м²",
+      "year": "2022",
+      "location": "Челябинск",
+      "duration": "",
+      "image": "",
+      "tall": false,
+      "featured": false
+    },
+    {
+      "id": "p12",
+      "title": "Флагманский магазин ARKON",
+      "category": "retail",
+      "area": "740 м²",
+      "year": "2022",
+      "location": "Челябинск",
+      "duration": "",
+      "image": "",
+      "tall": false,
+      "featured": false
+    }
+  ]
+}

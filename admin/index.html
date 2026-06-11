@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DUMAEV — Панель управления</title>
+<meta name="robots" content="noindex, nofollow">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --gold:#c8973a;--gold-l:#e0b05a;--bg:#f5f5f5;--bg2:#eaeaea;
+  --white:#fff;--text:#111;--text2:#444;--text3:#777;
+  --border:#ddd;--shadow:0 2px 12px rgba(0,0,0,.08);
+  --red:#c0392b;--green:#27ae60;
+}
+body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);font-size:14px;min-height:100vh}
+a{color:var(--gold);text-decoration:none}
+input,select,textarea{font-family:inherit;font-size:14px}
+button{font-family:inherit;cursor:pointer}
+
+/* ── LOGIN ── */
+#login{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:24px}
+.login-box{background:var(--white);border:1px solid var(--border);padding:48px 40px;max-width:440px;width:100%;box-shadow:var(--shadow)}
+.login-logo{font-size:1.75rem;font-weight:900;letter-spacing:.08em;margin-bottom:8px}
+.login-logo span{color:var(--gold)}
+.login-box p{font-size:.875rem;color:var(--text2);line-height:1.6;margin-bottom:24px}
+.login-box label{display:block;font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:8px}
+.login-box input{width:100%;padding:12px 14px;border:1px solid var(--border);outline:none;font-size:.9rem;transition:border .2s}
+.login-box input:focus{border-color:var(--gold)}
+.login-hint{font-size:.8rem;color:var(--text3);margin-top:8px;line-height:1.5}
+.login-hint a{color:var(--gold)}
+.btn-login{width:100%;margin-top:20px;padding:14px;background:var(--gold);color:#fff;border:none;font-size:.875rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;transition:background .2s}
+.btn-login:hover{background:var(--gold-l)}
+.login-err{margin-top:12px;padding:10px 14px;background:rgba(192,57,43,.08);border:1px solid rgba(192,57,43,.25);color:var(--red);font-size:.825rem;display:none}
+
+/* ── APP ── */
+#app{display:none;min-height:100vh}
+.app-header{background:var(--white);border-bottom:1px solid var(--border);padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.app-logo{font-size:1.1rem;font-weight:900;letter-spacing:.08em}
+.app-logo span{color:var(--gold)}
+.app-logo small{font-size:.7rem;font-weight:400;color:var(--text3);margin-left:8px;letter-spacing:.05em}
+.header-right{display:flex;align-items:center;gap:12px}
+.btn-save{padding:9px 22px;background:var(--gold);color:#fff;border:none;font-size:.8rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;transition:background .2s}
+.btn-save:hover:not(:disabled){background:var(--gold-l)}
+.btn-save:disabled{opacity:.5;cursor:not-allowed}
+.save-status{font-size:.8rem;color:var(--text3)}
+.save-status.ok{color:var(--green)}
+.save-status.err{color:var(--red)}
+.btn-logout{padding:8px 14px;background:none;border:1px solid var(--border);font-size:.8rem;color:var(--text3);transition:all .2s}
+.btn-logout:hover{border-color:var(--red);color:var(--red)}
+
+.app-body{display:flex}
+.sidebar{width:220px;flex-shrink:0;background:var(--white);border-right:1px solid var(--border);min-height:calc(100vh - 56px);padding:16px 0}
+.sidebar-link{display:flex;align-items:center;gap:10px;padding:11px 20px;font-size:.875rem;font-weight:600;color:var(--text2);border-left:3px solid transparent;transition:all .2s;cursor:pointer}
+.sidebar-link:hover{background:var(--bg);color:var(--text)}
+.sidebar-link.active{border-left-color:var(--gold);background:rgba(200,151,58,.06);color:var(--gold)}
+.sidebar-link svg{flex-shrink:0}
+.sidebar-count{margin-left:auto;background:var(--bg2);font-size:.7rem;font-weight:700;padding:2px 7px;border-radius:10px}
+
+.content{flex:1;padding:28px;overflow-x:hidden}
+.page-tab{display:none}
+.page-tab.active{display:block}
+
+/* ── SECTION HEADER ── */
+.sec-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.sec-title{font-size:1rem;font-weight:800;letter-spacing:-.01em}
+.sec-title small{font-size:.75rem;font-weight:400;color:var(--text3);margin-left:8px}
+.btn-add{padding:9px 18px;background:var(--text);color:#fff;border:none;font-size:.8rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;display:flex;align-items:center;gap:6px;transition:background .2s}
+.btn-add:hover{background:#333}
+
+/* ── PROJECTS GRID ── */
+.projects-admin-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
+.proj-admin-card{background:var(--white);border:1px solid var(--border);overflow:hidden;transition:box-shadow .2s}
+.proj-admin-card:hover{box-shadow:var(--shadow)}
+.proj-thumb{height:140px;background:var(--bg2);position:relative;overflow:hidden}
+.proj-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.proj-thumb-empty{width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:var(--text3);font-size:.8rem;flex-direction:column;gap:8px}
+.proj-thumb-empty svg{opacity:.3}
+.proj-cat-badge{position:absolute;top:10px;left:10px;padding:3px 9px;background:var(--gold);color:#fff;font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+.proj-body{padding:14px}
+.proj-body h4{font-size:.9rem;font-weight:700;margin-bottom:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.proj-meta{font-size:.75rem;color:var(--text3);margin-bottom:12px}
+.proj-actions{display:flex;gap:8px}
+.btn-edit{flex:1;padding:8px;background:none;border:1px solid var(--border);font-size:.75rem;font-weight:600;color:var(--text2);transition:all .2s}
+.btn-edit:hover{border-color:var(--gold);color:var(--gold)}
+.btn-del{padding:8px 12px;background:none;border:1px solid var(--border);color:var(--text3);transition:all .2s}
+.btn-del:hover{border-color:var(--red);color:var(--red)}
+.featured-badge{display:inline-block;font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:2px 8px;background:rgba(200,151,58,.15);color:var(--gold);margin-bottom:8px}
+
+/* ── SETTINGS ── */
+.settings-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+@media(max-width:800px){.settings-grid{grid-template-columns:1fr}}
+.settings-card{background:var(--white);border:1px solid var(--border);padding:24px}
+.settings-card h3{font-size:.8rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text3);margin-bottom:18px;padding-bottom:12px;border-bottom:1px solid var(--border)}
+.field-group{margin-bottom:14px}
+.field-group label{display:block;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);margin-bottom:6px}
+.field-group input,.field-group select{width:100%;padding:10px 12px;border:1px solid var(--border);outline:none;font-size:.875rem;transition:border .2s}
+.field-group input:focus,.field-group select:focus{border-color:var(--gold)}
+.field-group .hint{font-size:.72rem;color:var(--text3);margin-top:4px}
+.stats-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+
+/* ── MODAL ── */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:1000;display:none;align-items:flex-start;justify-content:center;padding:32px 16px;overflow-y:auto}
+.modal-overlay.open{display:flex}
+.modal{background:var(--white);width:100%;max-width:620px;padding:32px;position:relative}
+.modal-close{position:absolute;top:16px;right:16px;background:none;border:none;font-size:1.3rem;color:var(--text3);cursor:pointer;width:32px;height:32px;display:flex;align-items:center;justify-content:center;transition:color .2s}
+.modal-close:hover{color:var(--text)}
+.modal h2{font-size:1.1rem;font-weight:800;margin-bottom:24px}
+.modal .field-group{margin-bottom:16px}
+.form-row-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.image-preview{width:100%;height:160px;background:var(--bg2);border:1px solid var(--border);margin-top:8px;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.image-preview img{width:100%;height:100%;object-fit:cover;display:none}
+.image-preview span{font-size:.8rem;color:var(--text3)}
+.modal-actions{display:flex;justify-content:flex-end;gap:12px;margin-top:24px;padding-top:20px;border-top:1px solid var(--border)}
+.btn-cancel{padding:10px 20px;background:none;border:1px solid var(--border);font-size:.8rem;font-weight:600;color:var(--text2)}
+.btn-cancel:hover{border-color:var(--text)}
+.btn-confirm{padding:10px 24px;background:var(--gold);color:#fff;border:none;font-size:.8rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.btn-confirm:hover{background:var(--gold-l)}
+.featured-toggle{display:flex;align-items:center;gap:8px;font-size:.85rem;cursor:pointer}
+.featured-toggle input{width:16px;height:16px;accent-color:var(--gold)}
+
+/* ── TOAST ── */
+#toast{position:fixed;bottom:24px;right:24px;padding:14px 20px;background:#222;color:#fff;font-size:.875rem;font-weight:600;z-index:9999;transform:translateY(80px);opacity:0;transition:all .35s;max-width:320px}
+#toast.show{transform:none;opacity:1}
+#toast.toast-ok{background:var(--green)}
+#toast.toast-err{background:var(--red)}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login">
+  <div class="login-box">
+    <div class="login-logo">DUM<span>A</span>EV <small>Admin</small></div>
+    <p>Для входа нужен GitHub-токен с доступом на запись в репозиторий сайта.<br>Токен хранится только в вашем браузере.</p>
+    <label>GitHub Personal Access Token</label>
+    <input type="password" id="gh-token" placeholder="ghp_xxxxxxxxxxxx" autocomplete="off">
+    <div class="login-hint">
+      Нет токена? <a href="https://github.com/settings/tokens/new?scopes=repo&description=DUMAEV+Admin" target="_blank">Создать здесь</a> — выберите scope <strong>repo</strong>.
+    </div>
+    <div class="login-err" id="login-err">Неверный токен или нет доступа к репозиторию.</div>
+    <button class="btn-login" id="btn-login">Войти</button>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app">
+  <header class="app-header">
+    <div class="app-logo">DUM<span>A</span>EV <small>Панель управления</small></div>
+    <div class="header-right">
+      <span class="save-status" id="save-status"></span>
+      <button class="btn-save" id="btn-save" disabled>Сохранить и опубликовать</button>
+      <button class="btn-logout" id="btn-logout">Выйти</button>
+    </div>
+  </header>
+
+  <div class="app-body">
+    <nav class="sidebar">
+      <div class="sidebar-link active" data-tab="projects">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1" y="1" width="6" height="6" stroke="currentColor" stroke-width="1.3"/><rect x="9" y="1" width="6" height="6" stroke="currentColor" stroke-width="1.3"/><rect x="1" y="9" width="6" height="6" stroke="currentColor" stroke-width="1.3"/><rect x="9" y="9" width="6" height="6" stroke="currentColor" stroke-width="1.3"/></svg>
+        Проекты
+        <span class="sidebar-count" id="proj-count">0</span>
+      </div>
+      <div class="sidebar-link" data-tab="settings">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="2.5" stroke="currentColor" stroke-width="1.3"/><path d="M8 1v2M8 13v2M1 8h2M13 8h2M2.93 2.93l1.41 1.41M11.66 11.66l1.41 1.41M2.93 13.07l1.41-1.41M11.66 4.34l1.41-1.41" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+        Настройки
+      </div>
+    </nav>
+
+    <main class="content">
+
+      <!-- PROJECTS TAB -->
+      <div class="page-tab active" id="tab-projects">
+        <div class="sec-header">
+          <div class="sec-title">Проекты <small>Карточки на главной и в портфолио</small></div>
+          <button class="btn-add" id="btn-add-project">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1v12M1 7h12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            Добавить проект
+          </button>
+        </div>
+        <div class="projects-admin-grid" id="projects-admin-grid"></div>
+      </div>
+
+      <!-- SETTINGS TAB -->
+      <div class="page-tab" id="tab-settings">
+        <div class="sec-header">
+          <div class="sec-title">Настройки сайта</div>
+        </div>
+        <div class="settings-grid">
+
+          <div class="settings-card">
+            <h3>Контакты</h3>
+            <div class="field-group">
+              <label>Телефон (отображаемый)</label>
+              <input type="text" id="s-phone" placeholder="+7 (909) 085-64-51">
+            </div>
+            <div class="field-group">
+              <label>Телефон (для ссылки, только цифры)</label>
+              <input type="text" id="s-phone-raw" placeholder="+79090856451">
+            </div>
+            <div class="field-group">
+              <label>Email</label>
+              <input type="email" id="s-email" placeholder="navruz@dumaev.ru">
+            </div>
+            <div class="field-group">
+              <label>WhatsApp (только цифры)</label>
+              <input type="text" id="s-whatsapp" placeholder="+79090856451">
+            </div>
+            <div class="field-group">
+              <label>Telegram (без @)</label>
+              <input type="text" id="s-telegram" placeholder="dumaev_build">
+            </div>
+          </div>
+
+          <div class="settings-card">
+            <h3>Адрес и режим работы</h3>
+            <div class="field-group">
+              <label>Адрес</label>
+              <input type="text" id="s-address" placeholder="Челябинск, ул. Калинина, 5а">
+            </div>
+            <div class="field-group">
+              <label>Подсказка к адресу</label>
+              <input type="text" id="s-address-note" placeholder="ост. «Площадь Революции», 3 мин.">
+            </div>
+            <div class="field-group">
+              <label>Пн–Пт</label>
+              <input type="text" id="s-hours-wk" placeholder="9:00 — 19:00">
+            </div>
+            <div class="field-group">
+              <label>Суббота</label>
+              <input type="text" id="s-hours-sat" placeholder="10:00 — 16:00">
+            </div>
+            <div class="field-group">
+              <label>Воскресенье</label>
+              <input type="text" id="s-hours-sun" placeholder="Выходной">
+            </div>
+          </div>
+
+          <div class="settings-card">
+            <h3>Статистика на главной</h3>
+            <div class="stats-row">
+              <div class="field-group">
+                <label>Лет на рынке</label>
+                <input type="number" id="s-stat-years" placeholder="12">
+              </div>
+              <div class="field-group">
+                <label>Объектов сдано</label>
+                <input type="number" id="s-stat-projects" placeholder="340">
+              </div>
+              <div class="field-group">
+                <label>Клиентов довольны (%)</label>
+                <input type="number" id="s-stat-satisfaction" placeholder="98">
+              </div>
+              <div class="field-group">
+                <label>Специалистов в штате</label>
+                <input type="number" id="s-stat-employees" placeholder="65">
+              </div>
+            </div>
+          </div>
+
+          <div class="settings-card" style="border-color:rgba(200,151,58,.4);">
+            <h3>Публикация фото</h3>
+            <p style="font-size:.825rem;color:var(--text2);line-height:1.7;margin-bottom:12px;">
+              Для фотографий используйте любой из способов:
+            </p>
+            <p style="font-size:.8rem;color:var(--text2);line-height:1.8;">
+              <strong>Google Drive:</strong> Файл → Поделиться → Все, у кого есть ссылка → Скопировать ссылку. Вставьте ссылку в поле «Фото» — система автоматически преобразует её.<br><br>
+              <strong>imgbb.com:</strong> Загрузите фото → Скопируйте «Direct link».<br><br>
+              <strong>Любой URL:</strong> Прямая ссылка на JPG/PNG.
+            </p>
+          </div>
+
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<!-- EDIT MODAL -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <button class="modal-close" id="modal-close">✕</button>
+    <h2 id="modal-title">Добавить проект</h2>
+
+    <div class="field-group">
+      <label>Название проекта *</label>
+      <input type="text" id="m-title" placeholder="Бизнес-центр «Аврора»">
+    </div>
+
+    <div class="form-row-2">
+      <div class="field-group">
+        <label>Категория</label>
+        <select id="m-category">
+          <option value="office">Офис</option>
+          <option value="retail">Ритейл</option>
+          <option value="restaurant">Ресторан / HoReCa</option>
+          <option value="medical">Медицина</option>
+          <option value="warehouse">Склад / производство</option>
+        </select>
+      </div>
+      <div class="field-group">
+        <label>Год</label>
+        <input type="text" id="m-year" placeholder="2024">
+      </div>
+    </div>
+
+    <div class="form-row-2">
+      <div class="field-group">
+        <label>Площадь</label>
+        <input type="text" id="m-area" placeholder="1200 м²">
+      </div>
+      <div class="field-group">
+        <label>Срок выполнения</label>
+        <input type="text" id="m-duration" placeholder="3 мес.">
+      </div>
+    </div>
+
+    <div class="field-group">
+      <label>Ссылка на фото</label>
+      <input type="url" id="m-image" placeholder="https://... или Google Drive ссылка">
+      <div class="hint" style="font-size:.72rem;color:var(--text3);margin-top:4px;">Вставьте URL фотографии. Google Drive ссылки преобразуются автоматически.</div>
+      <div class="image-preview" id="m-preview">
+        <img id="m-preview-img" alt="">
+        <span id="m-preview-hint">Предпросмотр появится после ввода ссылки</span>
+      </div>
+    </div>
+
+    <div class="form-row-2" style="margin-top:4px;">
+      <label class="featured-toggle">
+        <input type="checkbox" id="m-featured">
+        Показывать на главной странице
+      </label>
+      <label class="featured-toggle">
+        <input type="checkbox" id="m-tall">
+        Высокая карточка (2 строки)
+      </label>
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn-cancel" id="modal-cancel">Отмена</button>
+      <button class="btn-confirm" id="modal-confirm">Сохранить проект</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div id="toast"></div>
+
+<script>
+const REPO = 'Nav21ruz/Cloude';
+const FILE = 'data/content.json';
+const API  = `https://api.github.com/repos/${REPO}/contents/${FILE}`;
+const CAT_LABELS = {office:'Офис',retail:'Ритейл',restaurant:'Ресторан',medical:'Медицина',warehouse:'Склад'};
+
+let token = '', fileSha = '', data = null, editingId = null, dirty = false;
+
+/* ── UTILS ── */
+const $  = id => document.getElementById(id);
+const toast = (msg, type='ok') => {
+  const t = $('toast');
+  t.textContent = msg;
+  t.className = `show toast-${type}`;
+  clearTimeout(t._timer);
+  t._timer = setTimeout(() => t.className = '', 3500);
+};
+
+function gdrive(url) {
+  if (!url) return '';
+  const m = url.match(/\/d\/([a-zA-Z0-9_-]+)/);
+  if (m) return `https://drive.google.com/thumbnail?id=${m[1]}&sz=w800`;
+  return url;
+}
+
+function uid() { return 'p' + Date.now().toString(36); }
+
+function markDirty() {
+  dirty = true;
+  $('btn-save').disabled = false;
+  $('save-status').textContent = 'Есть несохранённые изменения';
+  $('save-status').className = 'save-status';
+}
+
+/* ── LOGIN ── */
+$('btn-login').addEventListener('click', async () => {
+  const t = $('gh-token').value.trim();
+  if (!t) return;
+  $('btn-login').textContent = 'Проверяем…';
+  $('btn-login').disabled = true;
+  $('login-err').style.display = 'none';
+  try {
+    const ok = await loadContent(t);
+    if (ok) {
+      token = t;
+      localStorage.setItem('gh_token', t);
+      $('login').style.display = 'none';
+      $('app').style.display = 'block';
+      renderAll();
+    } else {
+      throw new Error('bad');
+    }
+  } catch {
+    $('login-err').style.display = 'block';
+    $('btn-login').textContent = 'Войти';
+    $('btn-login').disabled = false;
+  }
+});
+
+$('gh-token').addEventListener('keydown', e => { if (e.key === 'Enter') $('btn-login').click(); });
+
+/* ── LOAD CONTENT ── */
+async function loadContent(t) {
+  const r = await fetch(API, { headers: { Authorization: `token ${t}`, Accept: 'application/vnd.github.v3+json' } });
+  if (!r.ok) return false;
+  const json = await r.json();
+  fileSha = json.sha;
+  data = JSON.parse(atob(json.content.replace(/\n/g, '')));
+  return true;
+}
+
+/* ── SAVE CONTENT ── */
+$('btn-save').addEventListener('click', async () => {
+  collectSettings();
+  $('btn-save').disabled = true;
+  $('save-status').textContent = 'Публикуем…';
+  try {
+    const content = btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2))));
+    const r = await fetch(API, {
+      method: 'PUT',
+      headers: { Authorization: `token ${token}`, Accept: 'application/vnd.github.v3+json', 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: 'Update site content via admin panel', content, sha: fileSha })
+    });
+    if (!r.ok) throw new Error();
+    const json = await r.json();
+    fileSha = json.content.sha;
+    dirty = false;
+    $('save-status').textContent = '✓ Опубликовано — сайт обновится через ~1 мин.';
+    $('save-status').className = 'save-status ok';
+    $('btn-save').disabled = true;
+    toast('Изменения опубликованы! Сайт обновится через ~1 минуту.', 'ok');
+  } catch {
+    $('save-status').textContent = '✗ Ошибка сохранения';
+    $('save-status').className = 'save-status err';
+    $('btn-save').disabled = false;
+    toast('Ошибка при сохранении. Проверьте токен и подключение.', 'err');
+  }
+});
+
+/* ── LOGOUT ── */
+$('btn-logout').addEventListener('click', () => {
+  if (dirty && !confirm('Есть несохранённые изменения. Выйти?')) return;
+  localStorage.removeItem('gh_token');
+  location.reload();
+});
+
+/* ── TABS ── */
+document.querySelectorAll('.sidebar-link').forEach(link => {
+  link.addEventListener('click', () => {
+    document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
+    document.querySelectorAll('.page-tab').forEach(t => t.classList.remove('active'));
+    link.classList.add('active');
+    $('tab-' + link.dataset.tab).classList.add('active');
+  });
+});
+
+/* ── RENDER ── */
+function renderAll() {
+  renderProjects();
+  fillSettings();
+}
+
+function renderProjects() {
+  if (!data || !data.projects) return;
+  $('proj-count').textContent = data.projects.length;
+  const grid = $('projects-admin-grid');
+  grid.innerHTML = data.projects.map(p => {
+    const bg = gdrive(p.image);
+    return `
+      <div class="proj-admin-card">
+        <div class="proj-thumb">
+          ${bg ? `<img src="${bg}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+                  <div class="proj-thumb-empty" style="display:none">`
+               : `<div class="proj-thumb-empty">`}
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><rect x="4" y="8" width="24" height="18" stroke="currentColor" stroke-width="1.3"/><circle cx="11" cy="15" r="2.5" stroke="currentColor" stroke-width="1.3"/><path d="M4 22l6-5 5 4 4-4 9 7" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+            Нет фото
+          </div>
+          <div class="proj-cat-badge">${CAT_LABELS[p.category] || p.category}</div>
+        </div>
+        <div class="proj-body">
+          ${p.featured ? '<div class="featured-badge">★ На главной</div>' : ''}
+          <h4 title="${p.title}">${p.title}</h4>
+          <div class="proj-meta">${[p.area, p.year, p.location].filter(Boolean).join(' · ')}</div>
+          <div class="proj-actions">
+            <button class="btn-edit" onclick="openEdit('${p.id}')">Редактировать</button>
+            <button class="btn-del" title="Удалить" onclick="deleteProject('${p.id}')">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 4h10M5 4V2h4v2M6 7v4M8 7v4M3 4l1 8h6l1-8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+/* ── SETTINGS FILL ── */
+function fillSettings() {
+  if (!data) return;
+  const c = data.contacts || {};
+  const s = data.stats || {};
+  const h = c.hours || {};
+  $('s-phone').value         = c.phone || '';
+  $('s-phone-raw').value     = c.phoneRaw || '';
+  $('s-email').value         = c.email || '';
+  $('s-whatsapp').value      = c.whatsapp || '';
+  $('s-telegram').value      = c.telegram || '';
+  $('s-address').value       = c.address || '';
+  $('s-address-note').value  = c.addressNote || '';
+  $('s-hours-wk').value      = h.weekdays || '';
+  $('s-hours-sat').value     = h.saturday || '';
+  $('s-hours-sun').value     = h.sunday || '';
+  $('s-stat-years').value        = s.years || '';
+  $('s-stat-projects').value     = s.projects || '';
+  $('s-stat-satisfaction').value = s.satisfaction || '';
+  $('s-stat-employees').value    = s.employees || '';
+
+  document.querySelectorAll('#tab-settings input, #tab-settings select').forEach(el => {
+    el.addEventListener('change', markDirty);
+    el.addEventListener('input', markDirty);
+  });
+}
+
+function collectSettings() {
+  if (!data) return;
+  data.contacts = {
+    phone: $('s-phone').value.trim(),
+    phoneRaw: $('s-phone-raw').value.trim(),
+    email: $('s-email').value.trim(),
+    whatsapp: $('s-whatsapp').value.trim(),
+    telegram: $('s-telegram').value.trim(),
+    address: $('s-address').value.trim(),
+    addressNote: $('s-address-note').value.trim(),
+    hours: {
+      weekdays: $('s-hours-wk').value.trim(),
+      saturday: $('s-hours-sat').value.trim(),
+      sunday: $('s-hours-sun').value.trim()
+    }
+  };
+  data.stats = {
+    years: +$('s-stat-years').value || 0,
+    projects: +$('s-stat-projects').value || 0,
+    satisfaction: +$('s-stat-satisfaction').value || 0,
+    employees: +$('s-stat-employees').value || 0
+  };
+}
+
+/* ── MODAL ── */
+function openEdit(id) {
+  const p = data.projects.find(x => x.id === id);
+  if (!p) return;
+  editingId = id;
+  $('modal-title').textContent = 'Редактировать проект';
+  $('m-title').value    = p.title || '';
+  $('m-category').value = p.category || 'office';
+  $('m-year').value     = p.year || '';
+  $('m-area').value     = p.area || '';
+  $('m-duration').value = p.duration || '';
+  $('m-image').value    = p.image || '';
+  $('m-featured').checked = !!p.featured;
+  $('m-tall').checked   = !!p.tall;
+  updatePreview(p.image);
+  $('modal').classList.add('open');
+}
+
+function openAdd() {
+  editingId = null;
+  $('modal-title').textContent = 'Добавить проект';
+  $('m-title').value = $('m-year').value = $('m-area').value = $('m-duration').value = $('m-image').value = '';
+  $('m-category').value = 'office';
+  $('m-featured').checked = false;
+  $('m-tall').checked = false;
+  updatePreview('');
+  $('modal').classList.add('open');
+}
+
+function closeModal() { $('modal').classList.remove('open'); }
+
+$('btn-add-project').addEventListener('click', openAdd);
+$('modal-close').addEventListener('click', closeModal);
+$('modal-cancel').addEventListener('click', closeModal);
+$('modal').addEventListener('click', e => { if (e.target === $('modal')) closeModal(); });
+
+$('m-image').addEventListener('input', e => updatePreview(e.target.value));
+
+function updatePreview(url) {
+  const resolved = gdrive(url);
+  const img = $('m-preview-img');
+  const hint = $('m-preview-hint');
+  if (resolved) {
+    img.src = resolved;
+    img.style.display = 'block';
+    hint.style.display = 'none';
+    img.onerror = () => { img.style.display = 'none'; hint.style.display = 'block'; hint.textContent = 'Не удалось загрузить фото. Проверьте ссылку.'; };
+  } else {
+    img.style.display = 'none';
+    img.src = '';
+    hint.style.display = 'block';
+    hint.textContent = 'Предпросмотр появится после ввода ссылки';
+  }
+}
+
+$('modal-confirm').addEventListener('click', () => {
+  const title = $('m-title').value.trim();
+  if (!title) { $('m-title').focus(); return; }
+  const proj = {
+    id: editingId || uid(),
+    title,
+    category: $('m-category').value,
+    year: $('m-year').value.trim(),
+    area: $('m-area').value.trim(),
+    duration: $('m-duration').value.trim(),
+    image: $('m-image').value.trim(),
+    featured: $('m-featured').checked,
+    tall: $('m-tall').checked
+  };
+  if (editingId) {
+    const idx = data.projects.findIndex(x => x.id === editingId);
+    if (idx !== -1) data.projects[idx] = proj;
+  } else {
+    data.projects.push(proj);
+  }
+  closeModal();
+  renderProjects();
+  markDirty();
+  toast(editingId ? 'Проект обновлён' : 'Проект добавлен');
+});
+
+function deleteProject(id) {
+  const p = data.projects.find(x => x.id === id);
+  if (!p || !confirm(`Удалить «${p.title}»?`)) return;
+  data.projects = data.projects.filter(x => x.id !== id);
+  renderProjects();
+  markDirty();
+  toast('Проект удалён');
+}
+
+/* ── AUTO-LOGIN ── */
+(async function() {
+  const saved = localStorage.getItem('gh_token');
+  if (!saved) return;
+  try {
+    const ok = await loadContent(saved);
+    if (ok) {
+      token = saved;
+      $('login').style.display = 'none';
+      $('app').style.display = 'block';
+      renderAll();
+    } else {
+      localStorage.removeItem('gh_token');
+    }
+  } catch { localStorage.removeItem('gh_token'); }
+})();
+</script>
+</body>
+</html>
