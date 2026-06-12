@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://nav21ruz.github.io/Cloude/sitemap.xml
+Sitemap: https://dumaev.ru/sitemap.xml
