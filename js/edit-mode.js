@@ -1,0 +1,271 @@
+(function () {
+  'use strict';
+
+  if (location.pathname.includes('/admin')) return;
+
+  const REPO = 'Nav21ruz/Cloude';
+  const FILE = 'data/content.json';
+  const API  = `https://api.github.com/repos/${REPO}/contents/${FILE}`;
+
+  /* ── FIELD MAP: data-field → path in content.json ── */
+  const FM = {};
+
+  // Contacts
+  FM['phone']          = ['contacts','phone'];
+  FM['address']        = ['contacts','address'];
+  FM['email']          = ['contacts','email'];
+  FM['address-note']   = ['contacts','addressNote'];
+  FM['hours-weekdays'] = ['contacts','hours','weekdays'];
+  FM['hours-saturday'] = ['contacts','hours','saturday'];
+  FM['hours-sunday']   = ['contacts','hours','sunday'];
+
+  // Pages — home about section
+  FM['home-about-label']   = ['pages','home','about_label'];
+  FM['home-about-heading'] = ['pages','home','about_heading'];
+  FM['home-about-tagline'] = ['pages','home','about_tagline'];
+  FM['home-about-desc']    = ['pages','home','about_desc'];
+  FM['home-feat1-title']   = ['pages','home','feat1_title'];
+  FM['home-feat1-desc']    = ['pages','home','feat1_desc'];
+  FM['home-feat2-title']   = ['pages','home','feat2_title'];
+  FM['home-feat2-desc']    = ['pages','home','feat2_desc'];
+  FM['home-feat3-title']   = ['pages','home','feat3_title'];
+  FM['home-feat3-desc']    = ['pages','home','feat3_desc'];
+
+  // Pages — about story
+  FM['about-story-label']      = ['pages','about','story_label'];
+  FM['about-story-heading-em'] = ['pages','about','story_heading_em'];
+  FM['about-story-quote']      = ['pages','about','story_quote'];
+  FM['about-story-p1']         = ['pages','about','story_p1'];
+  FM['about-story-p2']         = ['pages','about','story_p2'];
+  FM['about-story-p3']         = ['pages','about','story_p3'];
+
+  // Home page — stats, process, services, CTA
+  for (let i = 1; i <= 4; i++) {
+    FM[`stat${i}-label`] = ['homePage',`stat${i}`,'label'];
+    FM[`stat${i}-desc`]  = ['homePage',`stat${i}`,'desc'];
+  }
+  FM['process-label']   = ['homePage','process_label'];
+  FM['process-heading'] = ['homePage','process_heading'];
+  for (let i = 1; i <= 6; i++) {
+    FM[`process${i}-title`] = ['homePage',`process${i}`,'title'];
+    FM[`process${i}-desc`]  = ['homePage',`process${i}`,'desc'];
+  }
+  FM['services-label']   = ['homePage','services_label'];
+  FM['services-heading'] = ['homePage','services_heading'];
+  for (let i = 1; i <= 6; i++) {
+    FM[`svc-card${i}-title`] = ['homePage',`svcCard${i}`,'title'];
+    FM[`svc-card${i}-desc`]  = ['homePage',`svcCard${i}`,'desc'];
+  }
+  FM['cta-label']      = ['homePage','cta_label'];
+  FM['cta-heading']    = ['homePage','cta_heading'];
+  FM['cta-heading-em'] = ['homePage','cta_heading_em'];
+  FM['cta-desc']       = ['homePage','cta_desc'];
+
+  // About page — timeline, values, why-us
+  for (let i = 1; i <= 6; i++) {
+    FM[`timeline${i}-year`]  = ['aboutPage','timeline',`item${i}`,'year'];
+    FM[`timeline${i}-title`] = ['aboutPage','timeline',`item${i}`,'title'];
+    FM[`timeline${i}-desc`]  = ['aboutPage','timeline',`item${i}`,'desc'];
+  }
+  FM['values-label']   = ['aboutPage','values_label'];
+  FM['values-heading'] = ['aboutPage','values_heading'];
+  for (let i = 1; i <= 4; i++) {
+    FM[`value${i}-title`] = ['aboutPage',`value${i}`,'title'];
+    FM[`value${i}-desc`]  = ['aboutPage',`value${i}`,'desc'];
+  }
+  FM['whyus-label']   = ['aboutPage','whyus_label'];
+  FM['whyus-heading'] = ['aboutPage','whyus_heading'];
+  for (let i = 1; i <= 4; i++) {
+    FM[`whyus${i}-title`] = ['aboutPage',`whyus${i}`,'title'];
+    FM[`whyus${i}-desc`]  = ['aboutPage',`whyus${i}`,'desc'];
+  }
+
+  // Services page
+  for (let i = 1; i <= 5; i++) {
+    FM[`svc${i}-heading`] = ['services',`svc${i}`,'heading'];
+    FM[`svc${i}-desc`]    = ['services',`svc${i}`,'desc'];
+    for (let j = 1; j <= 6; j++) FM[`svc${i}-check${j}`] = ['services',`svc${i}`,`check${j}`];
+  }
+  for (let i = 1; i <= 7; i++) {
+    FM[`svc-step${i}-title`] = ['services','steps',`step${i}_title`];
+    FM[`svc-step${i}-desc`]  = ['services','steps',`step${i}_desc`];
+  }
+  for (let i = 1; i <= 3; i++) {
+    FM[`guarantee${i}-num`]   = ['services','guarantee',`item${i}`,'num'];
+    FM[`guarantee${i}-title`] = ['services','guarantee',`item${i}`,'title'];
+    FM[`guarantee${i}-desc`]  = ['services','guarantee',`item${i}`,'desc'];
+  }
+
+  // Contact page
+  FM['contact-heading']       = ['contactPage','heading'];
+  FM['contact-quick-heading'] = ['contactPage','quickHeading'];
+  for (let i = 1; i <= 3; i++) {
+    FM[`reason${i}-title`] = ['contactPage',`reason${i}`,'title'];
+    FM[`reason${i}-desc`]  = ['contactPage',`reason${i}`,'desc'];
+    FM[`quick${i}-title`]  = ['contactPage',`quick${i}`,'title'];
+    FM[`quick${i}-desc`]   = ['contactPage',`quick${i}`,'desc'];
+  }
+
+  /* ── UTILS ── */
+  function setPath(obj, path, val) {
+    let o = obj;
+    for (let i = 0; i < path.length - 1; i++) {
+      if (!o[path[i]]) o[path[i]] = {};
+      o = o[path[i]];
+    }
+    o[path[path.length - 1]] = val;
+  }
+
+  function toast(msg, ok) {
+    const t = document.getElementById('em-toast');
+    if (!t) return;
+    t.textContent = msg;
+    t.style.borderColor = ok ? '#C9A84C' : '#f55';
+    t.style.opacity = '1';
+    setTimeout(() => { t.style.opacity = '0'; }, 3000);
+  }
+
+  let token = localStorage.getItem('gh_token') || '';
+
+  /* ── BUILD UI ── */
+  function buildUI() {
+    const css = document.createElement('style');
+    css.textContent = `
+      #em-fab{position:fixed;bottom:24px;right:24px;z-index:9900;background:#C9A84C;color:#000;border:none;border-radius:50px;padding:11px 22px;font:700 13px/1 Inter,sans-serif;cursor:pointer;box-shadow:0 4px 20px rgba(0,0,0,.5);transition:transform .15s,opacity .2s;}
+      #em-fab:hover{transform:scale(1.07);}
+      #em-bar{display:none;position:fixed;top:0;left:0;right:0;z-index:9901;background:#C9A84C;padding:0 20px;height:48px;align-items:center;gap:12px;font-family:Inter,sans-serif;box-shadow:0 2px 12px rgba(0,0,0,.3);}
+      #em-bar-lbl{font-size:13px;font-weight:700;color:#000;flex:1;}
+      .em-btn{border:none;border-radius:6px;padding:8px 18px;font:700 13px/1 Inter,sans-serif;cursor:pointer;transition:opacity .15s;}
+      .em-btn:hover{opacity:.85;}
+      #em-save{background:#000;color:#C9A84C;}
+      #em-cancel{background:rgba(0,0,0,.15);color:#1a1a1a;}
+      [contenteditable="true"]{outline:2px dashed rgba(201,168,76,.55)!important;border-radius:3px!important;min-height:1em!important;cursor:text!important;transition:outline .15s;}
+      [contenteditable="true"]:hover{outline:2px dashed #C9A84C!important;}
+      [contenteditable="true"]:focus{outline:2px solid #C9A84C!important;background:rgba(201,168,76,.08)!important;}
+      #em-overlay{display:none;position:fixed;inset:0;z-index:99998;background:rgba(0,0,0,.75);align-items:center;justify-content:center;}
+      #em-box{background:#111;border:1px solid #2a2a2a;border-radius:14px;padding:32px;max-width:400px;width:90%;font-family:Inter,sans-serif;}
+      #em-box h3{margin:0 0 6px;font-size:18px;color:#fff;}
+      #em-box p{margin:0 0 20px;font-size:13px;color:#777;}
+      #em-inp{width:100%;box-sizing:border-box;background:#0a0a0a;border:1px solid #333;border-radius:8px;padding:12px;color:#fff;font-size:14px;font-family:Inter,sans-serif;outline:none;}
+      #em-inp:focus{border-color:#C9A84C;}
+      #em-box-row{display:flex;gap:10px;margin-top:14px;}
+      #em-ok{flex:1;background:#C9A84C;color:#000;border:none;border-radius:8px;padding:12px;font:700 14px/1 Inter,sans-serif;cursor:pointer;}
+      #em-cl{background:#222;color:#888;border:none;border-radius:8px;padding:12px 18px;font:14px/1 Inter,sans-serif;cursor:pointer;}
+      #em-err{display:none;color:#f66;font-size:13px;margin-top:10px;}
+      #em-toast{position:fixed;bottom:78px;right:24px;z-index:9999;background:#111;color:#fff;border:1px solid #C9A84C;border-radius:8px;padding:11px 18px;font:14px/1.4 Inter,sans-serif;opacity:0;transition:opacity .3s;pointer-events:none;max-width:280px;}
+    `;
+    document.head.appendChild(css);
+
+    document.body.insertAdjacentHTML('beforeend', `
+      <button id="em-fab">✏ Редактировать</button>
+      <div id="em-bar">
+        <span id="em-bar-lbl">✏ Кликайте на любой текст — редактируйте прямо на странице</span>
+        <button class="em-btn" id="em-save">💾 Сохранить</button>
+        <button class="em-btn" id="em-cancel">Отмена</button>
+      </div>
+      <div id="em-overlay">
+        <div id="em-box">
+          <h3>Токен GitHub</h3>
+          <p>Вводится один раз — сохраняется в браузере</p>
+          <input id="em-inp" type="password" placeholder="ghp_...">
+          <div id="em-err">Неверный токен или нет доступа</div>
+          <div id="em-box-row">
+            <button id="em-ok">Войти</button>
+            <button id="em-cl">Отмена</button>
+          </div>
+        </div>
+      </div>
+      <div id="em-toast"></div>
+    `);
+
+    document.getElementById('em-fab').addEventListener('click', () => token ? enterEdit() : openModal());
+    document.getElementById('em-save').addEventListener('click', save);
+    document.getElementById('em-cancel').addEventListener('click', () => { if (confirm('Отменить все изменения?')) location.reload(); });
+    document.getElementById('em-ok').addEventListener('click', tryLogin);
+    document.getElementById('em-cl').addEventListener('click', closeModal);
+    document.getElementById('em-inp').addEventListener('keydown', e => { if (e.key === 'Enter') tryLogin(); });
+  }
+
+  function openModal() {
+    document.getElementById('em-overlay').style.display = 'flex';
+    document.getElementById('em-inp').focus();
+  }
+  function closeModal() {
+    document.getElementById('em-overlay').style.display = 'none';
+    document.getElementById('em-err').style.display = 'none';
+  }
+
+  async function tryLogin() {
+    const t = document.getElementById('em-inp').value.trim();
+    if (!t) return;
+    const btn = document.getElementById('em-ok');
+    btn.textContent = 'Проверяем…'; btn.disabled = true;
+    const r = await fetch(API, { headers: { Authorization: `token ${t}`, Accept: 'application/vnd.github.v3+json' } });
+    if (r.ok) {
+      token = t;
+      localStorage.setItem('gh_token', t);
+      closeModal();
+      enterEdit();
+    } else {
+      document.getElementById('em-err').style.display = 'block';
+      btn.textContent = 'Войти'; btn.disabled = false;
+    }
+  }
+
+  function enterEdit() {
+    document.getElementById('em-bar').style.display = 'flex';
+    document.getElementById('em-fab').style.display = 'none';
+    document.body.style.paddingTop = '48px';
+    const nav = document.querySelector('.nav');
+    if (nav) nav.style.top = '48px';
+    document.querySelectorAll('[data-field]').forEach(el => {
+      if (FM[el.dataset.field]) el.contentEditable = 'true';
+    });
+  }
+
+  function exitEdit() {
+    document.getElementById('em-bar').style.display = 'none';
+    document.getElementById('em-fab').style.display = 'block';
+    document.body.style.paddingTop = '';
+    const nav = document.querySelector('.nav');
+    if (nav) nav.style.top = '';
+    document.querySelectorAll('[contenteditable]').forEach(el => el.removeAttribute('contenteditable'));
+  }
+
+  async function save() {
+    const btn = document.getElementById('em-save');
+    btn.textContent = 'Сохраняем…'; btn.disabled = true;
+    try {
+      const r = await fetch(API, { headers: { Authorization: `token ${token}`, Accept: 'application/vnd.github.v3+json' } });
+      if (!r.ok) throw 0;
+      const json = await r.json();
+      const bytes = Uint8Array.from(atob(json.content.replace(/\n/g, '')), c => c.charCodeAt(0));
+      const data = JSON.parse(new TextDecoder('utf-8').decode(bytes));
+
+      document.querySelectorAll('[data-field]').forEach(el => {
+        const path = FM[el.dataset.field];
+        if (path) setPath(data, path, el.textContent.trim());
+      });
+
+      const body = JSON.stringify({
+        message: 'Update content via inline editor',
+        content: btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2)))),
+        sha: json.sha
+      });
+      const pr = await fetch(API, {
+        method: 'PUT',
+        headers: { Authorization: `token ${token}`, Accept: 'application/vnd.github.v3+json', 'Content-Type': 'application/json' },
+        body
+      });
+      if (!pr.ok) throw 0;
+      toast('✓ Сохранено! Сайт обновится через ~1 мин.', true);
+      exitEdit();
+    } catch {
+      toast('✗ Ошибка. Проверьте токен.', false);
+      btn.textContent = '💾 Сохранить'; btn.disabled = false;
+    }
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', buildUI);
+  else buildUI();
+})();
