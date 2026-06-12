@@ -1,0 +1,180 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+enum Role {
+  ADMIN
+  MANAGER
+  FOREMAN
+  WORKER
+}
+
+enum ProjectType {
+  OFFICE
+  RETAIL
+  RESTAURANT
+  MEDICAL
+  WAREHOUSE
+  OTHER
+}
+
+enum ProjectStatus {
+  LEAD
+  NEGOTIATION
+  ACTIVE
+  ON_HOLD
+  COMPLETED
+  CANCELLED
+}
+
+enum StageStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+}
+
+enum TaskStatus {
+  TODO
+  IN_PROGRESS
+  REVIEW
+  DONE
+}
+
+enum Priority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
+enum PaymentType {
+  INCOME
+  EXPENSE
+}
+
+model User {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  password  String
+  role      Role     @default(WORKER)
+  phone     String?
+  createdAt DateTime @default(now())
+
+  tasks   Task[]          @relation("AssignedTo")
+  members ProjectMember[]
+}
+
+model Client {
+  id        String    @id @default(cuid())
+  name      String
+  company   String?
+  phone     String
+  email     String?
+  address   String?
+  notes     String?
+  createdAt DateTime  @default(now())
+
+  projects Project[]
+}
+
+model Project {
+  id          String        @id @default(cuid())
+  title       String
+  address     String
+  area        Float?
+  type        ProjectType
+  status      ProjectStatus @default(LEAD)
+  startDate   DateTime?
+  endDate     DateTime?
+  budget      Float?
+  description String?
+  clientId    String
+  createdAt   DateTime      @default(now())
+
+  client    Client          @relation(fields: [clientId], references: [id])
+  tasks     Task[]
+  stages    Stage[]
+  estimates Estimate[]
+  payments  Payment[]
+  members   ProjectMember[]
+}
+
+model Stage {
+  id        String      @id @default(cuid())
+  name      String
+  order     Int
+  status    StageStatus @default(PENDING)
+  startDate DateTime?
+  endDate   DateTime?
+  projectId String
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  tasks   Task[]
+}
+
+model Task {
+  id          String     @id @default(cuid())
+  title       String
+  description String?
+  status      TaskStatus @default(TODO)
+  priority    Priority   @default(MEDIUM)
+  dueDate     DateTime?
+  projectId   String
+  stageId     String?
+  assigneeId  String?
+  createdAt   DateTime   @default(now())
+
+  project  Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  stage    Stage?  @relation(fields: [stageId], references: [id])
+  assignee User?   @relation("AssignedTo", fields: [assigneeId], references: [id])
+}
+
+model Estimate {
+  id        String   @id @default(cuid())
+  name      String
+  total     Float    @default(0)
+  projectId String
+  createdAt DateTime @default(now())
+
+  project Project        @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  items   EstimateItem[]
+}
+
+model EstimateItem {
+  id         String @id @default(cuid())
+  name       String
+  unit       String
+  quantity   Float
+  price      Float
+  total      Float
+  estimateId String
+
+  estimate Estimate @relation(fields: [estimateId], references: [id], onDelete: Cascade)
+}
+
+model Payment {
+  id          String      @id @default(cuid())
+  type        PaymentType
+  amount      Float
+  date        DateTime
+  description String?
+  projectId   String
+  createdAt   DateTime    @default(now())
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+}
+
+model ProjectMember {
+  userId    String
+  projectId String
+
+  user    User    @relation(fields: [userId], references: [id])
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@id([userId, projectId])
+}
