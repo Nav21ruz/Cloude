@@ -207,5 +207,230 @@
       "featured": true,
       "tall": false
     }
-  ]
+  ],
+  "categories": {
+    "office": "",
+    "retail": "",
+    "restaurant": "Кафе",
+    "medical": "",
+    "warehouse": "",
+    "horeca": "",
+    "filter_all": "",
+    "filter_office": "",
+    "filter_retail": "",
+    "filter_restaurant": "Кафе",
+    "filter_medical": "",
+    "filter_warehouse": ""
+  },
+  "homePage": {
+    "stat1": {
+      "label": "",
+      "desc": ""
+    },
+    "stat2": {
+      "label": "",
+      "desc": "С 2020 года в коммерческом ремонте"
+    },
+    "stat3": {
+      "label": "",
+      "desc": ""
+    },
+    "stat4": {
+      "label": "",
+      "desc": ""
+    },
+    "process_label": "",
+    "process_heading": "",
+    "process1": {
+      "title": "",
+      "desc": ""
+    },
+    "process2": {
+      "title": "",
+      "desc": ""
+    },
+    "process3": {
+      "title": "",
+      "desc": ""
+    },
+    "process4": {
+      "title": "",
+      "desc": ""
+    },
+    "process5": {
+      "title": "",
+      "desc": ""
+    },
+    "process6": {
+      "title": "",
+      "desc": ""
+    }
+  },
+  "aboutPage": {
+    "timeline": {
+      "item1": {
+        "year": "2020",
+        "title": "",
+        "desc": ""
+      },
+      "item2": {
+        "year": "2021",
+        "title": "",
+        "desc": ""
+      },
+      "item3": {
+        "year": "2022",
+        "title": "",
+        "desc": ""
+      },
+      "item4": {
+        "year": "2023",
+        "title": "",
+        "desc": ""
+      },
+      "item5": {
+        "year": "2024",
+        "title": "",
+        "desc": ""
+      },
+      "item6": {
+        "year": "2026",
+        "title": "",
+        "desc": ""
+      }
+    },
+    "values_label": "",
+    "values_heading": "",
+    "value1": {
+      "title": "",
+      "desc": ""
+    },
+    "value2": {
+      "title": "",
+      "desc": ""
+    },
+    "value3": {
+      "title": "",
+      "desc": ""
+    },
+    "value4": {
+      "title": "",
+      "desc": ""
+    },
+    "whyus_label": "",
+    "whyus_heading": "",
+    "whyus1": {
+      "title": "",
+      "desc": ""
+    },
+    "whyus2": {
+      "title": "",
+      "desc": ""
+    },
+    "whyus3": {
+      "title": "",
+      "desc": ""
+    },
+    "whyus4": {
+      "title": "",
+      "desc": ""
+    }
+  },
+  "services": {
+    "svc1": {
+      "heading": "",
+      "desc": "",
+      "check1": "",
+      "check2": "",
+      "check3": "",
+      "check4": "",
+      "check5": "",
+      "check6": ""
+    },
+    "svc2": {
+      "heading": "",
+      "desc": "",
+      "check1": "",
+      "check2": "",
+      "check3": "",
+      "check4": "",
+      "check5": "",
+      "check6": ""
+    },
+    "svc3": {
+      "heading": "",
+      "desc": "",
+      "check1": "",
+      "check2": "",
+      "check3": "",
+      "check4": "",
+      "check5": "",
+      "check6": ""
+    },
+    "svc4": {
+      "heading": "",
+      "desc": "",
+      "check1": "",
+      "check2": "",
+      "check3": "",
+      "check4": "",
+      "check5": "",
+      "check6": ""
+    },
+    "svc5": {
+      "heading": "",
+      "desc": "",
+      "check1": "",
+      "check2": "",
+      "check3": "",
+      "check4": "",
+      "check5": "",
+      "check6": ""
+    },
+    "guarantee": {
+      "item1": {
+        "num": "",
+        "title": "",
+        "desc": ""
+      },
+      "item2": {
+        "num": "",
+        "title": "",
+        "desc": ""
+      },
+      "item3": {
+        "num": "",
+        "title": "",
+        "desc": ""
+      }
+    }
+  },
+  "contactPage": {
+    "heading": "",
+    "quickHeading": "",
+    "reason1": {
+      "title": "",
+      "desc": ""
+    },
+    "reason2": {
+      "title": "",
+      "desc": ""
+    },
+    "reason3": {
+      "title": "",
+      "desc": ""
+    },
+    "quick1": {
+      "title": "",
+      "desc": ""
+    },
+    "quick2": {
+      "title": "",
+      "desc": ""
+    },
+    "quick3": {
+      "title": "",
+      "desc": ""
+    }
+  }
 }
