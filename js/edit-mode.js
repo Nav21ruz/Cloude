@@ -10,7 +10,6 @@
   /* ── FIELD MAP: data-field → path in content.json ── */
   const FM = {};
 
-  // Contacts
   FM['phone']          = ['contacts','phone'];
   FM['address']        = ['contacts','address'];
   FM['email']          = ['contacts','email'];
@@ -19,7 +18,6 @@
   FM['hours-saturday'] = ['contacts','hours','saturday'];
   FM['hours-sunday']   = ['contacts','hours','sunday'];
 
-  // Pages — home about section
   FM['home-about-label']   = ['pages','home','about_label'];
   FM['home-about-heading'] = ['pages','home','about_heading'];
   FM['home-about-tagline'] = ['pages','home','about_tagline'];
@@ -31,7 +29,6 @@
   FM['home-feat3-title']   = ['pages','home','feat3_title'];
   FM['home-feat3-desc']    = ['pages','home','feat3_desc'];
 
-  // Pages — about story
   FM['about-story-label']      = ['pages','about','story_label'];
   FM['about-story-heading-em'] = ['pages','about','story_heading_em'];
   FM['about-story-quote']      = ['pages','about','story_quote'];
@@ -39,7 +36,6 @@
   FM['about-story-p2']         = ['pages','about','story_p2'];
   FM['about-story-p3']         = ['pages','about','story_p3'];
 
-  // Home page — stats, process, services, CTA
   for (let i = 1; i <= 4; i++) {
     FM[`stat${i}-label`] = ['homePage',`stat${i}`,'label'];
     FM[`stat${i}-desc`]  = ['homePage',`stat${i}`,'desc'];
@@ -61,7 +57,6 @@
   FM['cta-heading-em'] = ['homePage','cta_heading_em'];
   FM['cta-desc']       = ['homePage','cta_desc'];
 
-  // About page — timeline, values, why-us
   for (let i = 1; i <= 6; i++) {
     FM[`timeline${i}-year`]  = ['aboutPage','timeline',`item${i}`,'year'];
     FM[`timeline${i}-title`] = ['aboutPage','timeline',`item${i}`,'title'];
@@ -80,7 +75,6 @@
     FM[`whyus${i}-desc`]  = ['aboutPage',`whyus${i}`,'desc'];
   }
 
-  // Services page
   for (let i = 1; i <= 5; i++) {
     FM[`svc${i}-heading`] = ['services',`svc${i}`,'heading'];
     FM[`svc${i}-desc`]    = ['services',`svc${i}`,'desc'];
@@ -96,7 +90,6 @@
     FM[`guarantee${i}-desc`]  = ['services','guarantee',`item${i}`,'desc'];
   }
 
-  // Contact page
   FM['contact-heading']       = ['contactPage','heading'];
   FM['contact-quick-heading'] = ['contactPage','quickHeading'];
   for (let i = 1; i <= 3; i++) {
@@ -131,15 +124,13 @@
   function buildUI() {
     const css = document.createElement('style');
     css.textContent = `
-      #em-fab{position:fixed;bottom:24px;right:24px;z-index:9900;background:#C9A84C;color:#000;border:none;border-radius:50px;padding:11px 22px;font:700 13px/1 Inter,sans-serif;cursor:pointer;box-shadow:0 4px 20px rgba(0,0,0,.5);transition:transform .15s,opacity .2s;}
-      #em-fab:hover{transform:scale(1.07);}
       #em-bar{display:none;position:fixed;top:0;left:0;right:0;z-index:9901;background:#C9A84C;padding:0 20px;height:48px;align-items:center;gap:12px;font-family:Inter,sans-serif;box-shadow:0 2px 12px rgba(0,0,0,.3);}
       #em-bar-lbl{font-size:13px;font-weight:700;color:#000;flex:1;}
       .em-btn{border:none;border-radius:6px;padding:8px 18px;font:700 13px/1 Inter,sans-serif;cursor:pointer;transition:opacity .15s;}
       .em-btn:hover{opacity:.85;}
       #em-save{background:#000;color:#C9A84C;}
       #em-cancel{background:rgba(0,0,0,.15);color:#1a1a1a;}
-      [contenteditable="true"]{outline:2px dashed rgba(201,168,76,.55)!important;border-radius:3px!important;min-height:1em!important;cursor:text!important;transition:outline .15s;}
+      [contenteditable="true"]{outline:2px dashed rgba(201,168,76,.55)!important;border-radius:3px!important;min-height:1em!important;cursor:text!important;}
       [contenteditable="true"]:hover{outline:2px dashed #C9A84C!important;}
       [contenteditable="true"]:focus{outline:2px solid #C9A84C!important;background:rgba(201,168,76,.08)!important;}
       #em-overlay{display:none;position:fixed;inset:0;z-index:99998;background:rgba(0,0,0,.75);align-items:center;justify-content:center;}
@@ -152,14 +143,13 @@
       #em-ok{flex:1;background:#C9A84C;color:#000;border:none;border-radius:8px;padding:12px;font:700 14px/1 Inter,sans-serif;cursor:pointer;}
       #em-cl{background:#222;color:#888;border:none;border-radius:8px;padding:12px 18px;font:14px/1 Inter,sans-serif;cursor:pointer;}
       #em-err{display:none;color:#f66;font-size:13px;margin-top:10px;}
-      #em-toast{position:fixed;bottom:78px;right:24px;z-index:9999;background:#111;color:#fff;border:1px solid #C9A84C;border-radius:8px;padding:11px 18px;font:14px/1.4 Inter,sans-serif;opacity:0;transition:opacity .3s;pointer-events:none;max-width:280px;}
+      #em-toast{position:fixed;bottom:24px;right:24px;z-index:9999;background:#111;color:#fff;border:1px solid #C9A84C;border-radius:8px;padding:11px 18px;font:14px/1.4 Inter,sans-serif;opacity:0;transition:opacity .3s;pointer-events:none;max-width:280px;}
     `;
     document.head.appendChild(css);
 
     document.body.insertAdjacentHTML('beforeend', `
-      <button id="em-fab">✏ Редактировать</button>
       <div id="em-bar">
-        <span id="em-bar-lbl">✏ Кликайте на любой текст — редактируйте прямо на странице</span>
+        <span id="em-bar-lbl">✏ Режим редактирования — кликайте на любой текст</span>
         <button class="em-btn" id="em-save">💾 Сохранить</button>
         <button class="em-btn" id="em-cancel">Отмена</button>
       </div>
@@ -178,12 +168,21 @@
       <div id="em-toast"></div>
     `);
 
-    document.getElementById('em-fab').addEventListener('click', () => token ? enterEdit() : openModal());
     document.getElementById('em-save').addEventListener('click', save);
     document.getElementById('em-cancel').addEventListener('click', () => { if (confirm('Отменить все изменения?')) location.reload(); });
     document.getElementById('em-ok').addEventListener('click', tryLogin);
     document.getElementById('em-cl').addEventListener('click', closeModal);
     document.getElementById('em-inp').addEventListener('keydown', e => { if (e.key === 'Enter') tryLogin(); });
+
+    // Auto-activate if triggered from admin panel
+    if (localStorage.getItem('em_activate') === '1') {
+      localStorage.removeItem('em_activate');
+      // Wait for load-content.js to inject content before enabling edit
+      setTimeout(() => {
+        if (token) enterEdit();
+        else openModal();
+      }, 1500);
+    }
   }
 
   function openModal() {
@@ -214,25 +213,20 @@
 
   function enterEdit() {
     document.getElementById('em-bar').style.display = 'flex';
-    document.getElementById('em-fab').style.display = 'none';
     document.body.style.paddingTop = '48px';
     const nav = document.querySelector('.nav');
     if (nav) nav.style.top = '48px';
     document.querySelectorAll('[data-field]').forEach(el => {
       if (FM[el.dataset.field]) el.contentEditable = 'true';
     });
-    // Make stat counters editable
     document.querySelectorAll('.counter[data-stat-field]').forEach(el => {
-      const target = el.dataset.target || '0';
-      const suffix = el.dataset.suffix || '';
-      el.textContent = target + suffix;
+      el.textContent = (el.dataset.target || '0') + (el.dataset.suffix || '');
       el.contentEditable = 'true';
     });
   }
 
   function exitEdit() {
     document.getElementById('em-bar').style.display = 'none';
-    document.getElementById('em-fab').style.display = 'block';
     document.body.style.paddingTop = '';
     const nav = document.querySelector('.nav');
     if (nav) nav.style.top = '';
@@ -253,27 +247,17 @@
         const path = FM[el.dataset.field];
         if (path) setPath(data, path, el.textContent.trim());
       });
-      // Save stat counter numbers
       document.querySelectorAll('.counter[data-stat-field]').forEach(el => {
         const field = el.dataset.statField;
         if (!field) return;
         const num = parseFloat(el.textContent.replace(/[^0-9.]/g, ''));
-        if (!isNaN(num)) {
-          if (!data.stats) data.stats = {};
-          data.stats[field] = num;
-          el.dataset.target = num;
-        }
+        if (!isNaN(num)) { data.stats = data.stats || {}; data.stats[field] = num; el.dataset.target = num; }
       });
 
-      const body = JSON.stringify({
-        message: 'Update content via inline editor',
-        content: btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2)))),
-        sha: json.sha
-      });
       const pr = await fetch(API, {
         method: 'PUT',
         headers: { Authorization: `token ${token}`, Accept: 'application/vnd.github.v3+json', 'Content-Type': 'application/json' },
-        body
+        body: JSON.stringify({ message: 'Update content via inline editor', content: btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2)))), sha: json.sha })
       });
       if (!pr.ok) throw 0;
       toast('✓ Сохранено! Сайт обновится через ~1 мин.', true);
