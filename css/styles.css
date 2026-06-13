@@ -560,6 +560,13 @@ section { position: relative; }
   display: flex; flex-direction: column; gap: 16px;
 }
 
+.about-features-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(20px, 4vw, 60px);
+  margin-top: 60px;
+}
+
 .about-feat {
   display: flex; align-items: flex-start; gap: 16px;
   padding: 20px;
@@ -1658,6 +1665,9 @@ footer {
   .form-row { grid-template-columns: 1fr; }
   .projects-masonry { grid-template-columns: 1fr; }
   .project-item.tall { grid-row: span 1; }
+  .about-features-grid { grid-template-columns: 1fr; }
+  .about-split { gap: 40px; }
+  .section-title { font-size: clamp(1.8rem, 7vw, 2.5rem); }
 }
 
 @media (max-width: 480px) {
@@ -1665,6 +1675,8 @@ footer {
   .certs-grid { grid-template-columns: 1fr; }
   .values-grid { grid-template-columns: 1fr; }
   .stats-grid { grid-template-columns: 1fr; }
+  .process-track { grid-template-columns: 1fr; }
+  .about-features-grid { gap: 16px; margin-top: 40px; }
 }
 
 /* ===== COOKIE CONSENT BANNER ===== */
