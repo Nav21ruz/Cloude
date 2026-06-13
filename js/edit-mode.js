@@ -221,6 +221,13 @@
     document.querySelectorAll('[data-field]').forEach(el => {
       if (FM[el.dataset.field]) el.contentEditable = 'true';
     });
+    // Make stat counters editable
+    document.querySelectorAll('.counter[data-stat-field]').forEach(el => {
+      const target = el.dataset.target || '0';
+      const suffix = el.dataset.suffix || '';
+      el.textContent = target + suffix;
+      el.contentEditable = 'true';
+    });
   }
 
   function exitEdit() {
@@ -245,6 +252,17 @@
       document.querySelectorAll('[data-field]').forEach(el => {
         const path = FM[el.dataset.field];
         if (path) setPath(data, path, el.textContent.trim());
+      });
+      // Save stat counter numbers
+      document.querySelectorAll('.counter[data-stat-field]').forEach(el => {
+        const field = el.dataset.statField;
+        if (!field) return;
+        const num = parseFloat(el.textContent.replace(/[^0-9.]/g, ''));
+        if (!isNaN(num)) {
+          if (!data.stats) data.stats = {};
+          data.stats[field] = num;
+          el.dataset.target = num;
+        }
       });
 
       const body = JSON.stringify({
