@@ -118,7 +118,8 @@
     setTimeout(() => { t.style.opacity = '0'; }, 3000);
   }
 
-  let token = localStorage.getItem('gh_token') || '';
+  /* Token lives in sessionStorage — cleared automatically when tab closes */
+  let token = sessionStorage.getItem('gh_token') || '';
 
   /* ── BUILD UI ── */
   function buildUI() {
@@ -156,7 +157,7 @@
       <div id="em-overlay">
         <div id="em-box">
           <h3>Токен GitHub</h3>
-          <p>Вводится один раз — сохраняется в браузере</p>
+          <p>Вводится один раз — сохраняется до закрытия вкладки</p>
           <input id="em-inp" type="password" placeholder="ghp_...">
           <div id="em-err">Неверный токен или нет доступа</div>
           <div id="em-box-row">
@@ -174,10 +175,21 @@
     document.getElementById('em-cl').addEventListener('click', closeModal);
     document.getElementById('em-inp').addEventListener('keydown', e => { if (e.key === 'Enter') tryLogin(); });
 
-    // Auto-activate if triggered from admin panel
-    if (localStorage.getItem('em_activate') === '1') {
-      localStorage.removeItem('em_activate');
-      // Wait for load-content.js to inject content before enabling edit
+    /* Auto-activate if opened from admin panel via ?edit=1 URL param */
+    if (new URLSearchParams(location.search).get('edit') === '1') {
+      /* Consume the one-time token written by admin panel (2-min TTL) */
+      try {
+        const raw = localStorage.getItem('em_token_once');
+        if (raw) {
+          const { t, exp } = JSON.parse(raw);
+          localStorage.removeItem('em_token_once');
+          if (t && Date.now() < exp) {
+            token = t;
+            sessionStorage.setItem('gh_token', t);
+          }
+        }
+      } catch { localStorage.removeItem('em_token_once'); }
+
       setTimeout(() => {
         if (token) enterEdit();
         else openModal();
@@ -202,7 +214,7 @@
     const r = await fetch(API, { headers: { Authorization: `token ${t}`, Accept: 'application/vnd.github.v3+json' } });
     if (r.ok) {
       token = t;
-      localStorage.setItem('gh_token', t);
+      sessionStorage.setItem('gh_token', t);
       closeModal();
       enterEdit();
     } else {
@@ -217,12 +229,23 @@
     const nav = document.querySelector('.nav');
     if (nav) nav.style.top = '48px';
     document.querySelectorAll('[data-field]').forEach(el => {
-      if (FM[el.dataset.field]) el.contentEditable = 'true';
+      if (FM[el.dataset.field]) {
+        el.contentEditable = 'true';
+        /* Strip HTML from paste — accept plain text only */
+        el.addEventListener('paste', plainTextPaste);
+      }
     });
     document.querySelectorAll('.counter[data-stat-field]').forEach(el => {
       el.textContent = (el.dataset.target || '0') + (el.dataset.suffix || '');
       el.contentEditable = 'true';
+      el.addEventListener('paste', plainTextPaste);
     });
+  }
+
+  function plainTextPaste(e) {
+    e.preventDefault();
+    const text = e.clipboardData.getData('text/plain');
+    document.execCommand('insertText', false, text);
   }
 
   function exitEdit() {
@@ -230,7 +253,10 @@
     document.body.style.paddingTop = '';
     const nav = document.querySelector('.nav');
     if (nav) nav.style.top = '';
-    document.querySelectorAll('[contenteditable]').forEach(el => el.removeAttribute('contenteditable'));
+    document.querySelectorAll('[contenteditable]').forEach(el => {
+      el.removeAttribute('contenteditable');
+      el.removeEventListener('paste', plainTextPaste);
+    });
   }
 
   async function save() {

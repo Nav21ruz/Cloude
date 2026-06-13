@@ -3,6 +3,15 @@ let CAT_LABELS = {
   medical: 'Медицина', warehouse: 'Склад', horeca: 'HoReCa'
 };
 
+function esc(s) {
+  return String(s ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
 function gdrive(url) {
   if (!url) return '';
   const m = url.match(/\/d\/([a-zA-Z0-9_-]+)/);
@@ -12,35 +21,38 @@ function gdrive(url) {
 
 function projectCardHome(p) {
   const bg = gdrive(p.image);
-  const bgStyle = bg ? `background-image:url('${bg}');background-size:cover;background-position:center;` : '';
+  const bgStyle = bg ? `background-image:url('${esc(bg)}');background-size:cover;background-position:center;` : '';
+  const cat = esc(CAT_LABELS[p.category] || p.category);
+  const loc = [p.location, p.year].filter(Boolean).map(esc).join(', ');
   return `
     <div class="proj-card-bg" style="${bgStyle}"></div>
     <div class="proj-card-overlay"></div>
     <div class="proj-card-content">
-      <div class="proj-card-cat">${CAT_LABELS[p.category] || p.category}</div>
-      <h3>${p.title}</h3>
+      <div class="proj-card-cat">${cat}</div>
+      <h3>${esc(p.title)}</h3>
       <div class="proj-card-meta">
-        ${p.area ? `<span>${p.area}</span>` : ''}
-        ${p.location || p.year ? `<span>${[p.location, p.year].filter(Boolean).join(', ')}</span>` : ''}
+        ${p.area ? `<span>${esc(p.area)}</span>` : ''}
+        ${loc ? `<span>${loc}</span>` : ''}
       </div>
     </div>`;
 }
 
 function projectCardMasonry(p) {
   const bg = gdrive(p.image);
-  const bgStyle = bg ? `background-image:url('${bg}');background-size:cover;background-position:center;` : '';
+  const bgStyle = bg ? `background-image:url('${esc(bg)}');background-size:cover;background-position:center;` : '';
   const heightStyle = p.tall ? 'padding-bottom:140%' : '';
+  const cat = esc(CAT_LABELS[p.category] || p.category);
   return `
-    <div class="project-item${p.tall ? ' tall' : ''}" data-cat="${p.category}" style="transition:opacity 0.3s,transform 0.3s;">
+    <div class="project-item${p.tall ? ' tall' : ''}" data-cat="${esc(p.category)}" style="transition:opacity 0.3s,transform 0.3s;">
       <div class="project-item-bg" style="${bgStyle}${heightStyle ? ';' + heightStyle : ''}"></div>
       <div class="project-item-overlay"></div>
       <div class="project-item-info">
-        <div class="project-item-cat">${CAT_LABELS[p.category] || p.category}</div>
-        <h3>${p.title}</h3>
+        <div class="project-item-cat">${cat}</div>
+        <h3>${esc(p.title)}</h3>
         <div class="project-item-meta">
-          ${p.area ? `<span>${p.area}</span>` : ''}
-          ${p.year ? `<span>${p.year}</span>` : ''}
-          ${p.duration ? `<span>${p.duration}</span>` : ''}
+          ${p.area ? `<span>${esc(p.area)}</span>` : ''}
+          ${p.year ? `<span>${esc(p.year)}</span>` : ''}
+          ${p.duration ? `<span>${esc(p.duration)}</span>` : ''}
         </div>
       </div>
     </div>`;

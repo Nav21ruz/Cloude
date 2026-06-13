@@ -773,6 +773,15 @@ const CAT_LABELS = {office:'Офис',retail:'Магазин',restaurant:'Рес
 
 let token = '', fileSha = '', data = null, editingId = null, dirty = false;
 
+function esc(s) {
+  return String(s ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
 /* ── UTILS ── */
 const $  = id => document.getElementById(id);
 const toast = (msg, type='ok') => {
@@ -810,7 +819,7 @@ $('btn-login').addEventListener('click', async () => {
     const ok = await loadContent(t);
     if (ok) {
       token = t;
-      localStorage.setItem('gh_token', t);
+      sessionStorage.setItem('gh_token', t);
       $('login').style.display = 'none';
       $('app').style.display = 'block';
       renderAll();
@@ -868,7 +877,7 @@ $('btn-save').addEventListener('click', async () => {
 /* ── LOGOUT ── */
 $('btn-logout').addEventListener('click', () => {
   if (dirty && !confirm('Есть несохранённые изменения. Выйти?')) return;
-  localStorage.removeItem('gh_token');
+  sessionStorage.removeItem('gh_token');
   location.reload();
 });
 
@@ -903,15 +912,15 @@ function renderProjects() {
             <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><rect x="4" y="8" width="24" height="18" stroke="currentColor" stroke-width="1.3"/><circle cx="11" cy="15" r="2.5" stroke="currentColor" stroke-width="1.3"/><path d="M4 22l6-5 5 4 4-4 9 7" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
             Нет фото
           </div>
-          <div class="proj-cat-badge">${CAT_LABELS[p.category] || p.category}</div>
+          <div class="proj-cat-badge">${esc(CAT_LABELS[p.category] || p.category)}</div>
         </div>
         <div class="proj-body">
           ${p.featured ? '<div class="featured-badge">★ На главной</div>' : ''}
-          <h4 title="${p.title}">${p.title}</h4>
-          <div class="proj-meta">${[p.area, p.year, p.location].filter(Boolean).join(' · ')}</div>
+          <h4 title="${esc(p.title)}">${esc(p.title)}</h4>
+          <div class="proj-meta">${[p.area, p.year, p.location].filter(Boolean).map(esc).join(' · ')}</div>
           <div class="proj-actions">
-            <button class="btn-edit" onclick="openEdit('${p.id}')">Редактировать</button>
-            <button class="btn-del" title="Удалить" onclick="deleteProject('${p.id}')">
+            <button class="btn-edit" onclick="openEdit('${esc(p.id)}')">Редактировать</button>
+            <button class="btn-del" title="Удалить" onclick="deleteProject('${esc(p.id)}')">
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 4h10M5 4V2h4v2M6 7v4M8 7v4M3 4l1 8h6l1-8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </button>
           </div>
@@ -1341,14 +1350,15 @@ function deleteProject(id) {
 
 /* ── OPEN PAGE FOR INLINE EDITING ── */
 function openForEdit(page) {
-  localStorage.setItem('em_activate', '1');
+  /* Write one-time token with 2-minute TTL for the new tab to consume */
+  localStorage.setItem('em_token_once', JSON.stringify({ t: token, exp: Date.now() + 120000 }));
   const base = location.href.replace(/\/admin\/.*$/, '/');
-  window.open(base + page, '_blank');
+  window.open(base + page + '?edit=1', '_blank');
 }
 
 /* ── AUTO-LOGIN ── */
 (async function() {
-  const saved = localStorage.getItem('gh_token');
+  const saved = sessionStorage.getItem('gh_token');
   if (!saved) return;
   try {
     const ok = await loadContent(saved);
@@ -1358,9 +1368,9 @@ function openForEdit(page) {
       $('app').style.display = 'block';
       renderAll();
     } else {
-      localStorage.removeItem('gh_token');
+      sessionStorage.removeItem('gh_token');
     }
-  } catch { localStorage.removeItem('gh_token'); }
+  } catch { sessionStorage.removeItem('gh_token'); }
 })();
 </script>
 </body>
