@@ -1,0 +1,1534 @@
+[Resource from github at repo://Nav21ruz/Cloude/sha/d84e45deba34109520c3c4913e1750c74a07c694/contents/calculator.html] <!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Калькулятор материалов | DUMAEV</title>
+  <meta name="description" content="Онлайн-калькулятор строительных материалов: ГКЛ, перегородки, кладка, штукатурка, шпаклёвка, краска, плитка, армстронг. Точный расчёт количества и расхода.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://dumaev.ru/calculator.html">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://dumaev.ru/calculator.html">
+  <meta property="og:title" content="Калькулятор материалов | DUMAEV">
+  <meta property="og:description" content="Рассчитайте количество материалов для вашего ремонта онлайн — ГКЛ, кладка, штукатурка, плитка, краска и другие.">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:site_name" content="DUMAEV">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Главная","item":"https://dumaev.ru/"},{"@type":"ListItem","position":2,"name":"Калькулятор","item":"https://dumaev.ru/calculator.html"}]}</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    /* ── CALCULATOR TABS ── */
+    .calc-tabs {
+      display: flex; gap: 8px; flex-wrap: wrap;
+      padding: 0 clamp(24px,5vw,80px) 0;
+      background: var(--bg-0);
+      margin-bottom: 0;
+    }
+    .calc-tab {
+      padding: 10px 20px;
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--gray-3);
+      border: 1px solid var(--border);
+      transition: all 0.25s; white-space: nowrap;
+      cursor: pointer; background: none; font-family: inherit;
+    }
+    .calc-tab:hover { color: var(--gold); border-color: var(--gold); background: rgba(200,151,58,0.06); }
+    .calc-tab.active { color: var(--gold); border-color: var(--gold); background: rgba(200,151,58,0.1); }
+
+    /* ── CALC SECTIONS ── */
+    .calc-section { display: none; }
+    .calc-section.active { display: block; }
+
+    /* ── CALC LAYOUT ── */
+    .calc-body {
+      padding: clamp(40px,6vw,80px) clamp(24px,5vw,80px);
+      background: var(--bg-1);
+    }
+    .calc-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+    }
+    @media (max-width: 820px) { .calc-grid { grid-template-columns: 1fr; } }
+
+    /* ── CARDS ── */
+    .calc-card {
+      background: var(--bg-0);
+      border: 1px solid var(--border);
+      padding: clamp(24px,3vw,36px);
+    }
+    .calc-card-title {
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: 28px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .calc-card-title::before { content: ''; width: 32px; height: 1px; background: var(--gold); }
+
+    /* ── FIELDS ── */
+    .calc-field { margin-bottom: 18px; }
+    .calc-field label {
+      display: block;
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--gray-3);
+      margin-bottom: 8px;
+    }
+    .calc-field input,
+    .calc-field select {
+      width: 100%; padding: 13px 16px;
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      color: var(--white);
+      font-family: inherit; font-size: 0.92rem;
+      outline: none;
+      transition: border-color 0.3s, background 0.3s;
+      appearance: none; -webkit-appearance: none;
+    }
+    .calc-field input:focus, .calc-field select:focus {
+      border-color: var(--gold); background: var(--bg-3);
+    }
+    .calc-field .hint {
+      font-size: 0.72rem; color: var(--gray-4); margin-top: 5px; line-height: 1.4;
+    }
+    .calc-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .calc-divider { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
+
+    /* ── CHECKBOX ── */
+    .calc-check {
+      display: flex; align-items: center; gap: 12px;
+      margin-bottom: 10px; padding: 4px 0;
+    }
+    .calc-check input[type="checkbox"] {
+      width: 16px; height: 16px;
+      accent-color: var(--gold); flex-shrink: 0;
+    }
+    .calc-check label {
+      font-size: 0.82rem; color: var(--gray-1); cursor: pointer; margin: 0;
+    }
+
+    /* ── SECTION SELECT ARROW ── */
+    .select-wrap { position: relative; }
+    .select-wrap::after {
+      content: '';
+      position: absolute; right: 14px; top: 50%;
+      transform: translateY(-50%);
+      width: 0; height: 0;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-top: 6px solid var(--gray-3);
+      pointer-events: none;
+    }
+    .select-wrap select { padding-right: 36px; }
+
+    /* ── CALC BUTTON ── */
+    .calc-btn {
+      width: 100%; margin-top: 24px;
+      padding: 16px 32px;
+      background: var(--gold); color: var(--bg-0);
+      font-family: inherit; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; border: none; cursor: pointer;
+      clip-path: polygon(12px 0%, 100% 0%, calc(100% - 12px) 100%, 0% 100%);
+      transition: background 0.25s;
+    }
+    .calc-btn:hover { background: var(--gold-light); }
+
+    /* ── RESULTS ── */
+    .calc-results {
+      background: var(--bg-0);
+      border: 1px solid var(--border);
+      padding: clamp(24px,3vw,36px);
+    }
+    .calc-results-title {
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: 28px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .calc-results-title::before { content: ''; width: 32px; height: 1px; background: var(--gold); }
+
+    .res-group { margin-bottom: 20px; }
+    .res-group-title {
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--gray-3);
+      margin-bottom: 8px; padding-bottom: 6px;
+      border-bottom: 1px solid var(--border);
+    }
+    .res-item {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 9px 0; border-bottom: 1px solid var(--bg-2);
+      gap: 12px;
+    }
+    .res-item:last-child { border-bottom: none; }
+    .res-name { font-size: 0.85rem; color: var(--gray-2); flex: 1; line-height: 1.4; }
+    .res-value {
+      font-size: 0.92rem; font-weight: 700; color: var(--white);
+      white-space: nowrap; font-variant-numeric: tabular-nums;
+    }
+    .res-unit { font-size: 0.72rem; color: var(--gray-3); margin-left: 3px; font-weight: 400; }
+    .res-tag {
+      display: inline-block; font-size: 0.58rem; font-weight: 700;
+      padding: 2px 7px; letter-spacing: 0.05em;
+      background: rgba(200,151,58,0.12); color: var(--gold);
+      margin-left: 6px; vertical-align: middle;
+    }
+
+    /* ── SECTION DESCRIPTION ── */
+    .calc-desc {
+      font-size: 0.85rem; color: var(--gray-2);
+      line-height: 1.7; margin-bottom: 28px;
+      padding: 16px 20px;
+      border-left: 3px solid var(--gold);
+      background: var(--bg-0);
+    }
+
+    /* ── CTA BLOCK ── */
+    .calc-cta {
+      margin-top: 28px;
+      padding: 32px 28px;
+      border: 1px solid var(--border-gold);
+      background: var(--bg-0);
+      position: relative; overflow: hidden;
+    }
+    .calc-cta::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 3px; background: linear-gradient(90deg, var(--gold), var(--orange));
+    }
+    .calc-cta-title {
+      font-size: 1.1rem; font-weight: 800; letter-spacing: -0.01em;
+      margin-bottom: 10px;
+    }
+    .calc-cta-text {
+      font-size: 0.875rem; color: var(--gray-2);
+      line-height: 1.6; margin-bottom: 20px;
+    }
+    .calc-cta-feats {
+      display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 24px;
+    }
+    .calc-cta-feat {
+      font-size: 0.75rem; color: var(--gray-1); font-weight: 500;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .calc-cta-feat::before {
+      content: '';
+      width: 16px; height: 16px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(200,151,58,0.15); color: var(--gold);
+      font-size: 0.65rem;
+    }
+    .calc-cta-btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 14px 32px;
+      background: var(--gold); color: var(--bg-0);
+      font-family: inherit; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; text-decoration: none;
+      clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+      transition: background 0.25s;
+    }
+    .calc-cta-btn:hover { background: var(--gold-light); }
+
+    /* ── EMPTY STATE ── */
+    .calc-empty {
+      text-align: center; padding: 60px 24px;
+      color: var(--gray-4); font-size: 0.9rem;
+    }
+    .calc-empty-icon {
+      width: 56px; height: 56px; margin: 0 auto 20px;
+      display: flex; align-items: center; justify-content: center;
+      border: 1px solid var(--border);
+      color: var(--gray-4); font-size: 1.4rem;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      .calc-tabs { gap: 6px; padding: 0 clamp(16px,4vw,24px); }
+      .calc-tab { padding: 8px 14px; font-size: 0.68rem; }
+      .calc-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="preloader">
+  <div class="preloader-logo">DUM<span>A</span>EV</div>
+  <div class="preloader-bar"></div>
+</div>
+
+<div id="cursor-dot"></div>
+<div id="cursor-ring"></div>
+<div id="scroll-progress"></div>
+
+<!-- NAV -->
+<nav class="nav scrolled">
+  <a href="index.html" class="nav-logo">DUM<span>A</span>EV</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Главная</a></li>
+    <li><a href="services.html">Услуги</a></li>
+    <li><a href="projects.html">Проекты</a></li>
+    <li><a href="about.html">О компании</a></li>
+    <li><a href="contact.html">Контакты</a></li>
+    <li><a href="calculator.html" class="active">Калькулятор</a></li>
+  </ul>
+  <div class="nav-cta">
+    <span class="nav-phone">+7 (909) 085-64-51</span>
+    <a href="contact.html" class="btn-nav">Консультация</a>
+  </div>
+  <button class="nav-burger" aria-label="Меню">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<nav class="nav-mobile">
+  <a href="index.html">Главная</a>
+  <a href="services.html">Услуги</a>
+  <a href="projects.html">Проекты</a>
+  <a href="about.html">О компании</a>
+  <a href="contact.html">Контакты</a>
+  <a href="calculator.html">Калькулятор</a>
+</nav>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="page-hero-num">07</div>
+  <div class="page-hero-inner">
+    <div class="breadcrumb">
+      <a href="index.html">Главная</a>
+      <span class="breadcrumb-sep">/</span>
+      <span>Калькулятор</span>
+    </div>
+    <h1 class="page-title">Калькулятор<br><span style="color:var(--gold)">материалов</span></h1>
+  </div>
+</div>
+
+<!-- TABS -->
+<div style="background:var(--bg-0); padding-top:clamp(32px,5vw,56px); border-bottom:1px solid var(--border);">
+  <div class="container">
+    <div class="section-label" style="padding:0 0 20px 0;">Выберите тип работ</div>
+    <div class="calc-tabs" style="padding:0;">
+      <button class="calc-tab active" data-tab="obsh">Обшивка ГКЛ</button>
+      <button class="calc-tab" data-tab="peregorodka">Перегородка</button>
+      <button class="calc-tab" data-tab="kladka">Кладка</button>
+      <button class="calc-tab" data-tab="shtukaturka">Штукатурка</button>
+      <button class="calc-tab" data-tab="shpaklevka">Шпаклёвка</button>
+      <button class="calc-tab" data-tab="kraska">Краска</button>
+      <button class="calc-tab" data-tab="plitka">Плитка</button>
+      <button class="calc-tab" data-tab="armstrong">Армстронг</button>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== ОБШИВКА ГКЛ ==================== -->
+<div id="obsh" class="calc-section active">
+  <div class="calc-body">
+    <div class="container">
+      <div class="calc-desc">
+        Расчёт материалов для обшивки стен и потолков гипсокартоном на металлическом каркасе.
+      </div>
+      <div class="calc-grid">
+        <div class="calc-card">
+          <div class="calc-card-title">Параметры помещения</div>
+
+          <div class="calc-field">
+            <label>Режим расчёта</label>
+            <div class="select-wrap">
+              <select id="o-mode" onchange="toggleObshMode()">
+                <option value="room" selected>Вся комната (по периметру)</option>
+                <option value="wall">Одна стена / поверхность</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="calc-field" id="o-type-wrap">
+            <label>Тип обшивки</label>
+            <div class="select-wrap">
+              <select id="o-type" onchange="calcObsh()">
+                <option value="wall">Стены</option>
+                <option value="ceiling">Потолок</option>
+                <option value="both">Стены + Потолок</option>
+              </select>
+            </div>
+          </div>
+
+          <div id="o-room-fields">
+            <div class="calc-row">
+              <div class="calc-field">
+                <label>Длина комнаты, м</label>
+                <input type="number" id="o-len" value="5" min="0" step="0.1" oninput="calcObsh()">
+              </div>
+              <div class="calc-field">
+                <label>Ширина комнаты, м</label>
+                <input type="number" id="o-wid" value="4" min="0" step="0.1" oninput="calcObsh()">
+              </div>
+            </div>
+            <div class="calc-field">
+              <label>Высота, м</label>
+              <input type="number" id="o-h" value="2.7" min="0" step="0.05" oninput="calcObsh()">
+            </div>
+          </div>
+
+          <div id="o-wall-fields" style="display:none">
+            <div class="calc-row">
+              <div class="calc-field">
+                <label>Длина стены, м</label>
+                <input type="number" id="o-wall-len" value="3" min="0" step="0.1" oninput="calcObsh()">
+              </div>
+              <div class="calc-field">
+                <label>Высота стены, м</label>
+                <input type="number" id="o-wall-h" value="2.7" min="0" step="0.1" oninput="calcObsh()">
+              </div>
+            </div>
+          </div>
+
+          <hr class="calc-divider">
+
+          <div class="calc-row">
+            <div class="calc-field">
+              <label>Дверей, шт</label>
+              <input type="number" id="o-doors" value="1" min="0" oninput="calcObsh()">
+            </div>
+            <div class="calc-field">
+              <label>Окон, шт</label>
+              <input type="number" id="o-wins" value="1" min="0" oninput="calcObsh()">
+            </div>
+          </div>
+
+          <hr class="calc-divider">
+
+          <div class="calc-field">
+            <label>Шаг профилей</label>
+            <div class="select-wrap">
+              <select id="o-step" onchange="calcObsh()">
+                <option value="0.4">400 мм — усиленный</option>
+                <option value="0.6" selected>600 мм — стандарт</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="calc-field">
+            <label>Слоёв ГКЛ</label>
+            <div class="select-wrap">
+              <select id="o-gkl-type" onchange="calcObsh()">
+                <option value="1">1 слой (12.5 мм)</option>
+                <option value="2">2 слоя (25 мм)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="calc-check">
+            <input type="checkbox" id="o-reserve" onchange="calcObsh()">
+            <label for="o-reserve">Запас 10% на подрезку</label>
+          </div>
+
+          <button class="calc-btn" onclick="calcObsh()">Рассчитать</button>
+        </div>
+
+        <div id="obsh-results" class="calc-results">
+          <div class="calc-empty">
+            <div class="calc-empty-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="0" stroke="currentColor" stroke-width="1.5"/><path d="M8 12h8M8 8h8M8 16h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </div>
+            Заполните параметры и нажмите «Рассчитать»
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== ПЕРЕГОРОДКА ==================== -->
+<div id="peregorodka" class="calc-section">
+  <div class="calc-body">
+    <div class="container">
+      <div class="calc-desc">
+        Расчёт перегородки из ГКЛ на каркасе CW/UW. Обшивка с двух сторон.
+      </div>
+      <div class="calc-grid">
+        <div class="calc-card">
+          <div class="calc-card-title">Параметры перегородки</div>
+
+          <div class="calc-row">
+            <div class="calc-field">
+              <label>Длина, м</label>
+              <input type="number" id="p-len" value="4" min="0" step="0.1" oninput="calcPereg()">
+            </div>
+            <div class="calc-field">
+              <label>Высота, м</label>
+              <input type="number" id="p-h" value="2.7" min="0" step="0.05" oninput="calcPereg()">
+            </div>
+          </div>
+
+          <div class="calc-field">
+            <label>Слоёв ГКЛ (с каждой стороны)</label>
+            <div class="select-wrap">
+              <select id="p-layers" onchange="calcPereg()">
+                <option value="1">1 слой</option>
+                <option value="2">2 слоя</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="calc-field">
+            <label>Шаг стоек CW</label>
+            <div class="select-wrap">
+              <select id="p-step" onchange="calcPereg()">
+                <option value="0.4">400 мм — усиленный</option>
+                <option value="0.6" selected>600 мм — стандарт</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="calc-field">
+            <label>Ширина профиля CW, мм</label>
+            <div class="select-wrap">
+              <select id="p-prof" onchange="calcPereg()">
+                <option value="50">CW 50</option>
+                <option value="75" selected>CW 75</option>
+                <option value="100">CW 100</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="calc-field">
+            <label>Дверные проёмы, шт</label>
+            <input type="number" id="p-doors" value="0" min="0" oninput="calcPereg()">
+          </div>
+
+          <div class="calc-check">
+            <input type="checkbox" id="p-reserve" onchange="calcPereg()">
+            <label for="p-reserve">Запас 10%</label>
+          </div>
+
+          <button class="calc-btn" onclick="calcPereg()">Рассчитать</button>
+        </div>
+
+        <div id="pereg-results" class="calc-results">
+          <div class="calc-empty">
+            <div class="calc-empty-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="0" stroke="currentColor" stroke-width="1.5"/><path d="M8 12h8M8 8h8M8 16h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </div>
+            Заполните параметры и нажмите «Рассчитать»
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== КЛАДКА ==================== -->
+<div id="kladka" class="calc-section">
+  <div class="calc-body">
+    <div class="container">
+      <div class="calc-desc">
+        Расчёт материалов для кладки стен из кирпича, газобетона, пеноблока или керамзитобетонных блоков.
+      </div>
+      <div class="calc-grid">
+        <div class="calc-card">
+          <div class="calc-card-title">Параметры стены</div>
+
+          <div class="calc-field">
+            <label>Тип материала</label>
+            <div class="select-wrap">
+              <select id="kl-mat" onchange="calcKladka()">
+                <optgroup label="Кирпич">
+                  <option value="brick-single" selected>Кирпич одинарный (250×120×65)</option>
+                  <option value="brick-poltora">Кирпич полуторный (250×120×88)</option>
+                  <option value="brick-double">Кирпич двойной (250×120×138)</option>
+                  <option value="brick-face">Облицовочный одинарный (250×120×65)</option>
+                </optgroup>
+                <optgroup label="Газоблок">
+                  <option value="gas-600x300x200">Газоблок 600×300×200</option>
+                  <option value="gas-600x300x250">Газоблок 600×300×250</option>
+                  <option value="gas-625x250x100">Газоблок 625×250×100</option>
+                  <option value="gas-625x250x150">Газоблок 625×250×150</option>
+                </optgroup>
+                <optgroup label="Пеноблок">
+                  <option value="foam-600x300x200">Пеноблок 600×300×200</option>
+                  <option value="foam-600x300x250">Пеноблок 600×300×250</option>
+                </optgroup>
+                <optgroup label="Керамзитобетон">
+                  <option value="ker-390x190x188">Керамзитоблок 390×190×188</option>
+                  <option value="ker-390x90x188">Керамзитоблок 390×90×188</option>
+                </optgroup>
+              </select>
+            </div>
+          </div>
+
+          <div class="calc-field">
+            <label>Тип кладки (для кирпича)</label>
+            <div class="select-wrap">
+              <select id="kl-thick" onchange="calcKladka()">
+                <option value="0.5">В полкирпича (120 мм)</option>
+                <option value="1" selected>В 1 кирпич (250 мм)</option>
+                <option value="1.5">В 1.5 кирпича (380 мм)</option>
+                <option value="2">В 2 кирпича (510 мм)</option>
+              </select>
+            </div>
+            <div class="hint">Для блоков — толщина определяется размером блока</div>
+          </div>
+
+          <hr class="calc-divider">
+
+          <div class="calc-row">
+            <div class="calc-field">
+              <label>Длина, м</label>
+              <input type="number" id="kl-len" value="6" min="0" step="0.1" oninput="calcKladka()">
+            </div>
+            <div class="calc-field">
+              <label>Высота, м</label>
+              <input type="number" id="kl-h" value="3" min="0" step="0.05" oninput="calcKladka()">
+            </div>
+          </div>
+
+          <div class="calc-row">
+            <div class="calc-field">
+              <label>Дверей, шт</label>
+              <input type="number" id="kl-doors" value="1" min="0" oninput="calcKladka()">
+            </div>
+            <div class="calc-field">
+              <label>Окон, шт</label>
+              <input type="number" id="kl-wins" value="0" min="0" oninput="calcKladka()">
+            </div>
+          </div>
+
+          <hr class="calc-divider">
+
+          <div class="calc-field">
+            <label>Толщина шва</label>
+            <div class="select-wrap">
+              <select id="kl-seam" onchange="calcKladka()">
+                <option value="2">2 мм — клей</option>
+                <option value="10" selected>10 мм — раствор</option>
+                <option value="12">12 мм</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="calc-check">
+            <input type="checkbox" id="kl-mesh" onchange="calcKladka()">
+            <label for="kl-mesh">Армирующая сетка</label>
+          </div>
+          <div class="calc-check">
+            <input type="checkbox" id="kl-reserve" checked onchange="calcKladka()">
+            <label for="kl-reserve">Запас 5%</label>
+          </div>
+
+          <button class="calc-btn" onclick="calcKladka()">Рассчитать</button>
+        </div>
+
+        <div id="kladka-results" class="calc-results">
+          <div class="calc-empty">
+            <div class="calc-empty-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="0" stroke="currentColor" stroke-width="1.5"/><path d="M8 12h8M8 8h8M8 16h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </div>
+            Заполните параметры и нажмите «Рассчитать»
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== ШТУКАТУРКА ==================== -->
+<div id="shtukaturka" class="calc-section">
+  <div class="calc-body">
+    <div class="container">
+      <div class="calc-desc">
+        Расчёт штукатурки для выравнивания стен по нормам расхода.
+      </div>
+      <div class="calc-grid">
+        <div class="calc-card">
+          <div class="calc-card-title">Параметры штукатурки</div>
+
+          <div class="calc-field">
+            <label>Площадь стен, м²</label>
+            <input type="number" id="st-area" value="50" min="0" step="0.5" oninput="calcShtuk()">
+          </div>
+
+          <div class="calc-field">
+            <label>Толщина слоя, мм</label>
+            <input type="number" id="st-thick" value="15" min="3" max="100" oninput="calcShtuk()">
+          </div>
+
+          <div class="calc-field">
+            <label>Тип штукатурки</label>
+            <div class="select-wrap">
+              <select id="st-type" onchange="calcShtuk()">
+                <option value="gypsum" selected>Гипсовая (9 кг/м²/10мм)</option>
+                <option value="cement">Цементная (17 кг/м²/10мм)</option>
+                <option value="lime">Известковая (14 кг/м²/10мм)</option>
+                <option value="decorative">Декоративная (3 кг/м²/10мм)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="calc-field">
+            <label>Упаковка</label>
+            <div class="select-wrap">
+              <select id="st-pack" onchange="calcShtuk()">
+                <option value="25">25 кг</option>
+                <option value="30" selected>30 кг</option>
+              </select>
+            </div>
+          </div>
+
+          <hr class="calc-divider">
+
+          <div class="calc-check">
+            <input type="checkbox" id="st-mesh" onchange="calcShtuk()">
+            <label for="st-mesh">Сетка штукатурная</label>
+          </div>
+          <div class="calc-check">
+            <input type="checkbox" id="st-mayak" checked onchange="calcShtuk()">
+            <label for="st-mayak">Маяки</label>
+          </div>
+          <div class="calc-check">
+            <input type="checkbox" id="st-grunt" checked onchange="calcShtuk()">
+            <label for="st-grunt">Грунтовка</label>
+          </div>
+          <div class="calc-check">
+            <input type="checkbox" id="st-reserve" onchange="calcShtuk()">
+            <label for="st-reserve">Запас 10%</label>
+          </div>
+
+          <button class="calc-btn" onclick="calcShtuk()">Рассчитать</button>
+        </div>
+
+        <div id="shtuk-results" class="calc-results">
+          <div class="calc-empty">
+            <div class="calc-empty-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="0" stroke="currentColor" stroke-width="1.5"/><path d="M8 12h8M8 8h8M8 16h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </div>
+            Заполните параметры и нажмите «Рассчитать»
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== ШПАКЛЁВКА ==================== -->
+<div id="shpaklevka" class="calc-section">
+  <div class="calc-body">
+    <div class="container">
+      <div class="calc-desc">
+        Расчёт шпаклёвки. Стартовая ~1.2 кг/м², финишная ~0.5 кг/м² за слой.
+      </div>
+      <div class="calc-grid">
+        <div class="calc-card">
+          <div class="calc-card-title">Параметры поверхности</div>
+
+          <div class="calc-field">
+            <label>Площадь, м²</label>
+            <input type="number" id="sh-area" value="50" min="0" step="0.5" oninput="calcShp()">
+          </div>
+
+          <div class="calc-field">
+            <label>Тип шпаклёвки</label>
+            <div class="select-wrap">
+              <select id="sh-type" onchange="calcShp()">
+                <option value="start">Стартовая</option>
+                <option value="finish">Финишная</option>
+                <option value="both" selected>Стартовая + Финишная</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="calc-field">
+            <label>Слоёв стартовой</label>
+            <div class="select-wrap">
+              <select id="sh-start-layers" onchange="calcShp()">
+                <option value="1">1 слой</option>
+                <option value="2" selected>2 слоя</option>
+                <option value="3">3 слоя</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="calc-field">
+            <label>Слоёв финишной</label>
+            <div class="select-wrap">
+              <select id="sh-finish-layers" onchange="calcShp()">
+                <option value="1" selected>1 слой</option>
+                <option value="2">2 слоя</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="calc-field">
+            <label>Упаковка, кг</label>
+            <div class="select-wrap">
+              <select id="sh-pack" onchange="calcShp()">
+                <option value="5">5 кг</option>
+                <option value="10">10 кг</option>
+                <option value="20">20 кг</option>
+                <option value="25" selected>25 кг</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="calc-check">
+            <input type="checkbox" id="sh-reserve" onchange="calcShp()">
+            <label for="sh-reserve">Запас 10%</label>
+          </div>
+
+          <button class="calc-btn" onclick="calcShp()">Рассчитать</button>
+        </div>
+
+        <div id="shp-results" class="calc-results">
+          <div class="calc-empty">
+            <div class="calc-empty-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="0" stroke="currentColor" stroke-width="1.5"/><path d="M8 12h8M8 8h8M8 16h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </div>
+            Заполните параметры и нажмите «Рассчитать»
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== КРАСКА ==================== -->
+<div id="kraska" class="calc-section">
+  <div class="calc-body">
+    <div class="container">
+      <div class="calc-desc">
+        Расчёт расхода краски для стен и потолков.
+      </div>
+      <div class="calc-grid">
+        <div class="calc-card">
+          <div class="calc-card-title">Параметры окраски</div>
+
+          <div class="calc-field">
+            <label>Площадь, м²</label>
+            <input type="number" id="k-area" value="50" min="0" step="0.5" oninput="calcKraska()">
+          </div>
+
+          <div class="calc-field">
+            <label>Тип краски</label>
+            <div class="select-wrap">
+              <select id="k-type" onchange="calcKraska()">
+                <option value="water">Водоэмульсионная (12 м²/л)</option>
+                <option value="acryl" selected>Акриловая (10 м²/л)</option>
+                <option value="latex">Латексная (8 м²/л)</option>
+                <option value="facade">Фасадная (7 м²/л)</option>
+                <option value="custom">Своя норма</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="calc-field" id="k-custom-row" style="display:none">
+            <label>Расход, м²/л</label>
+            <input type="number" id="k-custom" value="10" min="1" step="0.5" oninput="calcKraska()">
+          </div>
+
+          <div class="calc-field">
+            <label>Слоёв нанесения</label>
+            <div class="select-wrap">
+              <select id="k-layers" onchange="calcKraska()">
+                <option value="1">1 слой</option>
+                <option value="2" selected>2 слоя</option>
+                <option value="3">3 слоя</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="calc-field">
+            <label>Грунтовка</label>
+            <div class="select-wrap">
+              <select id="k-grunt" onchange="calcKraska()">
+                <option value="no">Без грунтовки</option>
+                <option value="yes" selected>С грунтовкой</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="calc-field">
+            <label>Объём тары, л</label>
+            <div class="select-wrap">
+              <select id="k-can" onchange="calcKraska()">
+                <option value="1">1 л</option>
+                <option value="3">3 л</option>
+                <option value="5" selected>5 л</option>
+                <option value="10">10 л</option>
+                <option value="20">20 л</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="calc-check">
+            <input type="checkbox" id="k-reserve" onchange="calcKraska()">
+            <label for="k-reserve">Запас 10%</label>
+          </div>
+
+          <button class="calc-btn" onclick="calcKraska()">Рассчитать</button>
+        </div>
+
+        <div id="kraska-results" class="calc-results">
+          <div class="calc-empty">
+            <div class="calc-empty-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="0" stroke="currentColor" stroke-width="1.5"/><path d="M8 12h8M8 8h8M8 16h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </div>
+            Заполните параметры и нажмите «Рассчитать»
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== ПЛИТКА ==================== -->
+<div id="plitka" class="calc-section">
+  <div class="calc-body">
+    <div class="container">
+      <div class="calc-desc">
+        Расчёт плитки, плиточного клея и затирки швов.
+      </div>
+      <div class="calc-grid">
+        <div class="calc-card">
+          <div class="calc-card-title">Параметры укладки</div>
+
+          <div class="calc-field">
+            <label>Площадь, м²</label>
+            <input type="number" id="t-area" value="20" min="0" step="0.5" oninput="calcTile()">
+          </div>
+
+          <div class="calc-field">
+            <label>Размер плитки</label>
+            <div class="select-wrap">
+              <select id="t-size" onchange="calcTile()">
+                <option value="100x100">100 × 100 мм</option>
+                <option value="200x200">200 × 200 мм</option>
+                <option value="200x300">200 × 300 мм</option>
+                <option value="300x300" selected>300 × 300 мм</option>
+                <option value="300x600">300 × 600 мм</option>
+                <option value="600x600">600 × 600 мм</option>
+                <option value="600x1200">600 × 1200 мм</option>
+                <option value="custom">Свой размер</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="calc-row" id="t-custom-row" style="display:none">
+            <div class="calc-field">
+              <label>Длина, мм</label>
+              <input type="number" id="t-cw" value="300" min="50" oninput="calcTile()">
+            </div>
+            <div class="calc-field">
+              <label>Ширина, мм</label>
+              <input type="number" id="t-ch" value="300" min="50" oninput="calcTile()">
+            </div>
+          </div>
+
+          <div class="calc-row">
+            <div class="calc-field">
+              <label>Шов, мм</label>
+              <div class="select-wrap">
+                <select id="t-seam" onchange="calcTile()">
+                  <option value="1">1 мм</option>
+                  <option value="2" selected>2 мм</option>
+                  <option value="3">3 мм</option>
+                  <option value="5">5 мм</option>
+                  <option value="8">8 мм</option>
+                  <option value="10">10 мм</option>
+                </select>
+              </div>
+            </div>
+            <div class="calc-field">
+              <label>Подрезка, %</label>
+              <div class="select-wrap">
+                <select id="t-cut" onchange="calcTile()">
+                  <option value="5">5%</option>
+                  <option value="10" selected>10%</option>
+                  <option value="15">15%</option>
+                  <option value="20">20%</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <hr class="calc-divider">
+
+          <div class="calc-field">
+            <label>Тип клея</label>
+            <div class="select-wrap">
+              <select id="t-glue" onchange="calcTile()">
+                <option value="3.5">Стандарт (3.5 кг/м²)</option>
+                <option value="5" selected>Универсал (5 кг/м²)</option>
+                <option value="7">Усиленный (7 кг/м²)</option>
+                <option value="9">Крупный формат (9 кг/м²)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="calc-row">
+            <div class="calc-field">
+              <label>Упаковка клея</label>
+              <div class="select-wrap">
+                <select id="t-glue-pack" onchange="calcTile()">
+                  <option value="5">5 кг</option>
+                  <option value="25" selected>25 кг</option>
+                </select>
+              </div>
+            </div>
+            <div class="calc-field">
+              <label>Упаковка затирки</label>
+              <div class="select-wrap">
+                <select id="t-grout-pack" onchange="calcTile()">
+                  <option value="1">1 кг</option>
+                  <option value="2" selected>2 кг</option>
+                  <option value="5">5 кг</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <button class="calc-btn" onclick="calcTile()">Рассчитать</button>
+        </div>
+
+        <div id="tile-results" class="calc-results">
+          <div class="calc-empty">
+            <div class="calc-empty-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="0" stroke="currentColor" stroke-width="1.5"/><path d="M8 12h8M8 8h8M8 16h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </div>
+            Заполните параметры и нажмите «Рассчитать»
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== АРМСТРОНГ ==================== -->
+<div id="armstrong" class="calc-section">
+  <div class="calc-body">
+    <div class="container">
+      <div class="calc-desc">
+        Расчёт материалов для подвесного потолка типа «Армстронг».
+      </div>
+      <div class="calc-grid">
+        <div class="calc-card">
+          <div class="calc-card-title">Параметры потолка</div>
+
+          <div class="calc-row">
+            <div class="calc-field">
+              <label>Длина, м</label>
+              <input type="number" id="a-len" value="6" min="0" step="0.1" oninput="calcArm()">
+            </div>
+            <div class="calc-field">
+              <label>Ширина, м</label>
+              <input type="number" id="a-wid" value="4" min="0" step="0.1" oninput="calcArm()">
+            </div>
+          </div>
+
+          <div class="calc-field">
+            <label>Высота подвеса, мм</label>
+            <input type="number" id="a-drop" value="200" min="50" step="10" oninput="calcArm()">
+          </div>
+
+          <div class="calc-field">
+            <label>Размер плиты</label>
+            <div class="select-wrap">
+              <select id="a-tile" onchange="calcArm()">
+                <option value="600x600" selected>600 × 600 мм</option>
+                <option value="600x1200">600 × 1200 мм</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="calc-field">
+            <label>Тип плиты</label>
+            <div class="select-wrap">
+              <select id="a-type" onchange="calcArm()">
+                <option value="standard" selected>Стандартная</option>
+                <option value="moisture">Влагостойкая</option>
+                <option value="acoustic">Акустическая</option>
+                <option value="hygiene">Гигиеническая</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="calc-check">
+            <input type="checkbox" id="a-reserve" checked onchange="calcArm()">
+            <label for="a-reserve">Запас 5%</label>
+          </div>
+
+          <button class="calc-btn" onclick="calcArm()">Рассчитать</button>
+        </div>
+
+        <div id="arm-results" class="calc-results">
+          <div class="calc-empty">
+            <div class="calc-empty-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="0" stroke="currentColor" stroke-width="1.5"/><path d="M8 12h8M8 8h8M8 16h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </div>
+            Заполните параметры и нажмите «Рассчитать»
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">DUM<span>A</span>EV</div>
+        <p class="footer-desc">
+          Профессиональный коммерческий ремонт под ключ в Челябинске.
+          От демонтажа до финишной отделки.
+        </p>
+        <div class="footer-social">
+          <a href="#" aria-label="Telegram">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M15.9 2.1L1.5 7.5c-.95.38-.93.92-.18 1.15l3.55 1.1 8.25-5.2c.38-.24.74-.11.45.15L6.4 10.97l-.17 3.66c.25 0 .36-.11.5-.24l1.2-1.16 2.5 1.83c.46.25.79.12.9-.43l1.62-7.6c.17-.67-.25-.97-.77-.77z" fill="currentColor"/></svg>
+          </a>
+          <a href="#" aria-label="WhatsApp">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 1C4.58 1 1 4.58 1 9c0 1.41.37 2.74 1 3.9L1 17l4.21-.98A8 8 0 009 17c4.42 0 8-3.58 8-8s-3.58-8-8-8zm3.7 10.7c-.16.45-.94.88-1.3.93-.33.05-.74.07-1.2-.08-.28-.09-.63-.21-1.09-.41A8.6 8.6 0 015.5 8.7c-.3-.38-.62-.98-.62-1.57 0-.59.3-1.13.82-1.53.22-.16.47-.24.7-.24.08 0 .16 0 .23.01.2.01.3.02.44.34.16.35.55 1.34.6 1.43.05.1.08.21.02.34-.06.13-.09.2-.18.31-.09.11-.18.24-.26.32-.09.09-.18.18-.08.36.1.17.45.74.97 1.2.67.59 1.23.77 1.4.86.18.08.28.07.39-.04.11-.11.46-.54.58-.72.12-.18.25-.15.42-.09l1.33.63c.19.09.32.14.37.21.05.08.05.45-.1.9z" fill="currentColor"/></svg>
+          </a>
+          <a href="#" aria-label="VK">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9.5 12.5H8.3c0 0-2.8 0-5.3-2.7C.5 7 .5 4.5.5 4.5H3c0 0-.1 2 1.2 3.4.8.8 1.6 1 1.6 1V4.5h2.5V8c0 0 .2.1.5-.1C9.4 7.6 10.2 6 10.2 4.5H13c0 0-.5 2.1-2.3 3.5 1.3.7 2.8 2.5 2.8 4.5h-2.5c0 0-.1-1.4-1.5-2.7v2.7z" fill="currentColor"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Услуги</h4>
+        <ul>
+          <li><a href="services.html#demolition">Демонтажные работы</a></li>
+          <li><a href="services.html#redesign">Перепланировка</a></li>
+          <li><a href="services.html#engineering">Инженерные системы</a></li>
+          <li><a href="services.html#rough">Черновые работы</a></li>
+          <li><a href="services.html#finishing">Чистовая отделка</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Компания</h4>
+        <ul>
+          <li><a href="about.html">О компании</a></li>
+          <li><a href="projects.html">Проекты</a></li>
+          <li><a href="contact.html">Контакты</a></li>
+          <li><a href="calculator.html">Калькулятор</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Контакты</h4>
+        <div class="footer-contact-item">
+          <div class="footer-contact-icon">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1C5.24 1 3 3.24 3 6c0 4.25 5 9 5 9s5-4.75 5-9c0-2.76-2.24-5-5-5zm0 6.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3z" fill="currentColor"/></svg>
+          </div>
+          <div>
+            <div class="footer-contact-label">Адрес</div>
+            <div class="footer-contact-val">Челябинск, ул. Калинина, 5а</div>
+          </div>
+        </div>
+        <div class="footer-contact-item">
+          <div class="footer-contact-icon">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13.5 10.1c-.6-.06-1.2-.2-1.8-.43-.2-.08-.43-.03-.58.12l-1.12 1.12A9.85 9.85 0 014.1 5.01l1.12-1.12c.15-.15.2-.38.12-.58A8.1 8.1 0 015.1 1.7C5.04 1.22 4.66.9 4.2.9H2.2C1.7.9 1.3 1.33 1.3 1.83 1.3 7.98 6.32 13 12.47 13c.5 0 .93-.43.93-.93v-1.9c0-.47-.36-.88-.83-.93l-.07-.04z" fill="currentColor"/></svg>
+          </div>
+          <div>
+            <div class="footer-contact-label">Телефон</div>
+            <div class="footer-contact-val"><a href="tel:+79090856451">+7 (909) 085-64-51</a></div>
+          </div>
+        </div>
+        <div class="footer-contact-item">
+          <div class="footer-contact-icon">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 4l6 4.5L14 4M2 13h12V3H2v10z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg>
+          </div>
+          <div>
+            <div class="footer-contact-label">Email</div>
+            <div class="footer-contact-val"><a href="mailto:navruz@dumaev.ru">navruz@dumaev.ru</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2025 DUMAEV. Все права защищены. · <a href="privacy.html" style="color:var(--gray-3);text-decoration:underline;">Политика конфиденциальности</a></span>
+      <span>ИНН 746008404699 · ОГРНИП 325745600069102</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script>
+/* ─── helpers ─── */
+function ri(id){return parseFloat(document.getElementById(id).value)||0}
+function rv(id){return document.getElementById(id).value}
+function rb(id){return document.getElementById(id).checked}
+function r2(n){return Math.round(n*100)/100}
+
+function resItem(name,value,unit,tag){
+  return '<div class="res-item">'
+    +'<span class="res-name">'+name+(tag?'<span class="res-tag">'+tag+'</span>':'')+'</span>'
+    +'<span class="res-value">'+value+'<span class="res-unit">'+unit+'</span></span>'
+    +'</div>';
+}
+function resGroup(title,items){
+  return '<div class="res-group"><div class="res-group-title">'+title+'</div>'+items+'</div>';
+}
+function cta(){
+  return '<div class="calc-cta">'
+    +'<div class="calc-cta-title">Выполним работы под ключ</div>'
+    +'<div class="calc-cta-text">Закажите бесплатный выезд специалиста — точный расчёт стоимости работ на вашем объекте</div>'
+    +'<div class="calc-cta-feats">'
+    +'<span class="calc-cta-feat">Бесплатный выезд и замер</span>'
+    +'<span class="calc-cta-feat">Гарантия 3 года</span>'
+    +'<span class="calc-cta-feat">Договор с фиксированной ценой</span>'
+    +'</div>'
+    +'<a href="contact.html" class="calc-cta-btn">Получить расчёт <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>'
+    +'</div>';
+}
+function renderResults(id,html){
+  var el=document.getElementById(id);
+  el.innerHTML='<div class="calc-results-title">Спецификация материалов</div>'+html+cta();
+}
+
+/* ─── TABS ─── */
+document.querySelectorAll('.calc-tab').forEach(function(tab){
+  tab.addEventListener('click',function(){
+    document.querySelectorAll('.calc-section').forEach(function(s){s.classList.remove('active')});
+    document.querySelectorAll('.calc-tab').forEach(function(t){t.classList.remove('active')});
+    document.getElementById(tab.dataset.tab).classList.add('active');
+    tab.classList.add('active');
+  });
+});
+
+/* ─── ОБШИВКА ГКЛ ─── */
+function toggleObshMode(){
+  var mode=rv('o-mode');
+  document.getElementById('o-room-fields').style.display=mode==='room'?'block':'none';
+  document.getElementById('o-wall-fields').style.display=mode==='wall'?'block':'none';
+  document.getElementById('o-type-wrap').style.display=mode==='wall'?'none':'block';
+  calcObsh();
+}
+
+function calcObsh(){
+  var mode=rv('o-mode')||'room';
+  var type=rv('o-type');
+  if(mode==='wall')type='wall';
+  var doors=ri('o-doors'),wins=ri('o-wins'),layers=parseInt(rv('o-gkl-type'));
+  var reserve=rb('o-reserve'),step=parseFloat(rv('o-step'));
+  var DOOR=2.0*0.9,WIN=1.5*1.2;
+  var L,W,H,wallArea=0,ceilArea=0,perimWalls=0;
+  if(mode==='room'){
+    L=ri('o-len');W=ri('o-wid');H=ri('o-h');
+    if(type==='wall'||type==='both')wallArea=2*(L+W)*H-doors*DOOR-wins*WIN;
+    if(type==='ceiling'||type==='both')ceilArea=L*W;
+    perimWalls=2*(L+W);
+  }else{
+    var wL=ri('o-wall-len'),wH=ri('o-wall-h');
+    wallArea=wL*wH-doors*DOOR-wins*WIN;
+    perimWalls=wL;H=wH;L=wL;W=0;
+  }
+  var totalArea=wallArea+ceilArea;
+  if(totalArea<=0)return;
+  var udLen=0;
+  if(mode==='room'){
+    if(type==='ceiling'||type==='both')udLen+=2*(L+W);
+    if(type==='wall'||type==='both')udLen+=2*(L+W)*2;
+  }else{udLen=L*2;}
+  var cdLen=0;
+  if(mode==='room'&&(type==='ceiling'||type==='both')){
+    cdLen+=(Math.ceil(W/step)+1)*L;
+    cdLen+=Math.ceil(L/2.5)*W;
+  }
+  if(type==='wall'||type==='both'){
+    var cdCnt=Math.ceil(perimWalls/step)+(mode==='room'?4:1);
+    cdLen+=cdCnt*H+(doors+wins)*H*2;
+  }
+  var hangers=0;
+  if(mode==='room'&&(type==='ceiling'||type==='both'))
+    hangers=Math.ceil((Math.ceil(W/step)+1)*Math.ceil(L/0.6));
+  var wallHangers=0;
+  if(type==='wall'||type==='both'){
+    var cdCntW=Math.ceil(perimWalls/step)+(mode==='room'?4:1);
+    wallHangers=cdCntW*Math.ceil(H/1.0);
+  }
+  var SHEET=1.2*2.5;
+  var areaGKL=totalArea*layers*(reserve?1.1:1);
+  var sheets=Math.ceil(areaGKL/SHEET);
+  var scrGKL=0;
+  if(wallArea>0)scrGKL+=Math.ceil(wallArea*layers*23);
+  if(ceilArea>0)scrGKL+=Math.ceil(ceilArea*layers*29);
+  if(reserve)scrGKL=Math.ceil(scrGKL*1.1);
+  var scrMM=Math.ceil(cdLen/0.5*2);
+  var serpyanka=Math.ceil(totalArea*1.7);
+  var jointPutty=r2(totalArea*0.3);
+  var grunt=r2(totalArea/9);
+  var dyubeli=Math.ceil(udLen*2)+hangers*2+wallHangers;
+  var stepLbl=step===0.4?'400 мм':'600 мм';
+  var rT=reserve?'+10%':null;
+  var html=resGroup('ГКЛ и профили',
+    resItem('Листы ГКЛ 1200×2500×12.5',sheets,'шт',rT)+
+    resItem('Профиль UD/UW',Math.ceil(udLen),'п.м.')+
+    resItem('Профиль CD/CW (шаг '+stepLbl+')',Math.ceil(cdLen),'п.м.')+
+    (mode==='room'&&(type==='ceiling'||type==='both')?resItem('Подвесы П-образные',hangers,'шт'):'')+
+    ((type==='wall'||type==='both')?resItem('Подвесы прямые (стены)',wallHangers,'шт'):''))+
+  resGroup('Крепёж',
+    resItem('Саморезы ГКЛ 3.5×25/35',scrGKL,'шт')+
+    resItem('Саморезы LN9 (М–М)',scrMM,'шт')+
+    resItem('Дюбель-гвоздь 6×40',dyubeli,'шт'))+
+  resGroup('Расходники',
+    resItem('Лента-серпянка',serpyanka,'п.м.')+
+    resItem('Шпаклёвка для швов',jointPutty,'кг')+
+    resItem('Грунтовка',grunt,'л'))+
+  resGroup('Площади',
+    (wallArea>0?resItem(mode==='wall'?'Площадь стены':'Стены',r2(wallArea),'м²'):'')+
+    (ceilArea>0?resItem('Потолок',r2(ceilArea),'м²'):'')+
+    resItem('Итого',r2(totalArea),'м²'));
+  renderResults('obsh-results',html);
+}
+
+/* ─── ПЕРЕГОРОДКА ─── */
+function calcPereg(){
+  var L=ri('p-len'),H=ri('p-h'),layers=parseInt(rv('p-layers'));
+  var profW=parseInt(rv('p-prof')),doors=ri('p-doors'),reserve=rb('p-reserve');
+  var step=parseFloat(rv('p-step'));
+  var DOOR=2.0*0.9;
+  var area=L*H-doors*DOOR;
+  if(area<=0)return;
+  var gklArea=area*2*layers*(reserve?1.1:1);
+  var sheets=Math.ceil(gklArea/(1.2*2.5));
+  var uw=Math.ceil(L*2);
+  var cwCnt=Math.ceil(L/step)+1+doors*2;
+  var cw=Math.ceil(cwCnt*H);
+  var jumpers=Math.ceil(doors*1.1+cwCnt*Math.floor(H/1.25)*0.6);
+  var scrGKL=Math.ceil(gklArea*23);
+  var scrMM=Math.ceil(cwCnt*4+jumpers*2+uw);
+  var serpyanka=Math.ceil(area*2*1.7);
+  var jointPutty=r2(area*2*0.3);
+  var grunt=r2(area*2/9);
+  var dyubeli=Math.ceil(uw*2+8+doors*4);
+  var vata=r2(area);
+  var rT=reserve?'+10%':null;
+  var stepLbl=step===0.4?'400 мм':'600 мм';
+  var html=resGroup('ГКЛ и профили',
+    resItem('Листы ГКЛ 1200×2500×12.5',sheets,'шт',rT)+
+    resItem('Профиль UW-'+profW+' (направляющий)',uw,'п.м.')+
+    resItem('Профиль CW-'+profW+' (стойки, шаг '+stepLbl+')',cw,'п.м.')+
+    resItem('Перемычки + усиление проёмов',jumpers,'шт'))+
+  resGroup('Крепёж',
+    resItem('Саморезы ГКЛ 3.5×25/35',scrGKL,'шт')+
+    resItem('Саморезы LN9 (М–М)',scrMM,'шт')+
+    resItem('Дюбель-гвоздь 6×40',dyubeli,'шт'))+
+  resGroup('Расходники',
+    resItem('Лента-серпянка',serpyanka,'п.м.')+
+    resItem('Шпаклёвка для швов',jointPutty,'кг')+
+    resItem('Грунтовка',grunt,'л')+
+    resItem('Звукоизоляция мин.вата '+profW+'мм',vata,'м²'))+
+  resGroup('Площади',
+    resItem('Площадь перегородки',r2(area),'м²')+
+    resItem('Облицовка ГКЛ (2 стороны × '+layers+' сл.)',r2(area*2*layers),'м²'));
+  renderResults('pereg-results',html);
+}
+
+/* ─── КЛАДКА ─── */
+var KLADKA={
+  'brick-single':{name:'Кирпич одинарный',L:.250,W:.120,H:.065,isBrick:true,weight:3.5},
+  'brick-poltora':{name:'Кирпич полуторный',L:.250,W:.120,H:.088,isBrick:true,weight:4.3},
+  'brick-double':{name:'Кирпич двойной',L:.250,W:.120,H:.138,isBrick:true,weight:6.6},
+  'brick-face':{name:'Облицовочный',L:.250,W:.120,H:.065,isBrick:true,weight:3.5},
+  'gas-600x300x200':{name:'Газоблок 600×300×200',L:.600,W:.300,H:.200},
+  'gas-600x300x250':{name:'Газоблок 600×300×250',L:.600,W:.300,H:.250},
+  'gas-625x250x100':{name:'Газоблок 625×250×100',L:.625,W:.100,H:.250},
+  'gas-625x250x150':{name:'Газоблок 625×250×150',L:.625,W:.150,H:.250},
+  'foam-600x300x200':{name:'Пеноблок 600×300×200',L:.600,W:.300,H:.200},
+  'foam-600x300x250':{name:'Пеноблок 600×300×250',L:.600,W:.300,H:.250},
+  'ker-390x190x188':{name:'Керамзитоблок 390×190×188',L:.390,W:.190,H:.188,weight:14},
+  'ker-390x90x188' :{name:'Керамзитоблок 390×90×188', L:.390,W:.090,H:.188,weight:7}
+};
+function calcKladka(){
+  var mat=KLADKA[rv('kl-mat')];
+  var thickMul=parseFloat(rv('kl-thick'));
+  var L=ri('kl-len'),H=ri('kl-h');
+  var doors=ri('kl-doors'),wins=ri('kl-wins');
+  var seam=parseFloat(rv('kl-seam'))/1000;
+  var useMesh=rb('kl-mesh'),reserve=rb('kl-reserve');
+  var DOOR=2.0*0.9,WIN=1.5*1.2;
+  var area=L*H-doors*DOOR-wins*WIN;
+  if(area<=0||L<=0||H<=0)return;
+  var wallThick=mat.isBrick?{0.5:.120,1:.250,1.5:.380,2:.510}[thickMul]:mat.W;
+  var volume=area*wallThick;
+  var blocks;
+  if(mat.isBrick){
+    var t={0.065:{0.5:51,1:102,1.5:153,2:204},0.088:{0.5:39,1:78,1.5:117,2:156},0.138:{0.5:26,1:52,1.5:78,2:104}};
+    blocks=Math.ceil(area*t[mat.H][thickMul]);
+  }else{
+    blocks=Math.ceil(area/((mat.L+seam)*(mat.H+seam)));
+  }
+  if(reserve)blocks=Math.ceil(blocks*1.05);
+  var isClue=seam<=0.003&&!mat.isBrick;
+  var mortarRatio=mat.isBrick?(seam<=0.010?0.221:0.245):(isClue?0.025:0.15);
+  var mortarVol=volume*mortarRatio;
+  var mortarKg=mortarVol*(isClue?1500:1800)*1.15;
+  var mortarPack=isClue?25:50;
+  var mortarBags=Math.ceil(mortarKg/mortarPack);
+  var meshArea=0;
+  if(useMesh){
+    var rows=Math.ceil(H/(mat.H+seam));
+    var mRows=Math.ceil(rows/(mat.isBrick?5:3));
+    meshArea=r2(mRows*L*wallThick*1.1);
+  }
+  var rT=reserve?'+5%':null;
+  var thickLbl=mat.isBrick?{0.5:'в полкирпича (120 мм)',1:'в 1 кирпич (250 мм)',1.5:'в 1.5 кирпича (380 мм)',2:'в 2 кирпича (510 мм)'}[thickMul]:(wallThick*1000)+' мм';
+  var html=resGroup('Основной материал',
+    resItem(mat.name,blocks,'шт',rT)+
+    resItem('Толщина стены',thickLbl,'')+
+    resItem('Объём кладки',r2(volume),'м³')+
+    (mat.weight?resItem('Общий вес',r2(blocks*mat.weight),'кг'):''))+
+  resGroup(isClue?'Клей для блоков':'Кладочный раствор',
+    resItem('Расход смеси',r2(mortarKg),'кг')+
+    resItem('Мешков по '+mortarPack+' кг',mortarBags,'шт')+
+    resItem('Объём раствора',r2(mortarVol),'м³'))+
+  (useMesh?resGroup('Армирование',resItem('Кладочная сетка',meshArea,'м²')):'')+
+  resGroup('Параметры стены',
+    resItem('Площадь стены',r2(area),'м²')+
+    resItem('Длина × Высота',L+'×'+H,'м'));
+  renderResults('kladka-results',html);
+}
+
+/* ─── ШПАКЛЁВКА ─── */
+function calcShp(){
+  var area=ri('sh-area'),type=rv('sh-type');
+  var startL=parseInt(rv('sh-start-layers')),finishL=parseInt(rv('sh-finish-layers'));
+  var pack=parseInt(rv('sh-pack')),reserve=rb('sh-reserve');
+  if(area<=0)return;
+  var startKg=(type==='start'||type==='both')?area*1.2*startL*(reserve?1.1:1):0;
+  var finishKg=(type==='finish'||type==='both')?area*0.5*finishL*(reserve?1.1:1):0;
+  var html='';
+  if(type==='start'||type==='both')
+    html+=resGroup('Стартовая',resItem('Расход',r2(startKg),'кг',(reserve?'+10%':null))+resItem('Мешков по '+pack+' кг',Math.ceil(startKg/pack),'шт'));
+  if(type==='finish'||type==='both')
+    html+=resGroup('Финишная',resItem('Расход',r2(finishKg),'кг',(reserve?'+10%':null))+resItem('Мешков по '+pack+' кг',Math.ceil(finishKg/pack),'шт'));
+  if(type==='both')
+    html+=resGroup('Итого',resItem('Суммарно',r2(startKg+finishKg),'кг'));
+  renderResults('shp-results',html);
+}
+
+/* ─── КРАСКА ─── */
+var PAINT={water:12,acryl:10,latex:8,facade:7};
+function calcKraska(){
+  var area=ri('k-area'),type=rv('k-type'),layers=parseInt(rv('k-layers'));
+  var withGrunt=rv('k-grunt')==='yes',can=parseInt(rv('k-can')),reserve=rb('k-reserve');
+  document.getElementById('k-custom-row').style.display=type==='custom'?'block':'none';
+  var norm=type==='custom'?ri('k-custom'):PAINT[type];
+  if(area<=0||norm<=0)return;
+  var liters=(area*layers)/norm*(reserve?1.1:1);
+  var cans=Math.ceil(liters/can);
+  var gruntL=withGrunt?area/10*(reserve?1.1:1):0;
+  var gruntCans=withGrunt?Math.ceil(gruntL/5):0;
+  var names={water:'Водоэмульсионная',acryl:'Акриловая',latex:'Латексная',facade:'Фасадная',custom:'Своя'};
+  var html=resGroup('Краска — '+names[type],
+    resItem('Расход',r2(liters),'л',(reserve?'+10%':null))+
+    resItem('Банок по '+can+' л',cans,'шт')+
+    resItem('Слоёв',layers,''))+
+  (withGrunt?resGroup('Грунтовка',resItem('Расход',r2(gruntL),'л')+resItem('Банок по 5 л',gruntCans,'шт')):'')+
+  resGroup('Площадь',resItem('Площадь покрытия',r2(area),'м²'));
+  renderResults('kraska-results',html);
+}
+
+/* ─── ПЛИТКА ─── */
+function calcTile(){
+  var area=ri('t-area'),sizeKey=rv('t-size'),seam=parseFloat(rv('t-seam'));
+  var cut=parseFloat(rv('t-cut')),glueNorm=parseFloat(rv('t-glue'));
+  var gluePack=parseFloat(rv('t-glue-pack')),groutPack=parseFloat(rv('t-grout-pack'));
+  document.getElementById('t-custom-row').style.display=sizeKey==='custom'?'grid':'none';
+  var tw,th;
+  if(sizeKey==='custom'){tw=ri('t-cw');th=ri('t-ch')}else{var p=sizeKey.split('x');tw=parseFloat(p[0]);th=parseFloat(p[1]);}
+  if(area<=0||tw<=0||th<=0)return;
+  var tileArea=(tw/1000)*(th/1000);
+  var tilesBase=area/tileArea;
+  var tilesNeed=Math.ceil(tilesBase*(1+cut/100));
+  var glueKg=area*glueNorm;
+  var maxDim=Math.max(tw,th);
+  var thick=maxDim<=100?6:maxDim<=200?7:maxDim<=300?8:maxDim<=600?10:12;
+  var groutKg=((tw+th)/(tw*th))*seam*thick*1.6*area*1.15;
+  var html=resGroup('Плитка',
+    resItem('Плитка '+tw+'×'+th+' мм',tilesNeed,'шт','+'+cut+'%')+
+    resItem('Без подрезки',Math.ceil(tilesBase),'шт')+
+    resItem('Площадь с учётом запаса',r2(tilesNeed*tileArea),'м²'))+
+  resGroup('Плиточный клей',
+    resItem('Расход клея',r2(glueKg),'кг')+
+    resItem('Мешков по '+gluePack+' кг',Math.ceil(glueKg/gluePack),'шт')+
+    resItem('Норма расхода',glueNorm,'кг/м²'))+
+  resGroup('Затирка швов',
+    resItem('Расход затирки',r2(groutKg),'кг')+
+    resItem('Упаковок по '+groutPack+' кг',Math.ceil(groutKg/groutPack),'шт')+
+    resItem('Шов / толщина плитки',seam+' / '+thick,'мм'))+
+  resGroup('Расходники',
+    resItem('Крестики для швов',Math.ceil(tilesNeed*2*1.1),'шт')+
+    resItem('Грунтовка',r2(area/8),'л'));
+  renderResults('tile-results',html);
+}
+
+/* ─── ШТУКАТУРКА ─── */
+var PLASTER={gypsum:9,cement:17,lime:14,decorative:3};
+function calcShtuk(){
+  var area=ri('st-area'),thick=ri('st-thick'),type=rv('st-type'),pack=parseFloat(rv('st-pack'));
+  var useMesh=rb('st-mesh'),useMayak=rb('st-mayak'),useGrunt=rb('st-grunt'),reserve=rb('st-reserve');
+  if(area<=0||thick<=0)return;
+  var kg=PLASTER[type]*(thick/10)*area*1.05*(reserve?1.05:1);
+  var bags=Math.ceil(kg/pack);
+  var names={gypsum:'Гипсовая',cement:'Цементно-песчаная',lime:'Известковая',decorative:'Декоративная'};
+  var html=resGroup('Штукатурка — '+names[type],
+    resItem('Расход смеси',r2(kg),'кг',(reserve?'+10%':null))+
+    resItem('Мешков по '+pack+' кг',bags,'шт')+
+    resItem('Толщина слоя',thick,'мм')+
+    resItem('Норма расхода',PLASTER[type]+' кг/м²/10мм',''));
+  if(useMayak||useMesh){
+    var items='';
+    if(useMayak){
+      items+=resItem('Маяки штукатурные 6мм (3м)',Math.ceil(area/4),'шт');
+      items+=resItem('Уголки перфорированные',Math.ceil(Math.sqrt(area)*0.4),'шт');
+    }
+    if(useMesh)items+=resItem('Сетка штукатурная',r2(area*1.1),'м²');
+    html+=resGroup('Армирование',items);
+  }
+  if(useGrunt){
+    html+=resGroup('Грунтовка',
+      resItem('Бетоконтакт',r2(area*0.3),'кг')+
+      resItem('или Грунт глуб. проникновения',r2(area/8),'л'));
+  }
+  html+=resGroup('Площадь',resItem('Площадь оштукатуривания',r2(area),'м²'));
+  renderResults('shtuk-results',html);
+}
+
+/* ─── АРМСТРОНГ ─── */
+function calcArm(){
+  var L=ri('a-len'),W=ri('a-wid'),drop=ri('a-drop');
+  var tileSize=rv('a-tile'),tileType=rv('a-type'),reserve=rb('a-reserve');
+  if(L<=0||W<=0)return;
+  var area=L*W;
+  var tw=0.6,th=tileSize==='600x1200'?1.2:0.6;
+  var tilesBase=area/(tw*th);
+  var tiles=Math.ceil(reserve?tilesBase*1.05:tilesBase);
+  var mainCnt=Math.ceil(W/1.2)+1;
+  var mainProf=Math.ceil(mainCnt*L/3.7);
+  var cross12=mainCnt*Math.ceil(L/(tileSize==='600x600'?0.6:1.2));
+  var cross06=tileSize==='600x600'?(mainCnt-1)*Math.ceil(L/0.6):0;
+  var perim=2*(L+W);
+  var wallProf=Math.ceil(perim/3);
+  var hangers=mainCnt*(Math.ceil(L/1.2)+1);
+  var html=resGroup('Плиты потолочные',
+    resItem('Плита '+tileSize.replace('x','×')+' мм',tiles,'шт',(reserve?'+5%':null))+
+    resItem('Тип',{standard:'Стандартная',moisture:'Влагостойкая',acoustic:'Акустическая',hygiene:'Гигиеническая'}[tileType],'')+
+    resItem('Без подрезки',Math.ceil(tilesBase),'шт'))+
+  resGroup('Каркас подвесной',
+    resItem('Главная T24 (3.7м)',mainProf,'шт')+
+    resItem('Поперечный 1.2м',cross12,'шт')+
+    (cross06>0?resItem('Поперечный 0.6м',cross06,'шт'):'')+
+    resItem('Угловой L 19×24 (3м)',wallProf,'шт'))+
+  resGroup('Подвесы и крепёж',
+    resItem('Подвес регулируемый',hangers,'шт')+
+    resItem('Спица подвеса',Math.ceil(hangers*(drop/1000)*1.1),'м')+
+    resItem('Анкер-клин',hangers,'шт')+
+    resItem('Дюбель-гвоздь 6×40',Math.ceil(perim/0.5),'шт'))+
+  resGroup('Параметры',
+    resItem('Площадь',r2(area),'м²')+
+    resItem('Высота подвеса',drop,'мм'));
+  renderResults('arm-results',html);
+}
+</script>
+</body>
+</html>
