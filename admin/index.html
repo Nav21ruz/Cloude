@@ -341,10 +341,7 @@ button{font-family:inherit;cursor:pointer}
               <label>VK (ссылка или username)</label>
               <input type="text" id="s-vk" placeholder="https://vk.com/dumaev">
             </div>
-            <div class="field-group">
-              <label>Instagram (ссылка)</label>
-              <input type="text" id="s-instagram" placeholder="https://instagram.com/dumaev">
-            </div>
+
           </div>
 
           <div class="settings-card">
@@ -971,7 +968,6 @@ function fillSettings() {
   $('s-whatsapp').value      = c.whatsapp || '';
   $('s-telegram').value      = c.telegram || '';
   $('s-vk').value            = c.vk || '';
-  $('s-instagram').value     = c.instagram || '';
   $('s-address').value       = c.address || '';
   $('s-address-note').value  = c.addressNote || '';
   $('s-hours-wk').value      = h.weekdays || '';
@@ -1146,7 +1142,6 @@ function collectSettings() {
     whatsapp: $('s-whatsapp').value.trim(),
     telegram: $('s-telegram').value.trim(),
     vk: $('s-vk').value.trim(),
-    instagram: $('s-instagram').value.trim(),
     address: $('s-address').value.trim(),
     addressNote: $('s-address-note').value.trim(),
     hours: {

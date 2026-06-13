@@ -159,7 +159,6 @@ fetch('https://raw.githubusercontent.com/Nav21ruz/Cloude/main/data/content.json?
       setHref('[data-field="wa-link"]', `https://wa.me/${c.whatsapp}`);
       setHref('[data-field="tg-link"]', `https://t.me/${c.telegram}`);
       if (c.vk) setHref('[data-field="vk-link"]', c.vk);
-      if (c.instagram) setHref('[data-field="insta-link"]', c.instagram);
       if (c.hours) {
         set('[data-field="hours-weekdays"]', c.hours.weekdays);
         set('[data-field="hours-saturday"]', c.hours.saturday);
