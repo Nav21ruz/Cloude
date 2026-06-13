@@ -337,6 +337,14 @@ button{font-family:inherit;cursor:pointer}
               <label>Telegram (без @)</label>
               <input type="text" id="s-telegram" placeholder="dumaev_build">
             </div>
+            <div class="field-group">
+              <label>VK (ссылка или username)</label>
+              <input type="text" id="s-vk" placeholder="https://vk.com/dumaev">
+            </div>
+            <div class="field-group">
+              <label>Instagram (ссылка)</label>
+              <input type="text" id="s-instagram" placeholder="https://instagram.com/dumaev">
+            </div>
           </div>
 
           <div class="settings-card">
@@ -379,8 +387,8 @@ button{font-family:inherit;cursor:pointer}
                 <input type="number" id="s-stat-satisfaction" placeholder="98">
               </div>
               <div class="field-group">
-                <label>Специалистов в штате</label>
-                <input type="number" id="s-stat-employees" placeholder="65">
+                <label>Лет гарантии</label>
+                <input type="number" id="s-stat-guarantee" placeholder="3">
               </div>
             </div>
           </div>
@@ -962,6 +970,8 @@ function fillSettings() {
   $('s-email').value         = c.email || '';
   $('s-whatsapp').value      = c.whatsapp || '';
   $('s-telegram').value      = c.telegram || '';
+  $('s-vk').value            = c.vk || '';
+  $('s-instagram').value     = c.instagram || '';
   $('s-address').value       = c.address || '';
   $('s-address-note').value  = c.addressNote || '';
   $('s-hours-wk').value      = h.weekdays || '';
@@ -970,7 +980,7 @@ function fillSettings() {
   $('s-stat-years').value        = s.years || '';
   $('s-stat-projects').value     = s.projects || '';
   $('s-stat-satisfaction').value = s.satisfaction || '';
-  $('s-stat-employees').value    = s.employees || '';
+  $('s-stat-guarantee').value    = s.guarantee || '';
 
   const ph = (data.pages && data.pages.home)  || {};
   const pa = (data.pages && data.pages.about) || {};
@@ -1135,6 +1145,8 @@ function collectSettings() {
     email: $('s-email').value.trim(),
     whatsapp: $('s-whatsapp').value.trim(),
     telegram: $('s-telegram').value.trim(),
+    vk: $('s-vk').value.trim(),
+    instagram: $('s-instagram').value.trim(),
     address: $('s-address').value.trim(),
     addressNote: $('s-address-note').value.trim(),
     hours: {
@@ -1147,7 +1159,7 @@ function collectSettings() {
     years: +$('s-stat-years').value || 0,
     projects: +$('s-stat-projects').value || 0,
     satisfaction: +$('s-stat-satisfaction').value || 0,
-    employees: +$('s-stat-employees').value || 0
+    guarantee: +$('s-stat-guarantee').value || 0
   };
   if (!data.pages) data.pages = {};
   data.pages.home = {
