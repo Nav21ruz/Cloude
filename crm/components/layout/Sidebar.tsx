@@ -10,7 +10,6 @@ import {
   CheckSquare,
   Receipt,
   Settings,
-  Building2,
 } from "lucide-react";
 
 const navItems = [
@@ -25,16 +24,16 @@ export function Sidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="w-64 bg-slate-900 min-h-screen flex flex-col">
+    <aside className="w-64 min-h-screen flex flex-col" style={{ background: '#111', borderRight: '1px solid #2a2a2a' }}>
       {/* Logo */}
-      <div className="p-6 border-b border-slate-800">
+      <div className="p-6" style={{ borderBottom: '1px solid #2a2a2a' }}>
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-orange-500 rounded-xl flex items-center justify-center flex-shrink-0">
-            <Building2 className="w-5 h-5 text-white" />
+          <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 font-black text-black text-sm" style={{ background: '#C9A84C' }}>
+            D
           </div>
           <div>
-            <div className="text-white font-bold text-sm">КомСтрой74</div>
-            <div className="text-slate-400 text-xs">CRM система</div>
+            <div className="font-black text-sm tracking-widest" style={{ color: '#fff', letterSpacing: '0.15em' }}>DUMAEV</div>
+            <div className="text-xs" style={{ color: '#666' }}>CRM система</div>
           </div>
         </div>
       </div>
@@ -49,10 +48,13 @@ export function Sidebar() {
               href={href}
               className={cn(
                 "flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all",
-                active
-                  ? "bg-orange-500 text-white"
-                  : "text-slate-400 hover:text-white hover:bg-slate-800"
               )}
+              style={active
+                ? { background: '#C9A84C', color: '#000' }
+                : { color: '#888' }
+              }
+              onMouseEnter={e => { if (!active) { (e.currentTarget as HTMLElement).style.background = '#1a1a1a'; (e.currentTarget as HTMLElement).style.color = '#fff'; } }}
+              onMouseLeave={e => { if (!active) { (e.currentTarget as HTMLElement).style.background = 'transparent'; (e.currentTarget as HTMLElement).style.color = '#888'; } }}
             >
               <Icon className="w-5 h-5 flex-shrink-0" />
               {label}
@@ -62,15 +64,16 @@ export function Sidebar() {
       </nav>
 
       {/* Settings */}
-      <div className="p-4 border-t border-slate-800">
+      <div className="p-4" style={{ borderTop: '1px solid #2a2a2a' }}>
         <Link
           href="/settings"
-          className={cn(
-            "flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all",
-            pathname === "/settings"
-              ? "bg-orange-500 text-white"
-              : "text-slate-400 hover:text-white hover:bg-slate-800"
-          )}
+          className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all"
+          style={pathname === "/settings"
+            ? { background: '#C9A84C', color: '#000' }
+            : { color: '#888' }
+          }
+          onMouseEnter={e => { if (pathname !== "/settings") { (e.currentTarget as HTMLElement).style.background = '#1a1a1a'; (e.currentTarget as HTMLElement).style.color = '#fff'; } }}
+          onMouseLeave={e => { if (pathname !== "/settings") { (e.currentTarget as HTMLElement).style.background = 'transparent'; (e.currentTarget as HTMLElement).style.color = '#888'; } }}
         >
           <Settings className="w-5 h-5" />
           Настройки

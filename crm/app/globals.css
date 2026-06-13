@@ -1,8 +1,14 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
 
 :root {
-  --background: #f8fafc;
-  --foreground: #0f172a;
+  --background: #0a0a0a;
+  --foreground: #e5e5e5;
+  --gold: #C9A84C;
+  --gold-hover: #d4b46a;
+  --sidebar-bg: #111111;
+  --card-bg: #161616;
+  --border: #2a2a2a;
 }
 
 body {
@@ -20,12 +26,12 @@ body {
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #f1f5f9;
+  background: #111;
 }
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
+  background: #333;
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: #C9A84C;
 }

@@ -33,23 +33,24 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-900 flex items-center justify-center p-4">
+    <div className="min-h-screen flex items-center justify-center p-4" style={{ background: '#0a0a0a' }}>
       <div className="w-full max-w-md">
-        <div className="bg-white rounded-2xl shadow-2xl p-8">
+        <div className="rounded-2xl p-8" style={{ background: '#111', border: '1px solid #2a2a2a' }}>
           {/* Logo */}
           <div className="text-center mb-8">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-orange-500 rounded-2xl mb-4">
-              <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-              </svg>
+            <div
+              className="inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-4 font-black text-2xl"
+              style={{ background: '#C9A84C', color: '#000' }}
+            >
+              D
             </div>
-            <h1 className="text-2xl font-bold text-slate-900">КомСтрой74</h1>
-            <p className="text-slate-500 text-sm mt-1">Система управления проектами</p>
+            <h1 className="text-2xl font-black tracking-widest" style={{ color: '#fff', letterSpacing: '0.15em' }}>DUMAEV</h1>
+            <p className="text-sm mt-1" style={{ color: '#666' }}>Система управления проектами</p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">
+              <label className="block text-sm font-medium mb-1" style={{ color: '#888' }}>
                 Email
               </label>
               <input
@@ -57,13 +58,16 @@ export default function LoginPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent text-slate-900"
-                placeholder="you@komstroy.ru"
+                className="w-full px-4 py-3 rounded-xl text-sm outline-none transition-all"
+                style={{ background: '#0a0a0a', border: '1px solid #333', color: '#fff' }}
+                onFocus={e => (e.target.style.borderColor = '#C9A84C')}
+                onBlur={e => (e.target.style.borderColor = '#333')}
+                placeholder="you@dumaev.ru"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">
+              <label className="block text-sm font-medium mb-1" style={{ color: '#888' }}>
                 Пароль
               </label>
               <input
@@ -71,13 +75,16 @@ export default function LoginPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent text-slate-900"
+                className="w-full px-4 py-3 rounded-xl text-sm outline-none transition-all"
+                style={{ background: '#0a0a0a', border: '1px solid #333', color: '#fff' }}
+                onFocus={e => (e.target.style.borderColor = '#C9A84C')}
+                onBlur={e => (e.target.style.borderColor = '#333')}
                 placeholder="••••••••"
               />
             </div>
 
             {error && (
-              <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl text-sm">
+              <div className="px-4 py-3 rounded-xl text-sm" style={{ background: 'rgba(255,80,80,0.1)', border: '1px solid rgba(255,80,80,0.3)', color: '#f66' }}>
                 {error}
               </div>
             )}
@@ -85,7 +92,10 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-orange-500 hover:bg-orange-600 disabled:opacity-50 text-white font-semibold py-3 rounded-xl transition-colors"
+              className="w-full font-semibold py-3 rounded-xl transition-all"
+              style={{ background: '#C9A84C', color: '#000', opacity: loading ? 0.6 : 1 }}
+              onMouseEnter={e => { if (!loading) (e.currentTarget as HTMLElement).style.background = '#d4b46a'; }}
+              onMouseLeave={e => { if (!loading) (e.currentTarget as HTMLElement).style.background = '#C9A84C'; }}
             >
               {loading ? "Вход..." : "Войти"}
             </button>
