@@ -222,6 +222,10 @@ button{font-family:inherit;cursor:pointer}
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="2.5" stroke="currentColor" stroke-width="1.3"/><path d="M8 1v2M8 13v2M1 8h2M13 8h2M2.93 2.93l1.41 1.41M11.66 11.66l1.41 1.41M2.93 13.07l1.41-1.41M11.66 4.34l1.41-1.41" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
         Настройки
       </div>
+      <div class="sidebar-link" data-tab="privacy">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1L2 4v4c0 3.3 2.5 6.4 6 7 3.5-.6 6-3.7 6-7V4L8 1z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>
+        Политика
+      </div>
     </nav>
 
     <main class="content">
@@ -248,14 +252,14 @@ button{font-family:inherit;cursor:pointer}
           <!-- INLINE EDITOR -->
           <div class="settings-card settings-card-wide">
             <h3>Редактировать страницы</h3>
-            <p style="font-size:.8rem;color:var(--text3);margin:0 0 16px;">Откроет страницу в новой вкладке — кликайте на любой текст и меняйте прямо на месте.</p>
+            <p style="font-size:.8rem;color:var(--text3);margin:0 0 16px;">Откроет страницу в режиме редактирования — кликайте на любой текст и меняйте прямо на месте, затем нажмите «Сохранить».</p>
             <div style="display:flex;flex-wrap:wrap;gap:10px;">
-              <button class="edit-page-btn" onclick="openForEdit('index.html')">Главная</button>
-              <button class="edit-page-btn" onclick="openForEdit('services.html')">Услуги</button>
-              <button class="edit-page-btn" onclick="openForEdit('about.html')">О компании</button>
-              <button class="edit-page-btn" onclick="openForEdit('projects.html')">Проекты</button>
-              <button class="edit-page-btn" onclick="openForEdit('contact.html')">Контакты</button>
-              <button class="edit-page-btn" onclick="openForEdit('calculator.html')">Калькулятор</button>
+              <button class="edit-page-btn" onclick="openForEdit('index.html')">✏ Главная</button>
+              <button class="edit-page-btn" onclick="openForEdit('services.html')">✏ Услуги</button>
+              <button class="edit-page-btn" onclick="openForEdit('about.html')">✏ О компании</button>
+              <button class="edit-page-btn" onclick="openForEdit('projects.html')">✏ Проекты</button>
+              <button class="edit-page-btn" onclick="openForEdit('contact.html')">✏ Контакты</button>
+              <button class="edit-page-btn" onclick="openForEdit('calculator.html')">✏ Калькулятор</button>
             </div>
           </div>
 
@@ -703,6 +707,27 @@ button{font-family:inherit;cursor:pointer}
         </div>
       </div>
 
+      <!-- PRIVACY TAB -->
+      <div class="page-tab" id="tab-privacy">
+        <div class="sec-header">
+          <div class="sec-title">Политика конфиденциальности <small>Текст страницы privacy.html</small></div>
+        </div>
+        <div class="settings-grid">
+          <div class="settings-card settings-card-wide">
+            <h3>Содержимое страницы</h3>
+            <p style="font-size:.8rem;color:var(--text3);margin:0 0 12px;">Редактируйте HTML-код ниже. Теги поддерживаются: &lt;h2&gt;, &lt;p&gt;, &lt;ul&gt;, &lt;li&gt;, &lt;strong&gt;, &lt;a&gt;, &lt;br&gt;, таблицы &lt;table&gt;. После сохранения изменения появятся на сайте.</p>
+            <div class="field-group">
+              <label>HTML-содержимое</label>
+              <textarea id="s-privacy-content" rows="30" style="font-family:monospace;font-size:.8rem;line-height:1.6;" placeholder="<h1>Политика конфиденциальности</h1>..."></textarea>
+            </div>
+            <div style="margin-top:12px;display:flex;gap:12px;align-items:center;">
+              <a href="/privacy.html" target="_blank" class="edit-page-btn">Посмотреть страницу ↗</a>
+              <span style="font-size:.8rem;color:var(--text3);">Не забудьте нажать «Сохранить и опубликовать» вверху</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </main>
   </div>
 </div>
@@ -994,6 +1019,10 @@ function fillSettings() {
   $('s-about-story-p2').value         = pa.story_p2         || '';
   $('s-about-story-p3').value         = pa.story_p3         || '';
 
+  // Privacy
+  const pp = data.privacyPage || {};
+  $('s-privacy-content').value = pp.content || '';
+
   // Categories
   const cats = data.categories || {};
   $('s-cat-office').value       = cats.office              || '';
@@ -1088,6 +1117,10 @@ function fillSettings() {
   $('s-about-image').addEventListener('input', () => {
     updateSettingsPreview('s-about-image', 's-about-preview-img', 's-about-preview-hint');
     markDirty();
+  });
+
+  document.querySelectorAll('#tab-privacy textarea').forEach(el => {
+    el.addEventListener('input', markDirty);
   });
 
   document.querySelectorAll('#tab-settings input, #tab-settings select, #tab-settings textarea').forEach(el => {
@@ -1267,6 +1300,10 @@ function collectSettings() {
       desc:  $('s-q'+i+'-desc').value.trim()
     };
   }
+
+  // Privacy
+  if (!data.privacyPage) data.privacyPage = {};
+  data.privacyPage.content = $('s-privacy-content').value;
 }
 
 /* ── MODAL ── */
@@ -1362,7 +1399,8 @@ function deleteProject(id) {
 /* ── OPEN PAGE ── */
 function openForEdit(page) {
   const base = location.href.replace(/\/admin\/.*$/, '/');
-  window.open(base + page, '_blank');
+  localStorage.setItem('em_edit_pass', token);
+  window.open(base + page + '?edit=1', '_blank');
 }
 
 /* ── AUTO-LOGIN ── */

@@ -3,10 +3,6 @@
 
   if (location.pathname.includes('/admin')) return;
 
-  const REPO = 'Nav21ruz/Cloude';
-  const FILE = 'data/content.json';
-  const API  = `https://api.github.com/repos/${REPO}/contents/${FILE}`;
-
   /* ── FIELD MAP: data-field → path in content.json ── */
   const FM = {};
 
@@ -118,8 +114,8 @@
     setTimeout(() => { t.style.opacity = '0'; }, 3000);
   }
 
-  /* Token lives in sessionStorage — cleared automatically when tab closes */
-  let token = sessionStorage.getItem('gh_token') || '';
+  /* Password lives in sessionStorage for this tab */
+  let token = sessionStorage.getItem('em_pass') || '';
 
   /* ── BUILD UI ── */
   function buildUI() {
@@ -156,10 +152,10 @@
       </div>
       <div id="em-overlay">
         <div id="em-box">
-          <h3>Токен GitHub</h3>
-          <p>Вводится один раз — сохраняется до закрытия вкладки</p>
-          <input id="em-inp" type="password" placeholder="ghp_...">
-          <div id="em-err">Неверный токен или нет доступа</div>
+          <h3>Пароль администратора</h3>
+          <p>Введите пароль для входа в режим редактирования</p>
+          <input id="em-inp" type="password" placeholder="Введите пароль">
+          <div id="em-err">Неверный пароль</div>
           <div id="em-box-row">
             <button id="em-ok">Войти</button>
             <button id="em-cl">Отмена</button>
@@ -177,18 +173,14 @@
 
     /* Auto-activate if opened from admin panel via ?edit=1 URL param */
     if (new URLSearchParams(location.search).get('edit') === '1') {
-      /* Consume the one-time token written by admin panel (2-min TTL) */
+      /* Read password set by admin panel in localStorage */
       try {
-        const raw = localStorage.getItem('em_token_once');
-        if (raw) {
-          const { t, exp } = JSON.parse(raw);
-          localStorage.removeItem('em_token_once');
-          if (t && Date.now() < exp) {
-            token = t;
-            sessionStorage.setItem('gh_token', t);
-          }
+        const stored = localStorage.getItem('em_edit_pass');
+        if (stored) {
+          token = stored;
+          sessionStorage.setItem('em_pass', stored);
         }
-      } catch { localStorage.removeItem('em_token_once'); }
+      } catch { /* ignore */ }
 
       setTimeout(() => {
         if (token) enterEdit();
@@ -211,13 +203,22 @@
     if (!t) return;
     const btn = document.getElementById('em-ok');
     btn.textContent = 'Проверяем…'; btn.disabled = true;
-    const r = await fetch(API, { headers: { Authorization: `token ${t}`, Accept: 'application/vnd.github.v3+json' } });
-    if (r.ok) {
-      token = t;
-      sessionStorage.setItem('gh_token', t);
-      closeModal();
-      enterEdit();
-    } else {
+    try {
+      const r = await fetch('/admin/save.php?ping=1', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ _pass: t })
+      });
+      if (r.ok) {
+        token = t;
+        sessionStorage.setItem('em_pass', t);
+        closeModal();
+        enterEdit();
+      } else {
+        document.getElementById('em-err').style.display = 'block';
+        btn.textContent = 'Войти'; btn.disabled = false;
+      }
+    } catch {
       document.getElementById('em-err').style.display = 'block';
       btn.textContent = 'Войти'; btn.disabled = false;
     }
@@ -231,7 +232,6 @@
     document.querySelectorAll('[data-field]').forEach(el => {
       if (FM[el.dataset.field]) {
         el.contentEditable = 'true';
-        /* Strip HTML from paste — accept plain text only */
         el.addEventListener('paste', plainTextPaste);
       }
     });
@@ -263,11 +263,9 @@
     const btn = document.getElementById('em-save');
     btn.textContent = 'Сохраняем…'; btn.disabled = true;
     try {
-      const r = await fetch(API, { headers: { Authorization: `token ${token}`, Accept: 'application/vnd.github.v3+json' } });
-      if (!r.ok) throw 0;
-      const json = await r.json();
-      const bytes = Uint8Array.from(atob(json.content.replace(/\n/g, '')), c => c.charCodeAt(0));
-      const data = JSON.parse(new TextDecoder('utf-8').decode(bytes));
+      const r = await fetch('/data/content.json?t=' + Date.now());
+      if (!r.ok) throw new Error('fetch failed');
+      const data = await r.json();
 
       document.querySelectorAll('[data-field]').forEach(el => {
         const path = FM[el.dataset.field];
@@ -280,16 +278,16 @@
         if (!isNaN(num)) { data.stats = data.stats || {}; data.stats[field] = num; el.dataset.target = num; }
       });
 
-      const pr = await fetch(API, {
-        method: 'PUT',
-        headers: { Authorization: `token ${token}`, Accept: 'application/vnd.github.v3+json', 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: 'Update content via inline editor', content: btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2)))), sha: json.sha })
+      const pr = await fetch('/admin/save.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(Object.assign({}, data, { _pass: token }))
       });
-      if (!pr.ok) throw 0;
-      toast('✓ Сохранено! Сайт обновится через ~1 мин.', true);
-      exitEdit();
+      if (!pr.ok) throw new Error('save failed');
+      toast('✓ Сохранено! Страница обновится.', true);
+      setTimeout(() => { exitEdit(); location.reload(); }, 1500);
     } catch {
-      toast('✗ Ошибка. Проверьте токен.', false);
+      toast('✗ Ошибка сохранения. Проверьте пароль.', false);
       btn.textContent = '💾 Сохранить'; btn.disabled = false;
     }
   }

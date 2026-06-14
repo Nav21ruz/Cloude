@@ -158,7 +158,18 @@
     <span class="breadcrumb-sep">/</span>
     <span>Политика конфиденциальности</span>
   </div>
+  <div id="privacy-dynamic"></div>
+  <script>
+    fetch('/data/content.json?t='+Date.now())
+      .then(r=>r.json())
+      .then(d=>{
+        if(d.privacyPage&&d.privacyPage.content)
+          document.getElementById('privacy-dynamic').innerHTML=d.privacyPage.content;
+      });
+  </script>
 
+  <!-- Статичный контент как запасной вариант (скрыт если загрузился динамический) -->
+  <div id="privacy-static" style="display:none">
   <h1>Политика конфиденциальности</h1>
   <div class="privacy-meta">
     Редакция от 11 июня 2025 г. &nbsp;·&nbsp; Вступает в силу с момента публикации
@@ -348,6 +359,7 @@
     Телефон: <a href="tel:+79090856451">+7 (909) 085-64-51</a><br>
     Режим работы: пн–пт 9:00–19:00, сб 10:00–16:00
   </div>
+  </div><!-- /privacy-static -->
 </main>
 
 <!-- FOOTER -->
