@@ -5,7 +5,6 @@
 
   /* ── FIELD MAP: data-field → path in content.json ── */
   const FM = {};
-
   FM['phone']          = ['contacts','phone'];
   FM['address']        = ['contacts','address'];
   FM['email']          = ['contacts','email'];
@@ -13,7 +12,6 @@
   FM['hours-weekdays'] = ['contacts','hours','weekdays'];
   FM['hours-saturday'] = ['contacts','hours','saturday'];
   FM['hours-sunday']   = ['contacts','hours','sunday'];
-
   FM['home-about-label']   = ['pages','home','about_label'];
   FM['home-about-heading'] = ['pages','home','about_heading'];
   FM['home-about-tagline'] = ['pages','home','about_tagline'];
@@ -24,14 +22,12 @@
   FM['home-feat2-desc']    = ['pages','home','feat2_desc'];
   FM['home-feat3-title']   = ['pages','home','feat3_title'];
   FM['home-feat3-desc']    = ['pages','home','feat3_desc'];
-
   FM['about-story-label']      = ['pages','about','story_label'];
   FM['about-story-heading-em'] = ['pages','about','story_heading_em'];
   FM['about-story-quote']      = ['pages','about','story_quote'];
   FM['about-story-p1']         = ['pages','about','story_p1'];
   FM['about-story-p2']         = ['pages','about','story_p2'];
   FM['about-story-p3']         = ['pages','about','story_p3'];
-
   for (let i = 1; i <= 4; i++) {
     FM[`stat${i}-label`] = ['homePage',`stat${i}`,'label'];
     FM[`stat${i}-desc`]  = ['homePage',`stat${i}`,'desc'];
@@ -52,7 +48,6 @@
   FM['cta-heading']    = ['homePage','cta_heading'];
   FM['cta-heading-em'] = ['homePage','cta_heading_em'];
   FM['cta-desc']       = ['homePage','cta_desc'];
-
   for (let i = 1; i <= 6; i++) {
     FM[`timeline${i}-year`]  = ['aboutPage','timeline',`item${i}`,'year'];
     FM[`timeline${i}-title`] = ['aboutPage','timeline',`item${i}`,'title'];
@@ -70,22 +65,16 @@
     FM[`whyus${i}-title`] = ['aboutPage',`whyus${i}`,'title'];
     FM[`whyus${i}-desc`]  = ['aboutPage',`whyus${i}`,'desc'];
   }
-
   for (let i = 1; i <= 5; i++) {
     FM[`svc${i}-heading`] = ['services',`svc${i}`,'heading'];
     FM[`svc${i}-desc`]    = ['services',`svc${i}`,'desc'];
     for (let j = 1; j <= 6; j++) FM[`svc${i}-check${j}`] = ['services',`svc${i}`,`check${j}`];
-  }
-  for (let i = 1; i <= 7; i++) {
-    FM[`svc-step${i}-title`] = ['services','steps',`step${i}_title`];
-    FM[`svc-step${i}-desc`]  = ['services','steps',`step${i}_desc`];
   }
   for (let i = 1; i <= 3; i++) {
     FM[`guarantee${i}-num`]   = ['services','guarantee',`item${i}`,'num'];
     FM[`guarantee${i}-title`] = ['services','guarantee',`item${i}`,'title'];
     FM[`guarantee${i}-desc`]  = ['services','guarantee',`item${i}`,'desc'];
   }
-
   FM['contact-heading']       = ['contactPage','heading'];
   FM['contact-quick-heading'] = ['contactPage','quickHeading'];
   for (let i = 1; i <= 3; i++) {
@@ -114,10 +103,36 @@
     setTimeout(() => { t.style.opacity = '0'; }, 3000);
   }
 
-  /* Password lives in sessionStorage for this tab */
+  /* Collect ALL unmapped text elements in document order (same logic used in load-content.js) */
+  function getUnmappedEls() {
+    const TAGS = new Set(['H1','H2','H3','H4','H5','H6','P','LI']);
+    const seen = new Set();
+    const result = [];
+    document.querySelectorAll('main *, section *').forEach(el => {
+      if (seen.has(el)) return;
+      const tag = el.tagName;
+      const hasClass = el.classList.contains('section-title') ||
+                       el.classList.contains('section-label') ||
+                       el.classList.contains('contact-label') ||
+                       el.classList.contains('contact-note');
+      if (!TAGS.has(tag) && !hasClass) return;
+      if (el.closest('nav') || el.closest('footer') || el.closest('form')) return;
+      if (el.closest('.modal-overlay') || el.closest('#preloader')) return;
+      if (el.closest('#projects-home-grid') || el.closest('#projects-masonry-grid')) return;
+      if (el.hasAttribute('data-field') || el.closest('[data-field]')) return;
+      if (!el.textContent.trim()) return;
+      seen.add(el);
+      result.push(el);
+    });
+    return result;
+  }
+
+  function pageKey() {
+    return location.pathname.replace(/^\/|\/$/g, '') || 'index';
+  }
+
   let token = sessionStorage.getItem('em_pass') || '';
 
-  /* ── BUILD UI ── */
   function buildUI() {
     const css = document.createElement('style');
     css.textContent = `
@@ -171,32 +186,17 @@
     document.getElementById('em-cl').addEventListener('click', closeModal);
     document.getElementById('em-inp').addEventListener('keydown', e => { if (e.key === 'Enter') tryLogin(); });
 
-    /* Auto-activate if opened from admin panel via ?edit=1 URL param */
     if (new URLSearchParams(location.search).get('edit') === '1') {
-      /* Read password set by admin panel in localStorage */
       try {
         const stored = localStorage.getItem('em_edit_pass');
-        if (stored) {
-          token = stored;
-          sessionStorage.setItem('em_pass', stored);
-        }
-      } catch { /* ignore */ }
-
-      setTimeout(() => {
-        if (token) enterEdit();
-        else openModal();
-      }, 1500);
+        if (stored) { token = stored; sessionStorage.setItem('em_pass', stored); }
+      } catch {}
+      setTimeout(() => { if (token) enterEdit(); else openModal(); }, 1500);
     }
   }
 
-  function openModal() {
-    document.getElementById('em-overlay').style.display = 'flex';
-    document.getElementById('em-inp').focus();
-  }
-  function closeModal() {
-    document.getElementById('em-overlay').style.display = 'none';
-    document.getElementById('em-err').style.display = 'none';
-  }
+  function openModal() { document.getElementById('em-overlay').style.display = 'flex'; document.getElementById('em-inp').focus(); }
+  function closeModal() { document.getElementById('em-overlay').style.display = 'none'; document.getElementById('em-err').style.display = 'none'; }
 
   async function tryLogin() {
     const t = document.getElementById('em-inp').value.trim();
@@ -204,24 +204,10 @@
     const btn = document.getElementById('em-ok');
     btn.textContent = 'Проверяем…'; btn.disabled = true;
     try {
-      const r = await fetch('/admin/save.php?ping=1', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ _pass: t })
-      });
-      if (r.ok) {
-        token = t;
-        sessionStorage.setItem('em_pass', t);
-        closeModal();
-        enterEdit();
-      } else {
-        document.getElementById('em-err').style.display = 'block';
-        btn.textContent = 'Войти'; btn.disabled = false;
-      }
-    } catch {
-      document.getElementById('em-err').style.display = 'block';
-      btn.textContent = 'Войти'; btn.disabled = false;
-    }
+      const r = await fetch('/admin/save.php?ping=1', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ _pass: t }) });
+      if (r.ok) { token = t; sessionStorage.setItem('em_pass', t); closeModal(); enterEdit(); }
+      else { document.getElementById('em-err').style.display = 'block'; btn.textContent = 'Войти'; btn.disabled = false; }
+    } catch { document.getElementById('em-err').style.display = 'block'; btn.textContent = 'Войти'; btn.disabled = false; }
   }
 
   function enterEdit() {
@@ -229,6 +215,8 @@
     document.body.style.paddingTop = '48px';
     const nav = document.querySelector('.nav');
     if (nav) nav.style.top = '48px';
+
+    /* 1. data-field elements (mapped directly to content.json paths) */
     document.querySelectorAll('[data-field]').forEach(el => {
       if (FM[el.dataset.field]) {
         el.contentEditable = 'true';
@@ -240,13 +228,16 @@
       el.contentEditable = 'true';
       el.addEventListener('paste', plainTextPaste);
     });
+
+    /* 2. ALL other visible text elements (saved as page overrides) */
+    getUnmappedEls().forEach((el, i) => {
+      el.dataset.emN = String(i);
+      el.contentEditable = 'true';
+      el.addEventListener('paste', plainTextPaste);
+    });
   }
 
-  function plainTextPaste(e) {
-    e.preventDefault();
-    const text = e.clipboardData.getData('text/plain');
-    document.execCommand('insertText', false, text);
-  }
+  function plainTextPaste(e) { e.preventDefault(); document.execCommand('insertText', false, e.clipboardData.getData('text/plain')); }
 
   function exitEdit() {
     document.getElementById('em-bar').style.display = 'none';
@@ -256,6 +247,7 @@
     document.querySelectorAll('[contenteditable]').forEach(el => {
       el.removeAttribute('contenteditable');
       el.removeEventListener('paste', plainTextPaste);
+      delete el.dataset.emN;
     });
   }
 
@@ -264,9 +256,10 @@
     btn.textContent = 'Сохраняем…'; btn.disabled = true;
     try {
       const r = await fetch('/data/content.json?t=' + Date.now());
-      if (!r.ok) throw new Error('fetch failed');
+      if (!r.ok) throw 0;
       const data = await r.json();
 
+      /* Save data-field values */
       document.querySelectorAll('[data-field]').forEach(el => {
         const path = FM[el.dataset.field];
         if (path) setPath(data, path, el.textContent.trim());
@@ -278,18 +271,25 @@
         if (!isNaN(num)) { data.stats = data.stats || {}; data.stats[field] = num; el.dataset.target = num; }
       });
 
+      /* Save page overrides (unmapped elements) */
+      const overrides = {};
+      document.querySelectorAll('[data-em-n]').forEach(el => {
+        overrides[el.dataset.emN] = el.innerHTML;
+      });
+      if (Object.keys(overrides).length > 0) {
+        if (!data.pageOverrides) data.pageOverrides = {};
+        data.pageOverrides[pageKey()] = overrides;
+      }
+
       const pr = await fetch('/admin/save.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(Object.assign({}, data, { _pass: token }))
       });
-      if (!pr.ok) throw new Error('save failed');
+      if (!pr.ok) throw 0;
       toast('✓ Сохранено! Страница обновится.', true);
       setTimeout(() => { exitEdit(); location.reload(); }, 1500);
-    } catch {
-      toast('✗ Ошибка сохранения. Проверьте пароль.', false);
-      btn.textContent = '💾 Сохранить'; btn.disabled = false;
-    }
+    } catch { toast('✗ Ошибка сохранения. Проверьте пароль.', false); btn.textContent = '💾 Сохранить'; btn.disabled = false; }
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', buildUI);

@@ -312,4 +312,31 @@ fetch('/data/content.json?t=' + Date.now())
         sf(`quick${i}-desc`, q.desc);
       }
     }
+
+    /* ── PAGE OVERRIDES (inline edit mode) ── */
+    if (data.pageOverrides) {
+      const key = location.pathname.replace(/^\/|\/$/g, '') || 'index';
+      const overrides = data.pageOverrides[key];
+      if (overrides && Object.keys(overrides).length > 0) {
+        const TAGS = new Set(['H1','H2','H3','H4','H5','H6','P','LI']);
+        let emN = 0;
+        const seen = new Set();
+        document.querySelectorAll('main *, section *').forEach(el => {
+          if (seen.has(el)) return;
+          const hasClass = el.classList.contains('section-title') ||
+                           el.classList.contains('section-label') ||
+                           el.classList.contains('contact-label') ||
+                           el.classList.contains('contact-note');
+          if (!TAGS.has(el.tagName) && !hasClass) return;
+          if (el.closest('nav') || el.closest('footer') || el.closest('form')) return;
+          if (el.closest('.modal-overlay') || el.closest('#preloader')) return;
+          if (el.closest('#projects-home-grid') || el.closest('#projects-masonry-grid')) return;
+          if (el.hasAttribute('data-field') || el.closest('[data-field]')) return;
+          if (!el.textContent.trim()) return;
+          seen.add(el);
+          const n = String(emN++);
+          if (overrides[n] !== undefined) el.innerHTML = overrides[n];
+        });
+      }
+    }
   });
