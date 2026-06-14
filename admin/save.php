@@ -2,7 +2,7 @@
 header('Content-Type: application/json; charset=UTF-8');
 header('Access-Control-Allow-Origin: same-origin');
 header('Access-Control-Allow-Methods: POST, OPTIONS');
-header('Access-Control-Allow-Headers: Content-Type, Authorization');
+header('Access-Control-Allow-Headers: Content-Type');
 
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') { http_response_code(200); exit; }
 if ($_SERVER['REQUEST_METHOD'] !== 'POST')    { http_response_code(405); exit; }
@@ -12,23 +12,6 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST')    { http_response_code(405); exit; }
 // ═══════════════════════════════════════════════════════════════
 define('ADMIN_PASSWORD', 'Imov2121');
 // ═══════════════════════════════════════════════════════════════
-
-// Apache на shared-хостинге часто обрезает заголовок Authorization — берём из нескольких источников
-$auth = $_SERVER['HTTP_AUTHORIZATION']
-     ?? $_SERVER['REDIRECT_HTTP_AUTHORIZATION']
-     ?? (function_exists('getallheaders') ? (getallheaders()['Authorization'] ?? '') : '');
-
-if ($auth !== 'Bearer ' . ADMIN_PASSWORD) {
-    http_response_code(401);
-    echo json_encode(['error' => 'Unauthorized']);
-    exit;
-}
-
-// Режим проверки пароля без сохранения (?ping=1)
-if (isset($_GET['ping'])) {
-    echo json_encode(['ok' => true]);
-    exit;
-}
 
 $input = file_get_contents('php://input');
 if (!$input) {
@@ -44,6 +27,23 @@ if ($decoded === null) {
     exit;
 }
 
+// Пароль передаётся в теле запроса (надёжнее чем Authorization на Apache)
+$pass = $decoded['_pass'] ?? '';
+if ($pass !== ADMIN_PASSWORD) {
+    http_response_code(401);
+    echo json_encode(['error' => 'Unauthorized']);
+    exit;
+}
+
+// Режим проверки пароля без сохранения (?ping=1)
+if (isset($_GET['ping'])) {
+    echo json_encode(['ok' => true]);
+    exit;
+}
+
+// Убираем служебное поле пароля перед сохранением
+unset($decoded['_pass']);
+
 $contentFile = __DIR__ . '/../data/content.json';
 
 $written = file_put_contents(
@@ -53,7 +53,7 @@ $written = file_put_contents(
 
 if ($written === false) {
     http_response_code(500);
-    echo json_encode(['error' => 'Failed to write file. Check folder permissions (chmod 755 data/).']);
+    echo json_encode(['error' => 'Failed to write file. Check folder permissions (chmod 777 data/).']);
     exit;
 }
 
