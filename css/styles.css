@@ -1675,7 +1675,6 @@ footer {
   .certs-grid { grid-template-columns: 1fr; }
   .values-grid { grid-template-columns: 1fr; }
   .stats-grid { grid-template-columns: 1fr; }
-  .process-track { grid-template-columns: 1fr; }
   .about-features-grid { gap: 16px; margin-top: 40px; }
 }
 
