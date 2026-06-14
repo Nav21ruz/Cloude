@@ -1,6 +1,13 @@
 Options -Indexes
 Options -MultiViews
 
+# ── HTTPS РЕДИРЕКТ ───────────────────────────────────────────────────────────
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTPS} off
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+</IfModule>
+
 # ── CHARSET ──────────────────────────────────────────────────────────────────
 AddDefaultCharset UTF-8
 
@@ -71,7 +78,7 @@ AddType application/javascript .js
   Header always set Permissions-Policy "geolocation=(), camera=(), microphone=()"
 
   # Content Security Policy
-  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://mc.yandex.ru https://fonts.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: blob:; connect-src 'self' https://api.github.com https://raw.githubusercontent.com https://mc.yandex.ru; frame-ancestors 'none';"
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://mc.yandex.ru https://fonts.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: blob:; connect-src 'self' https://mc.yandex.ru; frame-ancestors 'none';"
 </IfModule>
 
 # ── СТРАНИЦА ОШИБКИ 404 ──────────────────────────────────────────────────────
