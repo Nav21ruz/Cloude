@@ -63,7 +63,7 @@ const sf = (field, val) => {
   document.querySelectorAll(`[data-field="${field}"]`).forEach(el => el.textContent = val);
 };
 
-fetch('https://raw.githubusercontent.com/Nav21ruz/Cloude/main/data/content.json?t=' + Date.now())
+fetch('/data/content.json?t=' + Date.now())
   .then(r => r.ok ? r.json() : null)
   .catch(() => null)
   .then(data => {

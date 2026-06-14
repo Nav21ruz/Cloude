@@ -192,13 +192,10 @@ button{font-family:inherit;cursor:pointer}
 <div id="login">
   <div class="login-box">
     <div class="login-logo">DUM<span>A</span>EV <small>Admin</small></div>
-    <p>Для входа нужен GitHub-токен с доступом на запись в репозиторий сайта.<br>Токен хранится только в вашем браузере.</p>
-    <label>GitHub Personal Access Token</label>
-    <input type="password" id="gh-token" placeholder="ghp_xxxxxxxxxxxx" autocomplete="off">
-    <div class="login-hint">
-      Нет токена? <a href="https://github.com/settings/tokens/new?scopes=repo&description=DUMAEV+Admin" target="_blank">Создать здесь</a> — выберите scope <strong>repo</strong>.
-    </div>
-    <div class="login-err" id="login-err">Неверный токен или нет доступа к репозиторию.</div>
+    <p>Введите пароль администратора для доступа к панели управления.</p>
+    <label>Пароль администратора</label>
+    <input type="password" id="gh-token" placeholder="Введите пароль" autocomplete="current-password">
+    <div class="login-err" id="login-err">Неверный пароль.</div>
     <button class="btn-login" id="btn-login">Войти</button>
   </div>
 </div>
@@ -781,12 +778,9 @@ button{font-family:inherit;cursor:pointer}
 <div id="toast"></div>
 
 <script>
-const REPO = 'Nav21ruz/Cloude';
-const FILE = 'data/content.json';
-const API  = `https://api.github.com/repos/${REPO}/contents/${FILE}`;
 const CAT_LABELS = {office:'Офис',retail:'Магазин',restaurant:'Ресторан',medical:'Медицина',warehouse:'Склад'};
 
-let token = '', fileSha = '', data = null, editingId = null, dirty = false;
+let token = '', data = null, editingId = null, dirty = false;
 
 function esc(s) {
   return String(s ?? '')
@@ -831,10 +825,15 @@ $('btn-login').addEventListener('click', async () => {
   $('btn-login').disabled = true;
   $('login-err').style.display = 'none';
   try {
-    const ok = await loadContent(t);
+    const ping = await fetch('/admin/save.php?ping=1', {
+      method: 'POST',
+      headers: { 'Authorization': 'Bearer ' + t }
+    });
+    if (!ping.ok) throw new Error('bad password');
+    const ok = await loadContent();
     if (ok) {
       token = t;
-      sessionStorage.setItem('gh_token', t);
+      sessionStorage.setItem('admin_pass', t);
       $('login').style.display = 'none';
       $('app').style.display = 'block';
       renderAll();
@@ -851,13 +850,10 @@ $('btn-login').addEventListener('click', async () => {
 $('gh-token').addEventListener('keydown', e => { if (e.key === 'Enter') $('btn-login').click(); });
 
 /* ── LOAD CONTENT ── */
-async function loadContent(t) {
-  const r = await fetch(API, { headers: { Authorization: `token ${t}`, Accept: 'application/vnd.github.v3+json' } });
+async function loadContent() {
+  const r = await fetch('/data/content.json?t=' + Date.now());
   if (!r.ok) return false;
-  const json = await r.json();
-  fileSha = json.sha;
-  const bytes = Uint8Array.from(atob(json.content.replace(/\n/g, '')), c => c.charCodeAt(0));
-  data = JSON.parse(new TextDecoder('utf-8').decode(bytes));
+  data = await r.json();
   return true;
 }
 
@@ -865,34 +861,31 @@ async function loadContent(t) {
 $('btn-save').addEventListener('click', async () => {
   collectSettings();
   $('btn-save').disabled = true;
-  $('save-status').textContent = 'Публикуем…';
+  $('save-status').textContent = 'Сохраняем…';
   try {
-    const content = btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2))));
-    const r = await fetch(API, {
-      method: 'PUT',
-      headers: { Authorization: `token ${token}`, Accept: 'application/vnd.github.v3+json', 'Content-Type': 'application/json' },
-      body: JSON.stringify({ message: 'Update site content via admin panel', content, sha: fileSha })
+    const r = await fetch('/admin/save.php', {
+      method: 'POST',
+      headers: { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' },
+      body: JSON.stringify(data, null, 2)
     });
     if (!r.ok) throw new Error();
-    const json = await r.json();
-    fileSha = json.content.sha;
     dirty = false;
-    $('save-status').textContent = '✓ Опубликовано — сайт обновится через ~1 мин.';
+    $('save-status').textContent = '✓ Сохранено';
     $('save-status').className = 'save-status ok';
     $('btn-save').disabled = true;
-    toast('Изменения опубликованы! Сайт обновится через ~1 минуту.', 'ok');
+    toast('Изменения сохранены!', 'ok');
   } catch {
     $('save-status').textContent = '✗ Ошибка сохранения';
     $('save-status').className = 'save-status err';
     $('btn-save').disabled = false;
-    toast('Ошибка при сохранении. Проверьте токен и подключение.', 'err');
+    toast('Ошибка при сохранении. Проверьте пароль.', 'err');
   }
 });
 
 /* ── LOGOUT ── */
 $('btn-logout').addEventListener('click', () => {
   if (dirty && !confirm('Есть несохранённые изменения. Выйти?')) return;
-  sessionStorage.removeItem('gh_token');
+  sessionStorage.removeItem('admin_pass');
   location.reload();
 });
 
@@ -1365,29 +1358,32 @@ function deleteProject(id) {
   toast('Проект удалён');
 }
 
-/* ── OPEN PAGE FOR INLINE EDITING ── */
+/* ── OPEN PAGE ── */
 function openForEdit(page) {
-  /* Write one-time token with 2-minute TTL for the new tab to consume */
-  localStorage.setItem('em_token_once', JSON.stringify({ t: token, exp: Date.now() + 120000 }));
   const base = location.href.replace(/\/admin\/.*$/, '/');
-  window.open(base + page + '?edit=1', '_blank');
+  window.open(base + page, '_blank');
 }
 
 /* ── AUTO-LOGIN ── */
 (async function() {
-  const saved = sessionStorage.getItem('gh_token');
+  const saved = sessionStorage.getItem('admin_pass');
   if (!saved) return;
   try {
-    const ok = await loadContent(saved);
+    const ping = await fetch('/admin/save.php?ping=1', {
+      method: 'POST',
+      headers: { 'Authorization': 'Bearer ' + saved }
+    });
+    if (!ping.ok) { sessionStorage.removeItem('admin_pass'); return; }
+    const ok = await loadContent();
     if (ok) {
       token = saved;
       $('login').style.display = 'none';
       $('app').style.display = 'block';
       renderAll();
     } else {
-      sessionStorage.removeItem('gh_token');
+      sessionStorage.removeItem('admin_pass');
     }
-  } catch { sessionStorage.removeItem('gh_token'); }
+  } catch { sessionStorage.removeItem('admin_pass'); }
 })();
 </script>
 </body>

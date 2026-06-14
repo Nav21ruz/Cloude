@@ -176,7 +176,7 @@ if (contactForm) {
     const successEl = document.getElementById('form-success');
 
     try {
-      const res = await fetch('/api/contact', {
+      const res = await fetch('/api/telegram.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
