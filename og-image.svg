@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#0a0a0a"/>
+  <rect x="0" y="0" width="1200" height="630" fill="url(#bg-grad)"/>
+  <defs>
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#111111;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#0a0a0a;stop-opacity:1"/>
+    </linearGradient>
+  </defs>
+  <!-- Gold vertical accent -->
+  <rect x="80" y="80" width="4" height="470" fill="#C9A84C" opacity="0.25"/>
+  <!-- Gold horizontal accent -->
+  <rect x="80" y="315" width="280" height="2" fill="#C9A84C" opacity="0.6"/>
+  <!-- Logo DUMAEV -->
+  <text x="120" y="248" font-family="Arial Black, Arial, Helvetica, sans-serif" font-weight="900" font-size="108" letter-spacing="-3">
+    <tspan fill="#C9A84C">DUM</tspan><tspan fill="#ffffff">A</tspan><tspan fill="#C9A84C">EV</tspan>
+  </text>
+  <!-- Divider line -->
+  <rect x="120" y="278" width="560" height="2" fill="#C9A84C" opacity="0.4"/>
+  <!-- Main subtitle -->
+  <text x="120" y="346" font-family="Arial, Helvetica, sans-serif" font-weight="400" font-size="34" fill="#cccccc" letter-spacing="3">КОММЕРЧЕСКИЙ РЕМОНТ</text>
+  <text x="120" y="396" font-family="Arial, Helvetica, sans-serif" font-weight="400" font-size="34" fill="#cccccc" letter-spacing="3">В ЧЕЛЯБИНСКЕ</text>
+  <!-- Stats line -->
+  <text x="120" y="470" font-family="Arial, Helvetica, sans-serif" font-size="22" fill="#C9A84C" letter-spacing="1" opacity="0.9">340+ объектов  ·  Гарантия 3 года  ·  с 2020</text>
+  <!-- URL bottom right -->
+  <text x="1120" y="598" font-family="Arial, Helvetica, sans-serif" font-size="20" fill="#444444" text-anchor="end">dumaev.ru</text>
+  <!-- Decorative right element -->
+  <rect x="1080" y="80" width="2" height="470" fill="#C9A84C" opacity="0.1"/>
+</svg>
