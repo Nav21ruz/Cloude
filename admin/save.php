@@ -13,7 +13,11 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST')    { http_response_code(405); exit; }
 define('ADMIN_PASSWORD', 'Imov2121');
 // ═══════════════════════════════════════════════════════════════
 
-$auth = $_SERVER['HTTP_AUTHORIZATION'] ?? '';
+// Apache на shared-хостинге часто обрезает заголовок Authorization — берём из нескольких источников
+$auth = $_SERVER['HTTP_AUTHORIZATION']
+     ?? $_SERVER['REDIRECT_HTTP_AUTHORIZATION']
+     ?? (function_exists('getallheaders') ? (getallheaders()['Authorization'] ?? '') : '');
+
 if ($auth !== 'Bearer ' . ADMIN_PASSWORD) {
     http_response_code(401);
     echo json_encode(['error' => 'Unauthorized']);
