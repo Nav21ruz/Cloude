@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Блог о коммерческом ремонте | DUMAEV Челябинск</title>
+  <meta name="description" content="Полезные статьи о коммерческом ремонте в Челябинске: цены, советы, нормы, ошибки и чек-листы от команды DUMAEV.">
+  <meta name="keywords" content="блог ремонт Челябинск, коммерческий ремонт советы, ремонт офиса цена, ремонт ресторана, подрядчик ремонт">
+  <meta name="robots" content="index, follow">
+  <meta name="yandex-verification" content="41a5c8623cad945b">
+  <meta name="geo.region" content="RU-CHE">
+  <meta name="geo.placename" content="Челябинск">
+  <meta name="geo.position" content="55.1644;61.4368">
+  <meta name="ICBM" content="55.1644, 61.4368">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://dumaev.ru/blog.html">
+  <meta property="og:title" content="Блог о коммерческом ремонте | DUMAEV Челябинск">
+  <meta property="og:description" content="Полезные статьи о коммерческом ремонте в Челябинске: цены, советы, нормы, ошибки и чек-листы.">
+  <meta property="og:image" content="https://dumaev.ru/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://dumaev.ru/og-image.jpg">
+  <link rel="canonical" href="https://dumaev.ru/blog.html">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/css/main.css">
+  <style>
+    .blog-hero { padding: 160px 0 80px; background: var(--bg-0); border-bottom: 1px solid var(--border); }
+    .blog-hero h1 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; color: var(--text1); }
+    .blog-hero h1 em { color: var(--gold); font-style: normal; }
+    .blog-hero p { color: var(--gray-2); font-size: 1.1rem; margin-top: 16px; max-width: 600px; }
+
+    .blog-filters { display: flex; gap: 8px; flex-wrap: wrap; margin: 48px 0 40px; }
+    .blog-filter-btn { padding: 8px 20px; border: 1px solid var(--border); background: transparent; color: var(--gray-2); font-family: Inter, sans-serif; font-size: 0.875rem; cursor: pointer; border-radius: 100px; transition: all .2s; }
+    .blog-filter-btn.active, .blog-filter-btn:hover { border-color: var(--gold); color: var(--gold); background: rgba(201,168,76,.08); }
+
+    .blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); }
+    .blog-card { background: var(--bg-1); display: flex; flex-direction: column; overflow: hidden; transition: background .3s; }
+    .blog-card:hover { background: var(--bg-2); }
+    .blog-card-img { width: 100%; aspect-ratio: 16/10; object-fit: cover; display: block; }
+    .blog-card-body { padding: 28px; flex: 1; display: flex; flex-direction: column; gap: 12px; }
+    .blog-card-cat { font-size: 0.75rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--gold); }
+    .blog-card-title { font-size: 1.1rem; font-weight: 700; color: var(--text1); line-height: 1.4; }
+    .blog-card-excerpt { font-size: 0.875rem; color: var(--gray-2); line-height: 1.7; flex: 1; }
+    .blog-card-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 16px; border-top: 1px solid var(--border); margin-top: auto; }
+    .blog-card-meta { font-size: 0.78rem; color: var(--gray-3); }
+    .blog-card-link { font-size: 0.8rem; font-weight: 700; color: var(--gold); text-decoration: none; display: flex; align-items: center; gap: 6px; }
+    .blog-card-link:hover { text-decoration: underline; }
+
+    @media(max-width:900px){ .blog-grid { grid-template-columns: 1fr 1fr; } }
+    @media(max-width:600px){ .blog-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="/index.html" class="nav-logo">DUM<span>A</span>EV</a>
+  <ul class="nav-links">
+    <li><a href="/index.html">Главная</a></li>
+    <li><a href="/services.html">Услуги</a></li>
+    <li><a href="/projects.html">Проекты</a></li>
+    <li><a href="/about.html">О компании</a></li>
+    <li><a href="/blog.html" class="active">Блог</a></li>
+    <li><a href="/contact.html">Контакты</a></li>
+    <li><a href="/calculator.html">Калькулятор</a></li>
+  </ul>
+  <div class="nav-cta">
+    <span class="nav-phone">+7 (909) 085-64-51</span>
+    <a href="/contact.html" class="btn-nav">Консультация</a>
+  </div>
+  <button class="nav-burger" aria-label="Меню"><span></span><span></span><span></span></button>
+</nav>
+
+<section class="blog-hero">
+  <div class="container">
+    <h1>Блог о <em>коммерческом ремонте</em></h1>
+    <p>Практические статьи от команды DUMAEV: цены, нормы, чек-листы и разбор ошибок — всё, что нужно знать заказчику.</p>
+  </div>
+</section>
+
+<section style="padding: 0 0 80px;">
+  <div class="container">
+    <div class="blog-filters">
+      <button class="blog-filter-btn active" data-filter="all">Все статьи</button>
+      <button class="blog-filter-btn" data-filter="prices">Цены</button>
+      <button class="blog-filter-btn" data-filter="restaurants">Рестораны</button>
+      <button class="blog-filter-btn" data-filter="tips">Советы</button>
+      <button class="blog-filter-btn" data-filter="offices">Офисы</button>
+      <button class="blog-filter-btn" data-filter="medicine">Медицина</button>
+    </div>
+
+    <div class="blog-grid">
+
+      <!-- Карточка 1 -->
+      <article class="blog-card" data-category="prices">
+        <a href="/blog/stoimost-remonta-ofisa.html">
+          <img class="blog-card-img" src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80" alt="Ремонт офиса в Челябинске — стоимость 2026" loading="lazy">
+        </a>
+        <div class="blog-card-body">
+          <div class="blog-card-cat">Цены</div>
+          <a href="/blog/stoimost-remonta-ofisa.html" style="text-decoration:none;">
+            <div class="blog-card-title">Сколько стоит ремонт офиса в Челябинске в 2026 году</div>
+          </a>
+          <div class="blog-card-excerpt">Разбираем все составляющие цены: площадь, состояние помещения, класс отделки и скрытые статьи бюджета. Таблица с реальными цифрами.</div>
+          <div class="blog-card-footer">
+            <div class="blog-card-meta">10 июня 2026 · 8 мин</div>
+            <a href="/blog/stoimost-remonta-ofisa.html" class="blog-card-link">Читать →</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Карточка 2 -->
+      <article class="blog-card" data-category="restaurants">
+        <a href="/blog/oshibki-remonta-restorana.html">
+          <img class="blog-card-img" src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=800&q=80" alt="Ошибки при ремонте ресторана" loading="lazy">
+        </a>
+        <div class="blog-card-body">
+          <div class="blog-card-cat">Рестораны</div>
+          <a href="/blog/oshibki-remonta-restorana.html" style="text-decoration:none;">
+            <div class="blog-card-title">5 ошибок при ремонте ресторана, которые обходятся дороже самого ремонта</div>
+          </a>
+          <div class="blog-card-excerpt">Из нашей практики: какие решения на старте превращаются в шестизначные суммы переделок уже через год после открытия.</div>
+          <div class="blog-card-footer">
+            <div class="blog-card-meta">3 июня 2026 · 6 мин</div>
+            <a href="/blog/oshibki-remonta-restorana.html" class="blog-card-link">Читать →</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Карточка 3 -->
+      <article class="blog-card" data-category="tips">
+        <a href="/blog/kak-vybrat-podryadchika.html">
+          <img class="blog-card-img" src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=800&q=80" alt="Как выбрать подрядчика для ремонта" loading="lazy">
+        </a>
+        <div class="blog-card-body">
+          <div class="blog-card-cat">Советы</div>
+          <a href="/blog/kak-vybrat-podryadchika.html" style="text-decoration:none;">
+            <div class="blog-card-title">Как выбрать подрядчика для коммерческого ремонта: чек-лист из 12 пунктов</div>
+          </a>
+          <div class="blog-card-excerpt">Что проверить до подписания договора, на какие красные флаги обратить внимание и как не потерять аванс.</div>
+          <div class="blog-card-footer">
+            <div class="blog-card-meta">27 мая 2026 · 5 мин</div>
+            <a href="/blog/kak-vybrat-podryadchika.html" class="blog-card-link">Читать →</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Карточка 4 -->
+      <article class="blog-card" data-category="offices">
+        <a href="/blog/open-space-vs-kabinety.html">
+          <img class="blog-card-img" src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80" alt="Open space или кабинеты для офиса" loading="lazy">
+        </a>
+        <div class="blog-card-body">
+          <div class="blog-card-cat">Офисы</div>
+          <a href="/blog/open-space-vs-kabinety.html" style="text-decoration:none;">
+            <div class="blog-card-title">Офис open space или кабинеты: что выбрать для вашего бизнеса</div>
+          </a>
+          <div class="blog-card-excerpt">Честное сравнение двух форматов с учётом специфики российского рынка. Рекомендации по типу компании и численности команды.</div>
+          <div class="blog-card-footer">
+            <div class="blog-card-meta">20 мая 2026 · 7 мин</div>
+            <a href="/blog/open-space-vs-kabinety.html" class="blog-card-link">Читать →</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Карточка 5 -->
+      <article class="blog-card" data-category="medicine">
+        <a href="/blog/remont-meditsinskogo-centra.html">
+          <img class="blog-card-img" src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=800&q=80" alt="Ремонт медицинского центра нормы СанПиН" loading="lazy">
+        </a>
+        <div class="blog-card-body">
+          <div class="blog-card-cat">Медицина</div>
+          <a href="/blog/remont-meditsinskogo-centra.html" style="text-decoration:none;">
+            <div class="blog-card-title">Ремонт медицинского центра: нормы СанПиН и подводные камни</div>
+          </a>
+          <div class="blog-card-excerpt">Требования к материалам, вентиляции, освещению и полам. Как подготовиться к проверке Роспотребнадзора и избежать штрафов.</div>
+          <div class="blog-card-footer">
+            <div class="blog-card-meta">12 мая 2026 · 9 мин</div>
+            <a href="/blog/remont-meditsinskogo-centra.html" class="blog-card-link">Читать →</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Карточка 6 -->
+      <article class="blog-card" data-category="tips">
+        <a href="/blog/pochemu-remont-zatyagivaetsya.html">
+          <img class="blog-card-img" src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=800&q=80" alt="Почему ремонт затягивается" loading="lazy">
+        </a>
+        <div class="blog-card-body">
+          <div class="blog-card-cat">Советы</div>
+          <a href="/blog/pochemu-remont-zatyagivaetsya.html" style="text-decoration:none;">
+            <div class="blog-card-title">Почему ремонт затягивается: 7 причин и как их избежать</div>
+          </a>
+          <div class="blog-card-excerpt">Реальные причины срыва сроков — от проблем с проектом до кадровых ошибок подрядчика. Как контролировать процесс и не упустить момент.</div>
+          <div class="blog-card-footer">
+            <div class="blog-card-meta">5 мая 2026 · 6 мин</div>
+            <a href="/blog/pochemu-remont-zatyagivaetsya.html" class="blog-card-link">Читать →</a>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">DUM<span>A</span>EV</div>
+        <p class="footer-desc">
+          Профессиональный коммерческий ремонт под ключ в Челябинске.
+          От демонтажа до финишной отделки.
+        </p>
+        <div class="footer-social">
+          <a href="#" data-field="tg-link" aria-label="Telegram">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M15.9 2.1L1.5 7.5c-.95.38-.93.92-.18 1.15l3.55 1.1 8.25-5.2c.38-.24.74-.11.45.15L6.4 10.97l-.17 3.66c.25 0 .36-.11.5-.24l1.2-1.16 2.5 1.83c.46.25.79.12.9-.43l1.62-7.6c.17-.67-.25-.97-.77-.77z" fill="currentColor"/></svg>
+          </a>
+          <a href="#" data-field="wa-link" aria-label="WhatsApp">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 1C4.58 1 1 4.58 1 9c0 1.41.37 2.74 1 3.9L1 17l4.21-.98A8 8 0 009 17c4.42 0 8-3.58 8-8s-3.58-8-8-8zm3.7 10.7c-.16.45-.94.88-1.3.93-.33.05-.74.07-1.2-.08-.28-.09-.63-.21-1.09-.41A8.6 8.6 0 015.5 8.7c-.3-.38-.62-.98-.62-1.57 0-.59.3-1.13.82-1.53.22-.16.47-.24.7-.24.08 0 .16 0 .23.01.2.01.3.02.44.34.16.35.55 1.34.6 1.43.05.1.08.21.02.34-.06.13-.09.2-.18.31-.09.11-.18.24-.26.32-.09.09-.18.18-.08.36.1.17.45.74.97 1.2.67.59 1.23.77 1.4.86.18.08.28.07.39-.04.11-.11.46-.54.58-.72.12-.18.25-.15.42-.09l1.33.63c.19.09.32.14.37.21.05.08.05.45-.1.9z" fill="currentColor"/></svg>
+          </a>
+          <a href="#" data-field="vk-link" aria-label="VK">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9.5 12.5H8.3c0 0-2.8 0-5.3-2.7C.5 7 .5 4.5.5 4.5H3c0 0-.1 2 1.2 3.4.8.8 1.6 1 1.6 1V4.5h2.5V8c0 0 .2.1.5-.1C9.4 7.6 10.2 6 10.2 4.5H13c0 0-.5 2.1-2.3 3.5 1.3.7 2.8 2.5 2.8 4.5h-2.5c0 0-.1-1.4-1.5-2.7v2.7z" fill="currentColor"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Услуги</h4>
+        <ul>
+          <li><a href="services.html#demolition">Демонтажные работы</a></li>
+          <li><a href="services.html#redesign">Перепланировка</a></li>
+          <li><a href="services.html#engineering">Инженерные системы</a></li>
+          <li><a href="services.html#rough">Черновые работы</a></li>
+          <li><a href="services.html#finishing">Чистовая отделка</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Компания</h4>
+        <ul>
+          <li><a href="about.html">О компании</a></li>
+          <li><a href="projects.html">Проекты</a></li>
+          <li><a href="blog.html">Блог</a></li>
+          <li><a href="contact.html">Контакты</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Контакты</h4>
+        <div class="footer-contact-item">
+          <div class="footer-contact-icon">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1C5.24 1 3 3.24 3 6c0 4.25 5 9 5 9s5-4.75 5-9c0-2.76-2.24-5-5-5zm0 6.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3z" fill="currentColor"/></svg>
+          </div>
+          <div>
+            <div class="footer-contact-label">Адрес</div>
+            <div class="footer-contact-val">г. Челябинск</div>
+          </div>
+        </div>
+        <div class="footer-contact-item">
+          <div class="footer-contact-icon">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13.5 10.1c-.6-.06-1.2-.2-1.8-.43-.2-.08-.43-.03-.58.12l-1.12 1.12A9.85 9.85 0 014.1 5.01l1.12-1.12c.15-.15.2-.38.12-.58A8.1 8.1 0 015.1 1.7C5.04 1.22 4.66.9 4.2.9H2.2C1.7.9 1.3 1.33 1.3 1.83 1.3 7.98 6.32 13 12.47 13c.5 0 .93-.43.93-.93v-1.9c0-.47-.36-.88-.83-.93l-.07-.04z" fill="currentColor"/></svg>
+          </div>
+          <div>
+            <div class="footer-contact-label">Телефон</div>
+            <div class="footer-contact-val"><a href="tel:+79090856451">+7 (909) 085-64-51</a></div>
+          </div>
+        </div>
+        <div class="footer-contact-item">
+          <div class="footer-contact-icon">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 4l6 4.5L14 4M2 13h12V3H2v10z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg>
+          </div>
+          <div>
+            <div class="footer-contact-label">Email</div>
+            <div class="footer-contact-val"><a href="mailto:navruz@dumaev.ru">navruz@dumaev.ru</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2025 DUMAEV. Все права защищены. · <a href="privacy.html" style="color:var(--gray-3);text-decoration:underline;">Политика конфиденциальности</a><br><small style="font-size:.72rem;color:var(--gray-3);opacity:.7;">Информация на сайте носит ознакомительный характер и не является публичной офертой (ст. 437 ГК РФ)</small></span>
+      <span>ИНН 746008404699 · ОГРНИП 325745600069102</span>
+    </div>
+  </div>
+</footer>
+
+<script src="/js/main.js"></script>
+<script src="/js/load-content.js"></script>
+<script src="/js/edit-mode.js"></script>
+<script>
+  // Blog filter functionality
+  const filterBtns = document.querySelectorAll('.blog-filter-btn');
+  const cards = document.querySelectorAll('.blog-card');
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      cards.forEach(card => {
+        if (filter === 'all' || card.dataset.category === filter) {
+          card.style.display = '';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  });
+</script>
+<!-- Yandex.Metrika -->
+<script type="text/javascript">
+   (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+   m[i].l=1*new Date();
+   for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+   k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+   (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+   ym(109867993, "init", { clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true });
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/109867993" style="position:absolute;left:-9999px;" alt="" /></div></noscript>
+</body>
+</html>
