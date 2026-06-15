@@ -247,6 +247,9 @@ fetch('/data/content.json?t=' + Date.now())
       sf('cta-heading', hp.cta_heading);
       sf('cta-heading-em', hp.cta_heading_em);
       sf('cta-desc', hp.cta_desc);
+      sf('hero-stat1-label', (hp.heroStat1 || {}).label);
+      sf('hero-stat2-label', (hp.heroStat2 || {}).label);
+      sf('hero-stat3-label', (hp.heroStat3 || {}).label);
     }
 
     /* ── ABOUT PAGE EXTRA ── */

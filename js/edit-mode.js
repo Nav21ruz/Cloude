@@ -88,6 +88,9 @@
   FM['about-stat2-label'] = ['aboutPage','stat2','label'];
   FM['about-stat3-label'] = ['aboutPage','stat3','label'];
   FM['about-stat4-label'] = ['aboutPage','stat4','label'];
+  FM['hero-stat1-label'] = ['homePage','heroStat1','label'];
+  FM['hero-stat2-label'] = ['homePage','heroStat2','label'];
+  FM['hero-stat3-label'] = ['homePage','heroStat3','label'];
   for (let i = 1; i <= 5; i++) {
     FM[`review${i}-text`] = ['reviews', i-1, 'text'];
     FM[`review${i}-name`] = ['reviews', i-1, 'name'];
@@ -153,9 +156,9 @@
       .em-btn:hover{opacity:.85;}
       #em-save{background:#000;color:#C9A84C;}
       #em-cancel{background:rgba(0,0,0,.15);color:#1a1a1a;}
-      [contenteditable="true"]{outline:2px dashed rgba(201,168,76,.55)!important;border-radius:3px!important;min-height:1em!important;cursor:text!important;color:inherit!important;}
+      [contenteditable="true"]{outline:2px dashed rgba(201,168,76,.55)!important;border-radius:3px!important;min-height:1em!important;cursor:text!important;}
       [contenteditable="true"]:hover{outline:2px dashed #C9A84C!important;}
-      [contenteditable="true"]:focus{outline:2px solid #C9A84C!important;background:rgba(201,168,76,.08)!important;color:inherit!important;}
+      [contenteditable="true"]:focus{outline:2px solid #C9A84C!important;background:rgba(201,168,76,.08)!important;}
       #em-overlay{display:none;position:fixed;inset:0;z-index:99998;background:rgba(0,0,0,.75);align-items:center;justify-content:center;}
       #em-box{background:#111;border:1px solid #2a2a2a;border-radius:14px;padding:32px;max-width:400px;width:90%;font-family:Inter,sans-serif;}
       #em-box h3{margin:0 0 6px;font-size:18px;color:#fff;}
@@ -221,6 +224,13 @@
     } catch { document.getElementById('em-err').style.display = 'block'; btn.textContent = 'Войти'; btn.disabled = false; }
   }
 
+  function makeEditable(el) {
+    el.style.color = window.getComputedStyle(el).color;
+    el.contentEditable = 'true';
+    el.addEventListener('paste', plainTextPaste);
+    el.addEventListener('input', stripBrowserSpans);
+  }
+
   function enterEdit() {
     document.getElementById('em-bar').style.display = 'flex';
     document.body.style.paddingTop = '48px';
@@ -229,24 +239,17 @@
 
     /* 1. data-field elements (mapped directly to content.json paths) */
     document.querySelectorAll('[data-field]').forEach(el => {
-      if (FM[el.dataset.field]) {
-        el.contentEditable = 'true';
-        el.addEventListener('paste', plainTextPaste);
-      }
+      if (FM[el.dataset.field]) makeEditable(el);
     });
     document.querySelectorAll('.counter[data-stat-field]').forEach(el => {
       el.textContent = (el.dataset.target || '0') + (el.dataset.suffix || '');
-      el.contentEditable = 'true';
-      el.addEventListener('paste', plainTextPaste);
-      el.addEventListener('input', stripBrowserSpans);
+      makeEditable(el);
     });
 
     /* 2. ALL other visible text elements (saved as page overrides) */
     getUnmappedEls().forEach((el, i) => {
       el.dataset.emN = String(i);
-      el.contentEditable = 'true';
-      el.addEventListener('paste', plainTextPaste);
-      el.addEventListener('input', stripBrowserSpans);
+      makeEditable(el);
     });
   }
 
@@ -268,6 +271,7 @@
     if (nav) nav.style.top = '';
     document.querySelectorAll('[contenteditable]').forEach(el => {
       el.removeAttribute('contenteditable');
+      el.style.color = '';
       el.removeEventListener('paste', plainTextPaste);
       delete el.dataset.emN;
     });
