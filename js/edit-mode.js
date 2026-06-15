@@ -225,10 +225,10 @@
   }
 
   function makeEditable(el) {
-    el.style.color = window.getComputedStyle(el).color;
     el.contentEditable = 'true';
     el.addEventListener('paste', plainTextPaste);
     el.addEventListener('input', stripBrowserSpans);
+    el.addEventListener('focus', stripBrowserSpans);
   }
 
   function enterEdit() {
@@ -271,7 +271,6 @@
     if (nav) nav.style.top = '';
     document.querySelectorAll('[contenteditable]').forEach(el => {
       el.removeAttribute('contenteditable');
-      el.style.color = '';
       el.removeEventListener('paste', plainTextPaste);
       delete el.dataset.emN;
     });
