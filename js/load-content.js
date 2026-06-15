@@ -326,7 +326,8 @@ fetch('/data/content.json?t=' + Date.now())
           const hasClass = el.classList.contains('section-title') ||
                            el.classList.contains('section-label') ||
                            el.classList.contains('contact-label') ||
-                           el.classList.contains('contact-note');
+                           el.classList.contains('contact-note') ||
+                           el.classList.contains('stat-label');
           if (!TAGS.has(el.tagName) && !hasClass) return;
           if (el.closest('nav') || el.closest('footer') || el.closest('form')) return;
           if (el.closest('.modal-overlay') || el.closest('#preloader')) return;

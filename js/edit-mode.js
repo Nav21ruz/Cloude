@@ -114,7 +114,8 @@
       const hasClass = el.classList.contains('section-title') ||
                        el.classList.contains('section-label') ||
                        el.classList.contains('contact-label') ||
-                       el.classList.contains('contact-note');
+                       el.classList.contains('contact-note') ||
+                       el.classList.contains('stat-label');
       if (!TAGS.has(tag) && !hasClass) return;
       if (el.closest('nav') || el.closest('footer') || el.closest('form')) return;
       if (el.closest('.modal-overlay') || el.closest('#preloader')) return;
@@ -142,9 +143,9 @@
       .em-btn:hover{opacity:.85;}
       #em-save{background:#000;color:#C9A84C;}
       #em-cancel{background:rgba(0,0,0,.15);color:#1a1a1a;}
-      [contenteditable="true"]{outline:2px dashed rgba(201,168,76,.55)!important;border-radius:3px!important;min-height:1em!important;cursor:text!important;}
+      [contenteditable="true"]{outline:2px dashed rgba(201,168,76,.55)!important;border-radius:3px!important;min-height:1em!important;cursor:text!important;color:inherit!important;}
       [contenteditable="true"]:hover{outline:2px dashed #C9A84C!important;}
-      [contenteditable="true"]:focus{outline:2px solid #C9A84C!important;background:rgba(201,168,76,.08)!important;}
+      [contenteditable="true"]:focus{outline:2px solid #C9A84C!important;background:rgba(201,168,76,.08)!important;color:inherit!important;}
       #em-overlay{display:none;position:fixed;inset:0;z-index:99998;background:rgba(0,0,0,.75);align-items:center;justify-content:center;}
       #em-box{background:#111;border:1px solid #2a2a2a;border-radius:14px;padding:32px;max-width:400px;width:90%;font-family:Inter,sans-serif;}
       #em-box h3{margin:0 0 6px;font-size:18px;color:#fff;}
@@ -227,6 +228,7 @@
       el.textContent = (el.dataset.target || '0') + (el.dataset.suffix || '');
       el.contentEditable = 'true';
       el.addEventListener('paste', plainTextPaste);
+      el.addEventListener('input', stripBrowserSpans);
     });
 
     /* 2. ALL other visible text elements (saved as page overrides) */
@@ -234,10 +236,20 @@
       el.dataset.emN = String(i);
       el.contentEditable = 'true';
       el.addEventListener('paste', plainTextPaste);
+      el.addEventListener('input', stripBrowserSpans);
     });
   }
 
   function plainTextPaste(e) { e.preventDefault(); document.execCommand('insertText', false, e.clipboardData.getData('text/plain')); }
+
+  function stripBrowserSpans(e) {
+    const el = e.currentTarget;
+    el.querySelectorAll('span[style],font').forEach(s => {
+      const parent = s.parentNode;
+      while (s.firstChild) parent.insertBefore(s.firstChild, s);
+      parent.removeChild(s);
+    });
+  }
 
   function exitEdit() {
     document.getElementById('em-bar').style.display = 'none';
