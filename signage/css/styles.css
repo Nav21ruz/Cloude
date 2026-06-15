@@ -1,24 +1,24 @@
 /* ============================================================
    SIGNUM — Наружная реклама премиум-класса в Челябинске
-   styles.css | Premium Dark Theme
+   styles.css | Premium Light Theme
    ============================================================ */
 
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap');
 
 /* ---- Custom Properties ---- */
 :root {
-  --bg:         #080808;
-  --bg-2:       #0f0f0f;
-  --bg-3:       #161616;
-  --bg-4:       #1e1e1e;
-  --gold:       #C9A84C;
-  --gold-light: #E8C96A;
-  --gold-dim:   rgba(201,168,76,0.12);
-  --white:      #F5F0E8;
-  --gray-1:     #888880;
-  --gray-2:     #555550;
-  --text:       #CDCAB8;
-  --border:     rgba(201,168,76,0.15);
+  --bg:         #FAFAF7;
+  --bg-2:       #F2EFE9;
+  --bg-3:       #E9E5DE;
+  --bg-4:       #DEDAD2;
+  --gold:       #A8872A;
+  --gold-light: #C9A84C;
+  --gold-dim:   rgba(168,135,42,0.10);
+  --white:      #1C1B17;
+  --gray-1:     #5C5A52;
+  --gray-2:     #8A8880;
+  --text:       #3D3C36;
+  --border:     rgba(0,0,0,0.10);
   --nav-h:      80px;
   --ease:       cubic-bezier(0.4,0,0.2,1);
 }
@@ -180,7 +180,7 @@ body.no-cursor .cursor-ring { opacity: 0; }
 }
 
 .nav.nav-scrolled {
-  background: rgba(8,8,8,0.95);
+  background: rgba(250,250,247,0.96);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   box-shadow: 0 1px 0 var(--border);
@@ -330,7 +330,7 @@ body.no-cursor .cursor-ring { opacity: 0; }
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(8,8,8,0.98);
+  background: rgba(250,250,247,0.98);
   backdrop-filter: blur(20px);
   z-index: 850;
   flex-direction: column;
@@ -356,6 +356,8 @@ body.no-cursor .cursor-ring { opacity: 0; }
 }
 
 .nav-overlay a:hover { color: var(--gold); }
+
+.nav-overlay .hamburger span { background: var(--white); }
 
 /* ---- Gold Separator ---- */
 .gold-line {
@@ -473,6 +475,8 @@ section { padding: 100px 0; }
   pointer-events: none;
 }
 
+.hero { background: var(--bg); }
+
 .hero-bg-text {
   position: absolute;
   bottom: -2%;
@@ -589,9 +593,12 @@ section { padding: 100px 0; }
   padding: 48px 36px;
   position: relative;
   overflow: hidden;
-  transition: background 0.35s var(--ease), transform 0.35s var(--ease);
+  transition: background 0.35s var(--ease), transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
   border-top: 2px solid transparent;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
 }
+
+.service-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.10); }
 
 .service-card::before {
   content: '';
@@ -916,6 +923,7 @@ section { padding: 100px 0; }
   background: var(--bg-3);
   padding: 44px 36px;
   position: relative;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
 }
 
 .testimonial-stars {
@@ -1410,7 +1418,7 @@ section { padding: 100px 0; }
   left: -10%;
   width: 60%;
   height: 200%;
-  background: radial-gradient(ellipse at center, rgba(201,168,76,0.05) 0%, transparent 70%);
+  background: radial-gradient(ellipse at center, rgba(168,135,42,0.07) 0%, transparent 70%);
 }
 
 .page-hero-bg {
