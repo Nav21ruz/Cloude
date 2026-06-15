@@ -321,6 +321,15 @@ fetch('/data/content.json?t=' + Date.now())
       }
     }
 
+    /* ── REVIEWS ── */
+    if (data.reviews) {
+      data.reviews.forEach((r, i) => {
+        sf(`review${i+1}-text`, r.text);
+        sf(`review${i+1}-name`, r.name);
+        sf(`review${i+1}-meta`, r.meta);
+      });
+    }
+
     /* ── PAGE OVERRIDES (inline edit mode) ── */
     if (data.pageOverrides) {
       const key = location.pathname.replace(/^\/|\/$/g, '') || 'index';

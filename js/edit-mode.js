@@ -88,6 +88,11 @@
   FM['about-stat2-label'] = ['aboutPage','stat2','label'];
   FM['about-stat3-label'] = ['aboutPage','stat3','label'];
   FM['about-stat4-label'] = ['aboutPage','stat4','label'];
+  for (let i = 1; i <= 5; i++) {
+    FM[`review${i}-text`] = ['reviews', i-1, 'text'];
+    FM[`review${i}-name`] = ['reviews', i-1, 'name'];
+    FM[`review${i}-meta`] = ['reviews', i-1, 'meta'];
+  }
 
   /* ── UTILS ── */
   function setPath(obj, path, val) {
