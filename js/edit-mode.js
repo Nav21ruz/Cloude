@@ -296,10 +296,15 @@
         if (!isNaN(num)) { data.stats = data.stats || {}; data.stats[field] = num; el.dataset.target = num; }
       });
 
-      /* Save page overrides (unmapped elements) */
+      /* Save page overrides (unmapped elements) — strip editor attrs before saving */
       const overrides = {};
       document.querySelectorAll('[data-em-n]').forEach(el => {
-        overrides[el.dataset.emN] = el.innerHTML;
+        const clone = el.cloneNode(true);
+        clone.querySelectorAll('[contenteditable],[data-em-n]').forEach(ce => {
+          ce.removeAttribute('contenteditable');
+          ce.removeAttribute('data-em-n');
+        });
+        overrides[el.dataset.emN] = clone.innerHTML;
       });
       if (Object.keys(overrides).length > 0) {
         if (!data.pageOverrides) data.pageOverrides = {};

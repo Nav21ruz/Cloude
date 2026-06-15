@@ -356,7 +356,13 @@ fetch('/data/content.json?t=' + Date.now())
           if (!el.textContent.trim()) return;
           seen.add(el);
           const n = String(emN++);
-          if (overrides[n] !== undefined) el.innerHTML = overrides[n];
+          if (overrides[n] !== undefined) {
+            el.innerHTML = overrides[n];
+            el.querySelectorAll('[contenteditable],[data-em-n]').forEach(ce => {
+              ce.removeAttribute('contenteditable');
+              ce.removeAttribute('data-em-n');
+            });
+          }
         });
       }
     }
