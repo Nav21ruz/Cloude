@@ -313,6 +313,14 @@ fetch('/data/content.json?t=' + Date.now())
       }
     }
 
+    /* ── ABOUT STAT LABELS ── */
+    if (data.aboutPage) {
+      for (let i = 1; i <= 4; i++) {
+        const st = data.aboutPage[`stat${i}`] || {};
+        sf(`about-stat${i}-label`, st.label);
+      }
+    }
+
     /* ── PAGE OVERRIDES (inline edit mode) ── */
     if (data.pageOverrides) {
       const key = location.pathname.replace(/^\/|\/$/g, '') || 'index';

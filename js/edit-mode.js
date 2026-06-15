@@ -84,6 +84,11 @@
     FM[`quick${i}-desc`]   = ['contactPage',`quick${i}`,'desc'];
   }
 
+  FM['about-stat1-label'] = ['aboutPage','stat1','label'];
+  FM['about-stat2-label'] = ['aboutPage','stat2','label'];
+  FM['about-stat3-label'] = ['aboutPage','stat3','label'];
+  FM['about-stat4-label'] = ['aboutPage','stat4','label'];
+
   /* ── UTILS ── */
   function setPath(obj, path, val) {
     let o = obj;

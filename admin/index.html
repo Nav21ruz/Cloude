@@ -542,6 +542,16 @@ button{font-family:inherit;cursor:pointer}
 
           <!-- ABOUT PAGE EXTRA -->
           <div class="settings-card settings-card-wide">
+            <h3>Страница «О компании» — Подписи статистики</h3>
+            <div class="hero-fields-2col">
+              <div class="field-group"><label>Подпись статистики 1</label><input type="text" id="s-about-stat1-label" placeholder="Проектов завершено"></div>
+              <div class="field-group"><label>Подпись статистики 2</label><input type="text" id="s-about-stat2-label" placeholder="На рынке"></div>
+              <div class="field-group"><label>Подпись статистики 3</label><input type="text" id="s-about-stat3-label" placeholder="В штате"></div>
+              <div class="field-group"><label>Подпись статистики 4</label><input type="text" id="s-about-stat4-label" placeholder="Довольных клиентов"></div>
+            </div>
+          </div>
+
+          <div class="settings-card settings-card-wide">
             <h3>Страница «О компании» — Хронология</h3>
             <div style="display:grid;grid-template-columns:1fr 2fr 3fr;gap:12px;margin-bottom:8px;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text3)">
               <div>Год</div><div>Заголовок</div><div>Описание</div>
@@ -1060,6 +1070,10 @@ function fillSettings() {
 
   // About page extra
   const ap = data.aboutPage || {};
+  for (let i = 1; i <= 4; i++) {
+    const st = (ap[`stat${i}`] || {});
+    if ($('s-about-stat'+i+'-label')) $('s-about-stat'+i+'-label').value = st.label || '';
+  }
   const tl = ap.timeline || {};
   for (let i = 1; i <= 6; i++) {
     const it = tl['item'+i] || {};
@@ -1270,6 +1284,9 @@ function collectSettings() {
       title: $('s-whyus'+i+'-title').value.trim(),
       desc:  $('s-whyus'+i+'-desc').value.trim()
     };
+  }
+  for (let i = 1; i <= 4; i++) {
+    if ($('s-about-stat'+i+'-label')) data.aboutPage[`stat${i}`] = { label: $('s-about-stat'+i+'-label').value.trim() };
   }
 
   // Services page
