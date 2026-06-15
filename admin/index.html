@@ -381,6 +381,10 @@ button{font-family:inherit;cursor:pointer}
                 <input type="number" id="s-stat-projects" placeholder="340">
               </div>
               <div class="field-group">
+                <label>Сотрудников в штате</label>
+                <input type="number" id="s-stat-employees" placeholder="65">
+              </div>
+              <div class="field-group">
                 <label>Клиентов довольны (%)</label>
                 <input type="number" id="s-stat-satisfaction" placeholder="98">
               </div>
@@ -994,6 +998,7 @@ function fillSettings() {
   $('s-hours-sun').value     = h.sunday || '';
   $('s-stat-years').value        = s.years || '';
   $('s-stat-projects').value     = s.projects || '';
+  $('s-stat-employees').value    = s.employees || '';
   $('s-stat-satisfaction').value = s.satisfaction || '';
   $('s-stat-guarantee').value    = s.guarantee || '';
 
@@ -1180,6 +1185,7 @@ function collectSettings() {
   data.stats = {
     years: +$('s-stat-years').value || 0,
     projects: +$('s-stat-projects').value || 0,
+    employees: +$('s-stat-employees').value || 0,
     satisfaction: +$('s-stat-satisfaction').value || 0,
     guarantee: +$('s-stat-guarantee').value || 0
   };

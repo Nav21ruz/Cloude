@@ -27,10 +27,11 @@
     }
   },
   "stats": {
-    "years": 6,
-    "projects": 81,
+    "years": 12,
+    "projects": 340,
     "satisfaction": 98,
-    "guarantee": 3
+    "guarantee": 3,
+    "employees": 65
   },
   "categories": {
     "office": "Офис",
