@@ -286,6 +286,14 @@ fetch('/data/content.json?t=' + Date.now())
         sf(`svc${i}-heading`, s.heading);
         sf(`svc${i}-desc`, s.desc);
         for (let j = 1; j <= 6; j++) sf(`svc${i}-check${j}`, s[`check${j}`]);
+        if (s.image) {
+          const bg = gdrive(s.image);
+          document.querySelectorAll(`[data-svc-img="${i}"]`).forEach(el => {
+            el.style.backgroundImage = `url('${bg}')`;
+            el.style.backgroundSize = 'cover';
+            el.style.backgroundPosition = 'center';
+          });
+        }
       }
       const steps = sv.steps || {};
       for (let i = 1; i <= 7; i++) {
