@@ -174,30 +174,3 @@ window.addEventListener('scroll', () => {
 heroBg.style.transform = `translateY(${window.scrollY * 0.3}px)`;
 }, { passive: true });
 }
-(function initCookieBanner() {
-if (localStorage.getItem('cookie_consent')) return;
-const banner = document.createElement('div');
-banner.id = 'cookie-banner';
-banner.innerHTML = `
-<div class="cookie-inner">
-<div class="cookie-text">
-<strong>Мы используем cookies</strong>
-<span>для улучшения сайта и анализа трафика. Продолжая пользоваться сайтом, вы соглашаетесь с нашей
-<a href="privacy.html">политикой конфиденциальности</a>.</span>
-</div>
-<div class="cookie-actions">
-<button id="cookie-accept" class="cookie-btn-accept">Принять</button>
-<button id="cookie-reject" class="cookie-btn-reject">Отклонить</button>
-</div>
-</div>
-`;
-document.body.appendChild(banner);
-setTimeout(() => banner.classList.add('cookie-visible'), 800);
-function closeBanner(accepted) {
-localStorage.setItem('cookie_consent', accepted ? 'accepted' : 'rejected');
-banner.classList.remove('cookie-visible');
-setTimeout(() => banner.remove(), 400);
-}
-document.getElementById('cookie-accept').addEventListener('click', () => closeBanner(true));
-document.getElementById('cookie-reject').addEventListener('click', () => closeBanner(false));
-})();
