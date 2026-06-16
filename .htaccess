@@ -23,13 +23,24 @@ AddType application/javascript .js
   RewriteCond %{REQUEST_FILENAME} !-d
 
   # Перенаправления: /about → /about.html и т.д.
-  RewriteRule ^services$   services.html   [L]
-  RewriteRule ^projects$   projects.html   [L]
-  RewriteRule ^about$      about.html      [L]
-  RewriteRule ^contact$    contact.html    [L]
-  RewriteRule ^privacy$    privacy.html    [L]
-  RewriteRule ^calculator$ calculator.html [L]
-  RewriteRule ^admin$      admin/          [L]
+  RewriteRule ^services$                    services.html                      [L]
+  RewriteRule ^projects$                    projects.html                      [L]
+  RewriteRule ^about$                       about.html                         [L]
+  RewriteRule ^contact$                     contact.html                       [L]
+  RewriteRule ^privacy$                     privacy.html                       [L]
+  RewriteRule ^calculator$                  calculator.html                    [L]
+  RewriteRule ^blog$                        blog.html                          [L]
+  RewriteRule ^ceny$                        ceny.html                          [L]
+  RewriteRule ^remont-ofisov$               remont-ofisov.html                 [L]
+  RewriteRule ^remont-restoranov$           remont-restoranov.html             [L]
+  RewriteRule ^remont-torgovyh-zalov$       remont-torgovyh-zlov.html          [L]
+  RewriteRule ^remont-meditsinskih-centrov$ remont-meditsinskih-centrov.html   [L]
+  RewriteRule ^remont-skladov$              remont-skladov.html                [L]
+  RewriteRule ^remont-kafe$                 remont-kafe.html                   [L]
+  RewriteRule ^remont-fitnes-centrov$       remont-fitnes-centrov.html         [L]
+  RewriteRule ^remont-magazinov$            remont-magazinov.html              [L]
+  RewriteRule ^remont-pod-klyuch$           remont-pod-klyuch-chelyabinsk.html [L]
+  RewriteRule ^admin$                       admin/                             [L]
 </IfModule>
 
 # ── КЭШИРОВАНИЕ ──────────────────────────────────────────────────────────────
