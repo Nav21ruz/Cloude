@@ -86,7 +86,8 @@
 
   FM['about-stat1-label'] = ['aboutPage','stat1','label'];
   FM['about-stat2-label'] = ['aboutPage','stat2','label'];
-  FM['about-stat3-label'] = ['aboutPage','stat3','label'];
+  FM['about-stat3-label']     = ['aboutPage','stat3','label'];
+  FM['about-guarantee-label'] = ['aboutPage','guarantee','label'];
   FM['about-stat4-label'] = ['aboutPage','stat4','label'];
   FM['hero-stat1-label'] = ['homePage','heroStat1','label'];
   FM['hero-stat2-label'] = ['homePage','heroStat2','label'];
