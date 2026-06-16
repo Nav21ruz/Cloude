@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Превью цветов — ТЕКТОН</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', sans-serif; background: #f2f2f2; padding: 40px 20px; }
+  h1 { text-align: center; font-size: 1.1rem; color: #555; font-weight: 500; margin-bottom: 48px; letter-spacing: .05em; text-transform: uppercase; }
+
+  .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; max-width: 1200px; margin: 0 auto; }
+
+  .card {
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,.08);
+  }
+
+  /* Dark preview (site's actual dark background) */
+  .preview-dark {
+    background: #0a0a0a;
+    padding: 32px 28px;
+    min-height: 260px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  /* Logo */
+  .logo {
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: #fff;
+    letter-spacing: -0.5px;
+    display: flex;
+    align-items: center;
+    gap: 0;
+  }
+  .logo-bar {
+    display: inline-block;
+    width: 3px;
+    height: 1em;
+    border-radius: 2px;
+    margin: 0 6px;
+    vertical-align: middle;
+  }
+
+  /* Button */
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: .875rem;
+    border: none;
+    cursor: pointer;
+    color: #0a0a0a;
+    letter-spacing: .02em;
+    width: fit-content;
+  }
+
+  /* Section label */
+  .section-label {
+    font-size: .7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .18em;
+  }
+
+  /* Card accent */
+  .mini-card {
+    border-left: 3px solid;
+    padding: 14px 16px;
+    background: #111;
+  }
+  .mini-card-title { color: #fff; font-size: .85rem; font-weight: 700; margin-bottom: 4px; }
+  .mini-card-sub { color: #666; font-size: .75rem; }
+
+  /* Gold underline decoration */
+  .deco-line {
+    width: 48px;
+    height: 3px;
+    border-radius: 2px;
+    margin-top: 4px;
+  }
+
+  /* Light preview */
+  .preview-light {
+    background: #ffffff;
+    padding: 24px 28px;
+    border-top: 1px solid #f0f0f0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .btn-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: .8rem;
+    cursor: pointer;
+    background: transparent;
+    border: 2px solid;
+    width: fit-content;
+  }
+
+  .stat-num {
+    font-size: 2rem;
+    font-weight: 900;
+    line-height: 1;
+  }
+
+  /* Card label */
+  .card-label {
+    padding: 12px 28px;
+    background: #111;
+    font-size: .65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .2em;
+    text-align: center;
+  }
+  .current-badge {
+    background: #1a1a1a;
+    color: #888;
+    font-size: .6rem;
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-weight: 600;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    display: inline-block;
+    margin-bottom: 4px;
+  }
+</style>
+</head>
+<body>
+
+<h1>Варианты акцентного цвета ТЕКТОН — выбери один</h1>
+
+<div class="grid">
+
+  <!-- CURRENT: GOLD -->
+  <div class="card">
+    <div class="card-label" style="color:#C9A84C;">
+      <div class="current-badge">Текущий</div><br>
+      Золото #C9A84C
+    </div>
+    <div class="preview-dark">
+      <div class="logo">
+        ТЕК<span class="logo-bar" style="background:#C9A84C;"></span>ТОН
+      </div>
+      <div>
+        <div class="section-label" style="color:#C9A84C;">Наши услуги</div>
+        <div class="deco-line" style="background:#C9A84C;"></div>
+      </div>
+      <button class="btn-primary" style="background:#C9A84C;">
+        Оставить заявку →
+      </button>
+      <div class="mini-card" style="border-color:#C9A84C;">
+        <div class="mini-card-title">Ремонт офисов</div>
+        <div class="mini-card-sub">от 6 500 ₽/м²</div>
+      </div>
+    </div>
+    <div class="preview-light">
+      <div class="stat-num" style="color:#C9A84C;">340+</div>
+      <div style="font-size:.8rem;color:#333;margin-top:-8px;">объектов сдано</div>
+      <button class="btn-outline" style="border-color:#C9A84C;color:#C9A84C;">
+        Узнать цену
+      </button>
+      <div style="width:100%;height:3px;background:#C9A84C;border-radius:2px;"></div>
+    </div>
+  </div>
+
+  <!-- COPPER / BRONZE -->
+  <div class="card">
+    <div class="card-label" style="color:#C07832;">
+      Медь #C07832
+    </div>
+    <div class="preview-dark">
+      <div class="logo">
+        ТЕК<span class="logo-bar" style="background:#C07832;"></span>ТОН
+      </div>
+      <div>
+        <div class="section-label" style="color:#C07832;">Наши услуги</div>
+        <div class="deco-line" style="background:#C07832;"></div>
+      </div>
+      <button class="btn-primary" style="background:#C07832;">
+        Оставить заявку →
+      </button>
+      <div class="mini-card" style="border-color:#C07832;">
+        <div class="mini-card-title">Ремонт офисов</div>
+        <div class="mini-card-sub">от 6 500 ₽/м²</div>
+      </div>
+    </div>
+    <div class="preview-light">
+      <div class="stat-num" style="color:#C07832;">340+</div>
+      <div style="font-size:.8rem;color:#333;margin-top:-8px;">объектов сдано</div>
+      <button class="btn-outline" style="border-color:#C07832;color:#C07832;">
+        Узнать цену
+      </button>
+      <div style="width:100%;height:3px;background:#C07832;border-radius:2px;"></div>
+    </div>
+  </div>
+
+  <!-- STEEL BLUE -->
+  <div class="card">
+    <div class="card-label" style="color:#3D8BCD;">
+      Сталь #3D8BCD
+    </div>
+    <div class="preview-dark">
+      <div class="logo">
+        ТЕК<span class="logo-bar" style="background:#3D8BCD;"></span>ТОН
+      </div>
+      <div>
+        <div class="section-label" style="color:#3D8BCD;">Наши услуги</div>
+        <div class="deco-line" style="background:#3D8BCD;"></div>
+      </div>
+      <button class="btn-primary" style="background:#3D8BCD;color:#fff;">
+        Оставить заявку →
+      </button>
+      <div class="mini-card" style="border-color:#3D8BCD;">
+        <div class="mini-card-title">Ремонт офисов</div>
+        <div class="mini-card-sub">от 6 500 ₽/м²</div>
+      </div>
+    </div>
+    <div class="preview-light">
+      <div class="stat-num" style="color:#3D8BCD;">340+</div>
+      <div style="font-size:.8rem;color:#333;margin-top:-8px;">объектов сдано</div>
+      <button class="btn-outline" style="border-color:#3D8BCD;color:#3D8BCD;">
+        Узнать цену
+      </button>
+      <div style="width:100%;height:3px;background:#3D8BCD;border-radius:2px;"></div>
+    </div>
+  </div>
+
+  <!-- CONSTRUCTION ORANGE -->
+  <div class="card">
+    <div class="card-label" style="color:#E07830;">
+      Оранжевый #E07830
+    </div>
+    <div class="preview-dark">
+      <div class="logo">
+        ТЕК<span class="logo-bar" style="background:#E07830;"></span>ТОН
+      </div>
+      <div>
+        <div class="section-label" style="color:#E07830;">Наши услуги</div>
+        <div class="deco-line" style="background:#E07830;"></div>
+      </div>
+      <button class="btn-primary" style="background:#E07830;color:#fff;">
+        Оставить заявку →
+      </button>
+      <div class="mini-card" style="border-color:#E07830;">
+        <div class="mini-card-title">Ремонт офисов</div>
+        <div class="mini-card-sub">от 6 500 ₽/м²</div>
+      </div>
+    </div>
+    <div class="preview-light">
+      <div class="stat-num" style="color:#E07830;">340+</div>
+      <div style="font-size:.8rem;color:#333;margin-top:-8px;">объектов сдано</div>
+      <button class="btn-outline" style="border-color:#E07830;color:#E07830;">
+        Узнать цену
+      </button>
+      <div style="width:100%;height:3px;background:#E07830;border-radius:2px;"></div>
+    </div>
+  </div>
+
+</div>
+
+<p style="text-align:center;margin-top:48px;color:#999;font-size:.8rem;">
+  Верхняя часть — как выглядит на тёмном фоне сайта · Нижняя — на светлом (формы, блоки)
+</p>
+
+</body>
+</html>
