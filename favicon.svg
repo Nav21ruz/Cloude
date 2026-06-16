@@ -1,4 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
   <rect width="32" height="32" rx="6" fill="#0a0a0a"/>
-  <text x="16" y="23" font-family="Georgia, serif" font-size="22" font-weight="700" fill="#C9A84C" text-anchor="middle">Т</text>
+  <text x="9" y="22" font-family="Inter,Arial,sans-serif" font-weight="900" font-size="13" fill="#ffffff" letter-spacing="-1">ТК</text>
+  <rect x="18" y="5" width="2" height="22" rx="1" fill="#C9A84C"/>
+  <text x="21" y="22" font-family="Inter,Arial,sans-serif" font-weight="900" font-size="13" fill="#C9A84C" letter-spacing="-1">ТН</text>
 </svg>

@@ -26,7 +26,7 @@ button{font-family:inherit;cursor:pointer}
 #login{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:24px}
 .login-box{background:var(--white);border:1px solid var(--border);padding:48px 40px;max-width:440px;width:100%;box-shadow:var(--shadow)}
 .login-logo{font-size:1.75rem;font-weight:900;letter-spacing:.08em;margin-bottom:8px}
-.login-logo span{color:var(--gold)}
+.login-logo span{display:inline-block;width:2px;height:.7em;background:var(--gold);border-radius:1px;margin:0 5px;vertical-align:middle}
 .login-box p{font-size:.875rem;color:var(--text2);line-height:1.6;margin-bottom:24px}
 .login-box label{display:block;font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:8px}
 .login-box input{width:100%;padding:12px 14px;border:1px solid var(--border);outline:none;font-size:.9rem;transition:border .2s}
@@ -41,7 +41,7 @@ button{font-family:inherit;cursor:pointer}
 #app{display:none;min-height:100vh}
 .app-header{background:var(--white);border-bottom:1px solid var(--border);padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
 .app-logo{font-size:1.1rem;font-weight:900;letter-spacing:.08em}
-.app-logo span{color:var(--gold)}
+.app-logo span{display:inline-block;width:2px;height:.7em;background:var(--gold);border-radius:1px;margin:0 4px;vertical-align:middle}
 .app-logo small{font-size:.7rem;font-weight:400;color:var(--text3);margin-left:8px;letter-spacing:.05em}
 .header-right{display:flex;align-items:center;gap:12px}
 .btn-save{padding:9px 22px;background:var(--gold);color:#fff;border:none;font-size:.8rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;transition:background .2s}
@@ -191,7 +191,7 @@ button{font-family:inherit;cursor:pointer}
 <!-- LOGIN -->
 <div id="login">
   <div class="login-box">
-    <div class="login-logo">ТЕК<span>Т</span>ОН <small>Admin</small></div>
+    <div class="login-logo">ТЕК<span></span>ТОН <small>Admin</small></div>
     <p>Введите пароль администратора для доступа к панели управления.</p>
     <label>Пароль администратора</label>
     <input type="password" id="gh-token" placeholder="Введите пароль" autocomplete="current-password">
@@ -203,7 +203,7 @@ button{font-family:inherit;cursor:pointer}
 <!-- APP -->
 <div id="app">
   <header class="app-header">
-    <div class="app-logo">ТЕК<span>Т</span>ОН <small>Панель управления</small></div>
+    <div class="app-logo">ТЕК<span></span>ТОН <small>Панель управления</small></div>
     <div class="header-right">
       <span class="save-status" id="save-status"></span>
       <button class="btn-save" id="btn-save" disabled>Сохранить и опубликовать</button>

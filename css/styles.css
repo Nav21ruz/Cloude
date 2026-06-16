@@ -106,7 +106,10 @@ button { font-family: inherit; border: none; outline: none; background: none; }
   color: var(--white);
 }
 
-.preloader-logo span { color: var(--gold); }
+.preloader-logo span {
+  display: inline-block; width: 3px; height: 0.65em;
+  background: var(--gold); border-radius: 1px; margin: 0 7px; vertical-align: middle;
+}
 
 .preloader-bar {
   width: 240px; height: 2px;
@@ -146,7 +149,10 @@ button { font-family: inherit; border: none; outline: none; background: none; }
   display: flex; align-items: center; gap: 4px;
 }
 
-.nav-logo span { color: var(--gold); }
+.nav-logo span {
+  display: inline-block; width: 2px; height: 0.7em;
+  background: var(--gold); border-radius: 1px; margin: 0 5px; vertical-align: middle;
+}
 
 .nav-links {
   display: flex; align-items: center; gap: 40px;
@@ -972,7 +978,10 @@ footer {
   letter-spacing: 0.1em; margin-bottom: 16px;
 }
 
-.footer-logo span { color: var(--gold); }
+.footer-logo span {
+  display: inline-block; width: 3px; height: 0.7em;
+  background: var(--gold); border-radius: 1px; margin: 0 7px; vertical-align: middle;
+}
 
 .footer-desc {
   font-size: 0.875rem; color: var(--gray-3);
