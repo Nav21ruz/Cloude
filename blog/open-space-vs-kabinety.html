@@ -79,6 +79,7 @@
     .compare-col li { font-size: 0.9rem; color: var(--gray-2); line-height: 1.7; margin-bottom: 6px; }
     @media(max-width:600px){ .compare-grid { grid-template-columns: 1fr; } .post-nav { grid-template-columns: 1fr; } }
   </style>
+<link rel="dns-prefetch" href="https://mc.yandex.ru">
 </head>
 <body>
 
@@ -353,7 +354,7 @@
 
 <script src="../js/main.js"></script>
 <script src="../js/load-content.js"></script>
-<script src="../js/edit-mode.js"></script>
+<script>window.addEventListener("load",function(){var s=document.createElement("script");s.src="../js/edit-mode.js";document.body.appendChild(s)});</script>
 <script type="text/javascript">
    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
    m[i].l=1*new Date();

@@ -39,9 +39,9 @@ AddType application/javascript .js
   # HTML — 1 час
   ExpiresByType text/html                  "access plus 1 hour"
 
-  # CSS / JS — 1 день
-  ExpiresByType text/css                   "access plus 1 day"
-  ExpiresByType application/javascript     "access plus 1 day"
+  # CSS / JS — 1 неделя
+  ExpiresByType text/css                   "access plus 1 week"
+  ExpiresByType application/javascript     "access plus 1 week"
 
   # Изображения и шрифты — 1 месяц
   ExpiresByType image/svg+xml              "access plus 1 month"
@@ -79,3 +79,9 @@ AddType application/javascript .js
 
 # ── СТРАНИЦА ОШИБКИ 404 ──────────────────────────────────────────────────────
 ErrorDocument 404 /index.html
+
+# ── ЗАЩИТА КОНФИГУРАЦИОННЫХ ФАЙЛОВ ───────────────────────────────────────────
+<FilesMatch "^(config\.php|\.brute_lock)$">
+  Order allow,deny
+  Deny from all
+</FilesMatch>

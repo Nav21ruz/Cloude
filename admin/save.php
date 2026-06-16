@@ -11,14 +11,7 @@ header('Access-Control-Allow-Headers: Content-Type');
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') { http_response_code(200); exit; }
 if ($_SERVER['REQUEST_METHOD'] !== 'POST')    { http_response_code(405); exit; }
 
-// ═══════════════════════════════════════════════════════════════
-//  НАСТРОЙКИ
-// ═══════════════════════════════════════════════════════════════
-define('ADMIN_PASSWORD', 'Imov2121');
-define('MAX_ATTEMPTS',   5);       // блокировка после N неудачных попыток
-define('LOCKOUT_SECONDS', 900);    // 15 минут блокировки
-define('LOCK_FILE', __DIR__ . '/.brute_lock');
-// ═══════════════════════════════════════════════════════════════
+require_once __DIR__ . '/config.php';
 
 // ── Брутфорс-защита ─────────────────────────────────────────────
 function get_lock_data() {
@@ -36,7 +29,8 @@ function save_lock_data(array $d) {
 function client_ip() {
     foreach (['HTTP_CF_CONNECTING_IP','HTTP_X_FORWARDED_FOR','REMOTE_ADDR'] as $h) {
         if (!empty($_SERVER[$h])) {
-            return trim(explode(',', $_SERVER[$h])[0]);
+            $ip = trim(explode(',', $_SERVER[$h])[0]);
+            if (filter_var($ip, FILTER_VALIDATE_IP)) return $ip;
         }
     }
     return 'unknown';
@@ -46,13 +40,11 @@ $ip   = client_ip();
 $lock = get_lock_data();
 $now  = time();
 
-// Снимаем устаревшую блокировку
 if ($lock['until'] > 0 && $now > $lock['until']) {
     $lock = ['attempts' => 0, 'until' => 0, 'ips' => []];
     save_lock_data($lock);
 }
 
-// Проверяем блокировку
 if ($lock['until'] > 0 && $now <= $lock['until']) {
     $wait = ceil(($lock['until'] - $now) / 60);
     http_response_code(429);
@@ -70,8 +62,7 @@ if ($decoded === null) { http_response_code(400); echo json_encode(['error' => '
 // ── Проверка пароля ──────────────────────────────────────────────
 $pass = $decoded['_pass'] ?? '';
 
-if ($pass !== ADMIN_PASSWORD) {
-    // Регистрируем неудачную попытку
+if (!password_verify($pass, ADMIN_PASSWORD_HASH)) {
     $lock['attempts']++;
     $lock['ips'][$ip] = ($lock['ips'][$ip] ?? 0) + 1;
 
@@ -89,21 +80,17 @@ if ($pass !== ADMIN_PASSWORD) {
     exit;
 }
 
-// Успешный вход — сбрасываем счётчик
 $lock = ['attempts' => 0, 'until' => 0, 'ips' => []];
 save_lock_data($lock);
 // ────────────────────────────────────────────────────────────────
 
-// Режим проверки пароля без сохранения (?ping=1)
 if (isset($_GET['ping'])) {
     echo json_encode(['ok' => true]);
     exit;
 }
 
-// Убираем служебное поле пароля перед сохранением
 unset($decoded['_pass']);
 
-// Защита: разрешаем только ожидаемые top-level ключи
 $allowed_keys = [
     'contacts','stats','hero','about','projects','categories','pages','homePage',
     'aboutPage','services','contactPage','reviews','pageOverrides'
@@ -112,7 +99,6 @@ foreach (array_keys($decoded) as $k) {
     if (!in_array($k, $allowed_keys, true)) unset($decoded[$k]);
 }
 
-// Защита от path traversal — пишем только в фиксированный файл
 $contentFile = realpath(__DIR__ . '/../data') . '/content.json';
 
 if (!$contentFile || !is_writable($contentFile)) {
