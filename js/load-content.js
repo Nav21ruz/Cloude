@@ -158,6 +158,7 @@ fetch('/data/content.json?t=' + Date.now())
       setHref('[data-field="email-link"]', `mailto:${c.email}`);
       setHref('[data-field="wa-link"]', `https://wa.me/${c.whatsapp}`);
       setHref('[data-field="tg-link"]', `https://t.me/${c.telegram}`);
+      if (c.telegram) set('[data-field="tg-text"]', '@' + c.telegram);
       if (c.vk) setHref('[data-field="vk-link"]', c.vk);
       if (c.hours) {
         set('[data-field="hours-weekdays"]', c.hours.weekdays);
