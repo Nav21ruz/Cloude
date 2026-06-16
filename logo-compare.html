@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Сравнение логотипов — ТЕКТОН</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: Inter, sans-serif; background: #f0f0f0; }
+
+  .page-label {
+    text-align: center;
+    padding: 32px 24px 12px;
+    font-size: .85rem;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+  }
+
+  /* ── NAV MOCK ── */
+  .nav-mock {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 48px;
+    height: 72px;
+    background: #fff;
+    border-bottom: 1px solid #eee;
+    margin: 0 0 6px;
+  }
+  .nav-links-mock {
+    display: flex; gap: 28px;
+    font-size: .82rem; font-weight: 600; color: #555; letter-spacing: .02em;
+  }
+  .nav-cta-mock {
+    display: flex; align-items: center; gap: 16px;
+  }
+  .nav-phone-mock { font-size: .82rem; font-weight: 700; color: #C9A84C; }
+  .btn-mock {
+    background: #C9A84C; color: #000; font-weight: 700;
+    font-size: .78rem; padding: 10px 18px; border-radius: 6px; letter-spacing: .06em;
+  }
+
+  /* ── DARK NAV VERSION ── */
+  .nav-mock.dark {
+    background: #0a0a0a;
+    border-bottom: 1px solid #1a1a1a;
+  }
+  .nav-mock.dark .nav-links-mock { color: rgba(255,255,255,.6); }
+  .nav-mock.dark .nav-phone-mock { color: #C9A84C; }
+
+  /* ── VARIANT LABEL ── */
+  .variant-title {
+    text-align: center;
+    padding: 28px 0 20px;
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: #0a0a0a;
+  }
+  .variant-title span { color: #C9A84C; }
+  .variant-desc {
+    text-align: center;
+    font-size: .82rem;
+    color: #777;
+    margin-bottom: 16px;
+  }
+
+  hr.sep { border: none; border-top: 2px dashed #ddd; margin: 40px 32px; }
+</style>
+</head>
+<body>
+
+<div class="page-label">Сравнение вариантов логотипа ТЕКТОН</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     ВАРИАНТ А — Символ Т (балка/колонна) + текст
+════════════════════════════════════════════════════════════ -->
+<div class="variant-title">Вариант А — <span>Символ Т</span> (балка + ТЕКТОН)</div>
+<div class="variant-desc">Геометрическая буква Т как архитектурная балка, текст рядом</div>
+
+<!-- Светлый фон -->
+<div class="nav-mock">
+  <svg width="160" height="36" viewBox="0 0 160 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- T symbol: horizontal beam + vertical stem -->
+    <rect x="0" y="0" width="34" height="8" rx="1" fill="#0a0a0a"/>
+    <rect x="12" y="8" width="10" height="22" rx="1" fill="#C9A84C"/>
+    <!-- ТЕКТОН text -->
+    <text x="44" y="26" font-family="Inter,sans-serif" font-weight="900" font-size="22" fill="#0a0a0a" letter-spacing="-0.5">ТЕКТОН</text>
+  </svg>
+  <div class="nav-links-mock">
+    <span>Главная</span><span>Услуги</span><span>Проекты</span><span>О компании</span><span>Блог</span>
+  </div>
+  <div class="nav-cta-mock">
+    <span class="nav-phone-mock">+7 (909) 085-64-51</span>
+    <div class="btn-mock">КОНСУЛЬТАЦИЯ</div>
+  </div>
+</div>
+
+<!-- Тёмный фон -->
+<div class="nav-mock dark">
+  <svg width="160" height="36" viewBox="0 0 160 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="0" y="0" width="34" height="8" rx="1" fill="#fff"/>
+    <rect x="12" y="8" width="10" height="22" rx="1" fill="#C9A84C"/>
+    <text x="44" y="26" font-family="Inter,sans-serif" font-weight="900" font-size="22" fill="#fff" letter-spacing="-0.5">ТЕКТОН</text>
+  </svg>
+  <div class="nav-links-mock">
+    <span>Главная</span><span>Услуги</span><span>Проекты</span><span>О компании</span><span>Блог</span>
+  </div>
+  <div class="nav-cta-mock">
+    <span class="nav-phone-mock">+7 (909) 085-64-51</span>
+    <div class="btn-mock">КОНСУЛЬТАЦИЯ</div>
+  </div>
+</div>
+
+<!-- Фавикон крупно -->
+<div style="text-align:center;padding:20px 0 8px;font-size:.75rem;color:#999;text-transform:uppercase;letter-spacing:.1em;">Фавикон (32×32)</div>
+<div style="display:flex;justify-content:center;gap:16px;padding-bottom:8px;">
+  <svg width="48" height="48" viewBox="0 0 32 32" style="border-radius:6px;border:1px solid #ddd;">
+    <rect width="32" height="32" rx="6" fill="#0a0a0a"/>
+    <rect x="6" y="6" width="20" height="5" rx="1" fill="#fff"/>
+    <rect x="13" y="11" width="6" height="14" rx="1" fill="#C9A84C"/>
+  </svg>
+  <svg width="48" height="48" viewBox="0 0 32 32" style="border-radius:6px;border:1px solid #ddd;">
+    <rect width="32" height="32" rx="6" fill="#C9A84C"/>
+    <rect x="6" y="6" width="20" height="5" rx="1" fill="#000"/>
+    <rect x="13" y="11" width="6" height="14" rx="1" fill="#000"/>
+  </svg>
+</div>
+
+<hr class="sep">
+
+<!-- ══════════════════════════════════════════════════════════
+     ВАРИАНТ 6 — ТЕК | ТОН с золотым разделителем
+════════════════════════════════════════════════════════════ -->
+<div class="variant-title">Вариант 6 — <span>ТЕК | ТОН</span> с золотым акцентом</div>
+<div class="variant-desc">Слово разбито золотым элементом, создаёт ритм и запоминаемость</div>
+
+<!-- Светлый фон — разделитель -->
+<div class="nav-mock">
+  <svg width="170" height="36" viewBox="0 0 170 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <text x="0" y="27" font-family="Inter,sans-serif" font-weight="900" font-size="23" fill="#0a0a0a" letter-spacing="-0.5">ТЕК</text>
+    <rect x="68" y="4" width="3" height="28" rx="1" fill="#C9A84C"/>
+    <text x="78" y="27" font-family="Inter,sans-serif" font-weight="900" font-size="23" fill="#0a0a0a" letter-spacing="-0.5">ТОН</text>
+  </svg>
+  <div class="nav-links-mock">
+    <span>Главная</span><span>Услуги</span><span>Проекты</span><span>О компании</span><span>Блог</span>
+  </div>
+  <div class="nav-cta-mock">
+    <span class="nav-phone-mock">+7 (909) 085-64-51</span>
+    <div class="btn-mock">КОНСУЛЬТАЦИЯ</div>
+  </div>
+</div>
+
+<!-- Тёмный фон — разделитель -->
+<div class="nav-mock dark">
+  <svg width="170" height="36" viewBox="0 0 170 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <text x="0" y="27" font-family="Inter,sans-serif" font-weight="900" font-size="23" fill="#fff" letter-spacing="-0.5">ТЕК</text>
+    <rect x="68" y="4" width="3" height="28" rx="1" fill="#C9A84C"/>
+    <text x="78" y="27" font-family="Inter,sans-serif" font-weight="900" font-size="23" fill="#fff" letter-spacing="-0.5">ТОН</text>
+  </svg>
+  <div class="nav-links-mock">
+    <span>Главная</span><span>Услуги</span><span>Проекты</span><span>О компании</span><span>Блог</span>
+  </div>
+  <div class="nav-cta-mock">
+    <span class="nav-phone-mock">+7 (909) 085-64-51</span>
+    <div class="btn-mock">КОНСУЛЬТАЦИЯ</div>
+  </div>
+</div>
+
+<!-- Светлый фон — цветовой акцент (ТЕК чёрный, ТОН золотой) -->
+<div style="text-align:center;padding:20px 0 12px;font-size:.75rem;color:#999;text-transform:uppercase;letter-spacing:.1em;">Подвариант: цветовой акцент вместо разделителя</div>
+<div class="nav-mock">
+  <svg width="170" height="36" viewBox="0 0 170 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <text x="0" y="27" font-family="Inter,sans-serif" font-weight="900" font-size="23" fill="#0a0a0a" letter-spacing="-0.5">ТЕК</text>
+    <text x="70" y="27" font-family="Inter,sans-serif" font-weight="900" font-size="23" fill="#C9A84C" letter-spacing="-0.5">ТОН</text>
+  </svg>
+  <div class="nav-links-mock">
+    <span>Главная</span><span>Услуги</span><span>Проекты</span><span>О компании</span><span>Блог</span>
+  </div>
+  <div class="nav-cta-mock">
+    <span class="nav-phone-mock">+7 (909) 085-64-51</span>
+    <div class="btn-mock">КОНСУЛЬТАЦИЯ</div>
+  </div>
+</div>
+
+<!-- Фавикон крупно -->
+<div style="text-align:center;padding:20px 0 8px;font-size:.75rem;color:#999;text-transform:uppercase;letter-spacing:.1em;">Фавикон (32×32)</div>
+<div style="display:flex;justify-content:center;gap:16px;padding-bottom:32px;">
+  <svg width="48" height="48" viewBox="0 0 32 32" style="border-radius:6px;border:1px solid #ddd;">
+    <rect width="32" height="32" rx="6" fill="#0a0a0a"/>
+    <text x="16" y="22" font-family="Inter,sans-serif" font-weight="900" font-size="13" fill="#fff" text-anchor="middle" letter-spacing="-0.5">ТЕК</text>
+    <rect x="5" y="22" width="22" height="2" rx="1" fill="#C9A84C"/>
+    <text x="16" y="30" font-family="Inter,sans-serif" font-weight="900" font-size="9" fill="#C9A84C" text-anchor="middle" letter-spacing="1">ТОН</text>
+  </svg>
+  <svg width="48" height="48" viewBox="0 0 32 32" style="border-radius:6px;border:1px solid #ddd;">
+    <rect width="32" height="32" rx="6" fill="#0a0a0a"/>
+    <text x="9" y="22" font-family="Inter,sans-serif" font-weight="900" font-size="13" fill="#fff" letter-spacing="-1">ТК</text>
+    <rect x="18" y="5" width="2" height="22" rx="1" fill="#C9A84C"/>
+    <text x="21" y="22" font-family="Inter,sans-serif" font-weight="900" font-size="13" fill="#C9A84C" letter-spacing="-1">ТН</text>
+  </svg>
+</div>
+
+</body>
+</html>
