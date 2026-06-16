@@ -5,7 +5,7 @@ if (pre) {
 pre.classList.add('done');
 setTimeout(() => pre.remove(), 700);
 }
-}, 1400);
+}, 300);
 });
 const dot = document.getElementById('cursor-dot');
 const ring = document.getElementById('cursor-ring');
