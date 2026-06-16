@@ -1191,6 +1191,15 @@ footer {
   letter-spacing: 0.1em; color: rgba(255,255,255,0.7);
 }
 
+/* When a real photo is set via admin — hide SVG decorations, fade color overlay */
+.service-visual-box.has-photo { background-size: cover; background-position: center; }
+.service-visual-box.has-photo .svc-color-overlay { display: none; }
+.service-visual-box.has-photo .service-visual-inner { display: none; }
+.service-visual-box.has-photo .service-visual-deco { display: none; }
+.service-visual-box.has-photo .service-visual-label {
+  background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.3) 60%, transparent 100%);
+}
+
 /* Process timeline */
 .process-timeline {
   background: var(--bg-1);

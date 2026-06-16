@@ -290,8 +290,7 @@ fetch('/data/content.json?t=' + Date.now())
           const bg = gdrive(s.image);
           document.querySelectorAll(`[data-svc-img="${i}"]`).forEach(el => {
             el.style.backgroundImage = `url('${bg}')`;
-            el.style.backgroundSize = 'cover';
-            el.style.backgroundPosition = 'center';
+            el.classList.add('has-photo');
           });
         }
       }
