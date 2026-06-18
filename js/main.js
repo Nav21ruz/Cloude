@@ -7,35 +7,6 @@ setTimeout(() => pre.remove(), 700);
 }
 }, 300);
 });
-const dot = document.getElementById('cursor-dot');
-const ring = document.getElementById('cursor-ring');
-const hasMouse = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-document.addEventListener('touchstart', () => {
-if (dot) dot.style.display = 'none';
-if (ring) ring.style.display = 'none';
-document.body.style.cursor = 'auto';
-}, { passive: true });
-if (hasMouse) {
-let ringX = 0, ringY = 0;
-document.addEventListener('mousemove', e => {
-const x = e.clientX, y = e.clientY;
-if (dot) { dot.style.left = x + 'px'; dot.style.top = y + 'px'; }
-ringX += (x - ringX) * 0.15;
-ringY += (y - ringY) * 0.15;
-});
-(function animateCursor() {
-if (ring) { ring.style.left = ringX + 'px'; ring.style.top = ringY + 'px'; }
-requestAnimationFrame(animateCursor);
-})();
-document.addEventListener('mouseleave', () => {
-if (dot) dot.style.opacity = '0';
-if (ring) ring.style.opacity = '0';
-});
-document.addEventListener('mouseenter', () => {
-if (dot) dot.style.opacity = '1';
-if (ring) ring.style.opacity = '1';
-});
-}
 const progressBar = document.getElementById('scroll-progress');
 window.addEventListener('scroll', () => {
 const scrollTop = window.scrollY;
