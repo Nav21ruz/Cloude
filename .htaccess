@@ -30,6 +30,7 @@ AddType application/javascript .js
   RewriteRule ^privacy$                     privacy.html                       [L]
   RewriteRule ^calculator$                  calculator.html                    [L]
   RewriteRule ^blog$                        blog.html                          [L]
+  RewriteRule ^baza-znanii$                 baza-znanii/index.html             [L]
   RewriteRule ^ceny$                        ceny.html                          [L]
   RewriteRule ^remont-ofisov$               remont-ofisov.html                 [L]
   RewriteRule ^remont-restoranov$           remont-restoranov.html             [L]
