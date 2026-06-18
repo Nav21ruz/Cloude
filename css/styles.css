@@ -1386,3 +1386,4 @@ color:var(--red-accent);
 font-size:0.875rem;font-weight:500;
 margin-top:16px;
 }
+@media(max-width:480px){.btn{padding:12px 20px;letter-spacing:0.04em;font-size:0.78rem;}}
