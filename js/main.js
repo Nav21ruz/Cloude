@@ -108,6 +108,7 @@ const contactForm = document.getElementById('contact-form');
 if (contactForm) {
 contactForm.addEventListener('submit', async (e) => {
 e.preventDefault();
+if (!contactForm.checkValidity()) { contactForm.reportValidity(); return; }
 const btn = contactForm.querySelector('button[type="submit"]');
 const originalHTML = btn.innerHTML;
 btn.innerHTML = '<span>Отправляем…</span>';
