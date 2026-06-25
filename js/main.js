@@ -108,7 +108,13 @@ const contactForm = document.getElementById('contact-form');
 if (contactForm) {
 contactForm.addEventListener('submit', async (e) => {
 e.preventDefault();
-if (!contactForm.checkValidity()) { contactForm.reportValidity(); return; }
+const consentBox = document.getElementById('consent');
+if (consentBox && !consentBox.checked) {
+consentBox.setCustomValidity('Необходимо согласие на обработку персональных данных');
+consentBox.reportValidity();
+return;
+}
+if (consentBox) consentBox.setCustomValidity('');
 const btn = contactForm.querySelector('button[type="submit"]');
 const originalHTML = btn.innerHTML;
 btn.innerHTML = '<span>Отправляем…</span>';

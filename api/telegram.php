@@ -29,9 +29,15 @@ $budget  = trim($b['budget']      ?? '');
 $message = trim($b['message']     ?? '');
 $source  = trim($b['how-found']   ?? '');
 
+$consent = trim($b['consent'] ?? '');
 if (!$name || !$phone) {
     http_response_code(400);
     echo json_encode(['error' => 'Имя и телефон обязательны']);
+    exit;
+}
+if (!$consent) {
+    http_response_code(400);
+    echo json_encode(['error' => 'Необходимо согласие на обработку персональных данных']);
     exit;
 }
 
