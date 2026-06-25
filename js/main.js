@@ -109,12 +109,13 @@ if (contactForm) {
 contactForm.addEventListener('submit', async (e) => {
 e.preventDefault();
 const consentBox = document.getElementById('consent');
+const consentErr = document.getElementById('consent-error');
 if (consentBox && !consentBox.checked) {
-consentBox.setCustomValidity('Необходимо согласие на обработку персональных данных');
-consentBox.reportValidity();
+if (consentErr) consentErr.style.display = 'block';
+consentBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
 return;
 }
-if (consentBox) consentBox.setCustomValidity('');
+if (consentErr) consentErr.style.display = 'none';
 const btn = contactForm.querySelector('button[type="submit"]');
 const originalHTML = btn.innerHTML;
 btn.innerHTML = '<span>Отправляем…</span>';
