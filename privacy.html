@@ -164,13 +164,16 @@
     fetch('/data/content.json?t='+Date.now())
       .then(r=>r.json())
       .then(d=>{
-        if(d.privacyPage&&d.privacyPage.content)
+        if(d.privacyPage&&d.privacyPage.content){
           document.getElementById('privacy-dynamic').innerHTML=d.privacyPage.content;
-      });
+          document.getElementById('privacy-static').style.display='none';
+        }
+      })
+      .catch(function(){});
   </script>
 
-  <!-- Статичный контент как запасной вариант (скрыт если загрузился динамический) -->
-  <div id="privacy-static" style="display:none">
+  <!-- Статичный контент показывается по умолчанию; скрывается только если загрузился динамический -->
+  <div id="privacy-static">
   <h1>Политика конфиденциальности</h1>
   <div class="privacy-meta">
     Редакция от 1 июля 2026 г. &nbsp;·&nbsp; Вступает в силу с момента публикации
