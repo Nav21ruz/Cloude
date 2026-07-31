@@ -1,5 +1,19 @@
 (function() {
-if (localStorage.getItem('cookie_ok')) return;
+function loadMetrika() {
+  var id = window.YM_COUNTER_ID;
+  if (!id || window.ym) return;
+  (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+  m[i].l=1*new Date();
+  for(var j=0;j<document.scripts.length;j++){if(document.scripts[j].src===r){return;}}
+  k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+  (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+  ym(id, "init", { clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true });
+}
+
+var consent = localStorage.getItem('cookie_consent');
+if (consent === 'all') { loadMetrika(); return; }
+if (consent === 'necessary') { return; }
+
 var style = document.createElement('style');
 style.textContent = [
 '#ck-bar{position:fixed;bottom:0;left:0;right:0;z-index:9990;background:#111;border-top:1px solid #2a2a2a;padding:14px 20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;font-family:Inter,sans-serif;}',
@@ -13,9 +27,15 @@ style.textContent = [
 document.head.appendChild(style);
 var bar = document.createElement('div');
 bar.id = 'ck-bar';
-bar.innerHTML = '<p>Мы используем файлы cookie для корректной работы сайта. Продолжая использовать сайт, вы соглашаетесь с <a href="/privacy.html">политикой конфиденциальности</a> и обработкой cookie в соответствии с ФЗ-152.</p><button id="ck-ok">Принять</button><button id="ck-no">Только необходимые</button>';
+bar.innerHTML = '<p>Мы используем файлы cookie и сервисы аналитики (Яндекс.Метрика) для корректной работы сайта. Продолжая использовать сайт, вы соглашаетесь с <a href="/privacy.html">политикой конфиденциальности</a> и обработкой cookie в соответствии с ФЗ-152.</p><button id="ck-ok">Принять</button><button id="ck-no">Только необходимые</button>';
 document.body.appendChild(bar);
-function accept() { localStorage.setItem('cookie_ok', '1'); bar.remove(); }
-document.getElementById('ck-ok').addEventListener('click', accept);
-document.getElementById('ck-no').addEventListener('click', accept);
+document.getElementById('ck-ok').addEventListener('click', function() {
+  localStorage.setItem('cookie_consent', 'all');
+  loadMetrika();
+  bar.remove();
+});
+document.getElementById('ck-no').addEventListener('click', function() {
+  localStorage.setItem('cookie_consent', 'necessary');
+  bar.remove();
+});
 })();
