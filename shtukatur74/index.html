@@ -80,22 +80,20 @@
     </ul>
     </div>
 
-    <!--
-      ФОТО ПЕРВОГО ЭКРАНА — готовые объекты. Замените рамки на свои снимки
-      выведенных стен. Файлы кладите в img/ рядом с сайтом, не на Google Drive.
-        <figure class="hero-shot">
-          <img src="img/hero-1.jpg" alt="Оштукатуренные стены в квартире, Челябинск" width="800" height="1000" loading="eager">
-        </figure>
-      Оптимальный размер — 800×1000 px, вес до 200 КБ (WebP или JPEG качества 80).
-      Снимайте при дневном свете, вдоль стены — так видно плоскость на просвет,
-      это и есть главный аргумент.
-    -->
     <div class="hero-shots">
-      <figure class="hero-shot hero-shot-empty">
-        <div class="hero-shot-ph"><span>img/hero-1.jpg</span></div>
+      <figure class="hero-shot">
+        <picture>
+          <source srcset="img/hero-1.webp" type="image/webp">
+          <img src="img/hero-1.jpg" width="1400" height="875" loading="eager" decoding="async"
+               alt="Комната после механизированной штукатурки: выведенные стены и откосы, штукатурная станция в проёме">
+        </picture>
       </figure>
-      <figure class="hero-shot hero-shot-empty">
-        <div class="hero-shot-ph"><span>img/hero-2.jpg</span></div>
+      <figure class="hero-shot">
+        <picture>
+          <source srcset="img/hero-2.webp" type="image/webp">
+          <img src="img/hero-2.jpg" width="1400" height="875" loading="lazy" decoding="async"
+               alt="Оштукатуренный дверной проём с ровными откосами">
+        </picture>
       </figure>
     </div>
   </div>
