@@ -842,3 +842,10 @@ table { font-size: .95rem; }
   padding: 5px 10px;
 }
 .work-media { align-items: stretch; }
+
+/* Подписи колонок в подвале — не заголовки разделов, чтобы не ломать
+   иерархию h1→h2→h3 (её проверяют и валидаторы, и поисковые роботы). */
+.footer-title {
+  font-size: .78rem; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--on-dark); margin-bottom: 16px; font-weight: 800;
+}

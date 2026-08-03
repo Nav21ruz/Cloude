@@ -2,8 +2,19 @@ User-agent: *
 Allow: /
 Disallow: /api/
 Disallow: /logs/
-Disallow: /privacy.html
-Allow: /yandex_1b10a3e099bf88ba.html
+Disallow: /404.html
+
+# privacy.html намеренно НЕ закрыт в robots: на нём стоит noindex, а робот
+# увидит этот тег только если ему разрешено загрузить страницу. Disallow
+# такую страницу как раз оставляет в индексе — без сниппета, но в выдаче.
+
+# Метки рекламных кампаний не создают новых страниц. Без этой директивы
+# Яндекс заводит на каждый utm-хвост отдельный URL и считает их дублями.
+User-agent: Yandex
+Allow: /
+Disallow: /api/
+Disallow: /logs/
+Disallow: /404.html
+Clean-param: utm_source&utm_medium&utm_campaign&utm_term&utm_content&yclid&gclid&fbclid&from&_openstat
 
 Sitemap: https://shtukatur74.ru/sitemap.xml
-Host: https://shtukatur74.ru
