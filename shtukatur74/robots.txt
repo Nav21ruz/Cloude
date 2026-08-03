@@ -3,6 +3,7 @@ Allow: /
 Disallow: /api/
 Disallow: /logs/
 Disallow: /privacy.html
+Allow: /yandex_1b10a3e099bf88ba.html
 
 Sitemap: https://shtukatur74.ru/sitemap.xml
 Host: https://shtukatur74.ru

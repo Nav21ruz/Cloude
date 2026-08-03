@@ -10,7 +10,7 @@
     mix: { gypsum: 480, cement: 590 },          // ₽/м² — базовая работа со смесью
     surface: { walls: 0, ceiling: 90 },         // надбавка за потолок, ₽/м²
     beacons: { with: 0, without: -60 },         // без маяков дешевле
-    finish: { paint: 70, wallpaper: 0, tile: 0 } // подготовка под покраску дороже
+    finish: { paint: 70, wallpaper: 0, tile: 0 } // под покраску нужно заглаживание
   };
 
   var MIN_AREA = 30;   // м², минимальный выезд

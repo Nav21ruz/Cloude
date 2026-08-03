@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 // ─── Настройки ────────────────────────────────────────────────────────────
-const MAIL_TO      = 'info@shtukatur74.ru';      // TODO: куда слать заявки
+const MAIL_TO      = 'info@tektonpro.ru';        // куда приходят заявки
 const MAIL_FROM    = 'robot@shtukatur74.ru';     // TODO: ящик на своём домене (иначе письма уйдут в спам)
 const SITE_HOST    = 'shtukatur74.ru';
 const TG_BOT_TOKEN = '';                          // TODO: токен бота от @BotFather (пусто = Telegram не используется)

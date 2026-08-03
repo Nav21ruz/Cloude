@@ -5,7 +5,7 @@ window.SITE = {
   phoneRaw: '+79090856451',
   whatsapp: '79090856451',
   telegram: '',                       // TODO: username Telegram без «@»
-  email: 'navruz@dumaev.ru',          // TODO: перевести на ящик домена shtukatur74.ru
+  email: 'info@tektonpro.ru',
   metrikaId: '',                      // TODO: номер счётчика Яндекс.Метрики (пусто = не подключать)
 
   /* Формы сбора персональных данных.

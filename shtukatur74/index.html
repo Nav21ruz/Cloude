@@ -29,7 +29,7 @@
 <link rel="stylesheet" href="css/styles.css">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@graph":[
-{"@type":"LocalBusiness","@id":"https://shtukatur74.ru/#org","name":"Штукатур74","description":"Механизированная штукатурка стен и потолков в Челябинской области","url":"https://shtukatur74.ru/","telephone":"+79090856451","email":"navruz@dumaev.ru","priceRange":"₽₽","image":"https://shtukatur74.ru/og-image.svg","address":{"@type":"PostalAddress","addressRegion":"Челябинская область","addressCountry":"RU"},"geo":{"@type":"GeoCoordinates","latitude":55.1644,"longitude":61.4368},"areaServed":{"@type":"AdministrativeArea","name":"Челябинская область"},"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"opens":"08:00","closes":"20:00"}]},
+{"@type":"LocalBusiness","@id":"https://shtukatur74.ru/#org","name":"Штукатур74","description":"Механизированная штукатурка стен и потолков в Челябинской области","url":"https://shtukatur74.ru/","telephone":"+79090856451","email":"info@tektonpro.ru","priceRange":"₽₽","image":"https://shtukatur74.ru/og-image.svg","address":{"@type":"PostalAddress","addressRegion":"Челябинская область","addressCountry":"RU"},"geo":{"@type":"GeoCoordinates","latitude":55.1644,"longitude":61.4368},"areaServed":{"@type":"AdministrativeArea","name":"Челябинская область"},"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"opens":"08:00","closes":"20:00"}]},
 {"@type":"Service","@id":"https://shtukatur74.ru/#service","name":"Механизированная штукатурка стен","serviceType":"Штукатурные работы","provider":{"@id":"https://shtukatur74.ru/#org"},"areaServed":{"@type":"AdministrativeArea","name":"Челябинская область"},"offers":{"@type":"Offer","priceCurrency":"RUB","price":"480","priceSpecification":{"@type":"UnitPriceSpecification","priceCurrency":"RUB","price":"480","unitText":"м²"}}},
 {"@type":"FAQPage","mainEntity":[
 {"@type":"Question","name":"Сколько стоит механизированная штукатурка за м²?","acceptedAnswer":{"@type":"Answer","text":"Гипсовая штукатурка — от 480 ₽/м², цементно-песчаная — от 590 ₽/м². Итоговая цена зависит от толщины слоя, площади и удалённости объекта. Точную стоимость называем после замера."}},
@@ -47,7 +47,7 @@
 
 <nav class="nav">
   <div class="nav-inner">
-    <a href="index.html" class="logo">Штукатур<span>74</span></a>
+    <a href="index.html" class="logo"><svg class="logo-mark" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" fill="#0F172A"/><rect x="7" y="8" width="6" height="20" fill="#F1F5F9"/><rect x="17" y="8" width="6" height="20" fill="#EA580C"/><rect x="27" y="8" width="6" height="20" fill="#F1F5F9"/><rect x="7" y="28" width="26" height="5" fill="#F1F5F9"/></svg><span class="logo-text">Штукатур<span>74</span></span></a>
     <ul class="nav-links">
       <li><a href="index.html">Главная</a></li>
       <li><a href="services.html">Услуги</a></li>
@@ -64,10 +64,11 @@
 <div class="nav-mobile"></div>
 
 <header class="hero">
-  <div class="wrap hero-inner">
+  <div class="wrap hero-grid">
+    <div class="hero-inner">
     <span class="eyebrow">Челябинск и вся область</span>
     <h1>Механизированная штукатурка стен <em class="nowrap">за 2–3 дня</em></h1>
-    <p class="hero-sub">Ровная плоскость под покраску, обои и плитку: 80–120 м² за смену вместо 15–20 вручную. Цена от 480 ₽/м² фиксируется в договоре после замера и дальше не растёт.</p>
+    <p class="hero-sub">Ровная плоскость под обои, плитку и последующую шпаклёвку: 80–120 м² за смену вместо 15–20 вручную. Цена от 480 ₽/м² фиксируется в договоре после замера и дальше не растёт.</p>
     <div class="hero-actions">
       <a href="tel:+79090856451" data-site="phone" data-keep-text="1" class="btn btn-primary">Позвонить и узнать цену</a>
       <a href="#" data-site="whatsapp" data-keep-text="1" class="btn btn-ghost" target="_blank" rel="noopener">Прислать фото стен в WhatsApp</a>
@@ -77,6 +78,26 @@
       <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Замер по Челябинску бесплатно</li>
       <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Своя штукатурная станция</li>
     </ul>
+    </div>
+
+    <!--
+      ФОТО ПЕРВОГО ЭКРАНА — готовые объекты. Замените рамки на свои снимки
+      выведенных стен. Файлы кладите в img/ рядом с сайтом, не на Google Drive.
+        <figure class="hero-shot">
+          <img src="img/hero-1.jpg" alt="Оштукатуренные стены в квартире, Челябинск" width="800" height="1000" loading="eager">
+        </figure>
+      Оптимальный размер — 800×1000 px, вес до 200 КБ (WebP или JPEG качества 80).
+      Снимайте при дневном свете, вдоль стены — так видно плоскость на просвет,
+      это и есть главный аргумент.
+    -->
+    <div class="hero-shots">
+      <figure class="hero-shot hero-shot-empty">
+        <div class="hero-shot-ph"><span>img/hero-1.jpg</span></div>
+      </figure>
+      <figure class="hero-shot hero-shot-empty">
+        <div class="hero-shot-ph"><span>img/hero-2.jpg</span></div>
+      </figure>
+    </div>
   </div>
   <div class="wrap">
     <div class="hero-stats">
@@ -122,7 +143,7 @@
           <tr><td>Однородность раствора</td><td class="col-us">Задаётся станцией</td><td class="col-them">Зависит от замеса</td></tr>
           <tr><td>Стыки и захватки</td><td class="col-us">Стена идёт за один проход</td><td class="col-them">Швы между захватками</td></tr>
           <tr><td>Расход смеси</td><td class="col-us">Ниже на 10–15 %</td><td class="col-them">Выше</td></tr>
-          <tr><td>Поверхность под обои</td><td class="col-us">Без шпаклёвки</td><td class="col-them">Почти всегда нужна шпаклёвка</td></tr>
+          <tr><td>Поверхность под обои</td><td class="col-us">Плотные обои — без шпаклёвки</td><td class="col-them">Шпаклёвка почти всегда</td></tr>
           <tr><td>Срок для квартиры 100 м²</td><td class="col-us">2–3 дня</td><td class="col-them">от 2 недель</td></tr>
         </tbody>
       </table>
@@ -161,12 +182,12 @@
 
       <article class="price-card featured">
         <span class="price-badge">чаще всего заказывают</span>
-        <h3>Гипсовая под покраску</h3>
+        <h3>Гипсовая с глянцеванием</h3>
         <div class="price-val">550 ₽</div>
         <div class="price-unit">за м², от</div>
         <ul>
-          <li>Дополнительное заглаживание</li>
-          <li>Плоскость под краску на просвет</li>
+          <li>Заглаживание до гладкой поверхности</li>
+          <li>Меньше шпаклёвки на финише</li>
           <li>Углы выводим в 90°</li>
         </ul>
         <a href="tel:+79090856451" data-site="phone" data-keep-text="1" class="btn btn-primary">Узнать цену объекта</a>
@@ -239,33 +260,25 @@
     <div class="section-head">
       <div class="section-num">05</div>
       <div>
-        <h2>Что говорят заказчики</h2>
-        <p class="lead">Отзывы с объектов в Челябинске и области.</p>
+        <h2>Что чаще всего беспокоит перед заказом</h2>
+        <p class="lead">Три вопроса, которые нам задают почти на каждом объекте. Отвечаем честно, до начала работ.</p>
       </div>
     </div>
-    <!--
-      ЗАПОЛНИТЬ РЕАЛЬНЫМИ ОТЗЫВАМИ.
-      Ниже — пустые карточки-заготовки. Выдуманные отзывы публиковать нельзя:
-      это вводит покупателя в заблуждение (ст. 5 ФЗ «О рекламе»), а на
-      строительных услугах фальшивку видно сразу и она бьёт по доверию.
-      Возьмите 3 настоящих: имя, город, площадь объекта, текст.
-      Класс review-placeholder убрать, когда вставите настоящий отзыв.
-    -->
-    <div class="reviews">
-      <article class="review review-placeholder">
-        <div class="review-stars"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg></div>
-        <p class="review-text">Здесь будет отзыв заказчика. Замените текст на настоящий: что делали, какая площадь, как прошли сроки.</p>
-        <p class="review-who">Имя заказчика<span>Город · площадь объекта</span></p>
+    <div class="grid grid-3">
+      <article class="card reveal">
+        <span class="card-num">Опасение 01</span>
+        <h3>«Смета вырастет по ходу»</h3>
+        <p>Цена за м² и объём фиксируются в договоре после замера. Она меняется, только если вы сами добавляете работы — например, решили штукатурить ещё и потолки. Мы не «находим» дополнительные работы посреди объекта.</p>
       </article>
-      <article class="review review-placeholder">
-        <div class="review-stars"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg></div>
-        <p class="review-text">Здесь будет отзыв заказчика. Замените текст на настоящий: что делали, какая площадь, как прошли сроки.</p>
-        <p class="review-who">Имя заказчика<span>Город · площадь объекта</span></p>
+      <article class="card reveal">
+        <span class="card-num">Опасение 02</span>
+        <h3>«Затянут сроки»</h3>
+        <p>Срок считается от площади: станция даёт 80–120 м² за смену, и это проверяемая цифра. На замере вы получаете конкретную дату окончания, а не «недели через две-три».</p>
       </article>
-      <article class="review review-placeholder">
-        <div class="review-stars"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg></div>
-        <p class="review-text">Здесь будет отзыв заказчика. Замените текст на настоящий: что делали, какая площадь, как прошли сроки.</p>
-        <p class="review-who">Имя заказчика<span>Город · площадь объекта</span></p>
+      <article class="card reveal">
+        <span class="card-num">Опасение 03</span>
+        <h3>«Потом пойдут трещины»</h3>
+        <p>Трещины дают нарушенная технология и спешка с финишем. Мы грунтуем основание, выдерживаем толщину слоя и называем точный срок сушки. Если дефект всё же наш — переделываем по гарантии за свой счёт.</p>
       </article>
     </div>
   </div>
@@ -334,7 +347,7 @@
       <div data-form-slot>
         <div class="notice">
           <h3>Как оставить заявку</h3>
-          <p>Онлайн-форма пока отключена: мы оформляем документы по обработке персональных данных. Это не мешает работе — звоните или пишите в WhatsApp, отвечаем так же быстро.</p>
+          <p>Позвоните или напишите в WhatsApp — ответим в течение рабочего дня. Назовите площадь и город, и мы сразу скажем диапазон цены и когда сможем выйти на объект.</p>
           <div class="notice-actions">
             <a class="btn btn-primary" data-site="phone" data-keep-text="1" href="tel:+79090856451">Позвонить</a>
             <a class="btn btn-ghost" data-site="whatsapp" data-keep-text="1" href="#" target="_blank" rel="noopener">Написать в WhatsApp</a>
@@ -360,7 +373,7 @@
           </div>
           <div class="contact-item">
             <span>Почта</span>
-            <a data-site="email" href="mailto:navruz@dumaev.ru">navruz@dumaev.ru</a>
+            <a data-site="email" href="mailto:info@tektonpro.ru">info@tektonpro.ru</a>
           </div>
         </div>
       </div>
@@ -423,7 +436,7 @@
   <div class="wrap">
     <div class="footer-top">
       <div class="footer-about">
-        <a href="index.html" class="logo">Штукатур<span>74</span></a>
+        <a href="index.html" class="logo"><svg class="logo-mark" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" fill="#0F172A"/><rect x="7" y="8" width="6" height="20" fill="#F1F5F9"/><rect x="17" y="8" width="6" height="20" fill="#EA580C"/><rect x="27" y="8" width="6" height="20" fill="#F1F5F9"/><rect x="7" y="28" width="26" height="5" fill="#F1F5F9"/></svg><span class="logo-text">Штукатур<span>74</span></span></a>
         <p>Механизированная штукатурка стен и потолков. Челябинск и вся Челябинская область. Работаем с частными заказчиками и подрядчиками.</p>
       </div>
       <div>
@@ -434,7 +447,7 @@
         <h4>Контакты</h4>
         <nav class="footer-nav">
           <a data-site="phone" href="tel:+79090856451">+7 (909) 085-64-51</a>
-          <a data-site="email" href="mailto:navruz@dumaev.ru">navruz@dumaev.ru</a>
+          <a data-site="email" href="mailto:info@tektonpro.ru">info@tektonpro.ru</a>
           <a data-site="whatsapp" data-keep-text="1" href="#" target="_blank" rel="noopener">WhatsApp</a>
           <a data-site="telegram" data-keep-text="1" href="#" target="_blank" rel="noopener">Telegram</a>
           <a href="privacy.html">Политика конфиденциальности</a>
