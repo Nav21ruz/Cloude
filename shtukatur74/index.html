@@ -29,7 +29,7 @@
 <link rel="stylesheet" href="css/styles.css">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@graph":[
-{"@type":"LocalBusiness","@id":"https://shtukatur74.ru/#org","name":"Штукатур74","description":"Механизированная штукатурка стен и потолков в Челябинской области","url":"https://shtukatur74.ru/","telephone":"+79990000000","email":"info@shtukatur74.ru","priceRange":"₽₽","image":"https://shtukatur74.ru/og-image.svg","address":{"@type":"PostalAddress","addressRegion":"Челябинская область","addressCountry":"RU"},"geo":{"@type":"GeoCoordinates","latitude":55.1644,"longitude":61.4368},"areaServed":{"@type":"AdministrativeArea","name":"Челябинская область"},"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"opens":"08:00","closes":"20:00"}]},
+{"@type":"LocalBusiness","@id":"https://shtukatur74.ru/#org","name":"Штукатур74","description":"Механизированная штукатурка стен и потолков в Челябинской области","url":"https://shtukatur74.ru/","telephone":"+79090856451","email":"navruz@dumaev.ru","priceRange":"₽₽","image":"https://shtukatur74.ru/og-image.svg","address":{"@type":"PostalAddress","addressRegion":"Челябинская область","addressCountry":"RU"},"geo":{"@type":"GeoCoordinates","latitude":55.1644,"longitude":61.4368},"areaServed":{"@type":"AdministrativeArea","name":"Челябинская область"},"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"opens":"08:00","closes":"20:00"}]},
 {"@type":"Service","@id":"https://shtukatur74.ru/#service","name":"Механизированная штукатурка стен","serviceType":"Штукатурные работы","provider":{"@id":"https://shtukatur74.ru/#org"},"areaServed":{"@type":"AdministrativeArea","name":"Челябинская область"},"offers":{"@type":"Offer","priceCurrency":"RUB","price":"480","priceSpecification":{"@type":"UnitPriceSpecification","priceCurrency":"RUB","price":"480","unitText":"м²"}}},
 {"@type":"FAQPage","mainEntity":[
 {"@type":"Question","name":"Сколько стоит механизированная штукатурка за м²?","acceptedAnswer":{"@type":"Answer","text":"Гипсовая штукатурка — от 480 ₽/м², цементно-песчаная — от 590 ₽/м². Итоговая цена зависит от толщины слоя, площади и удалённости объекта. Точную стоимость называем после замера."}},
@@ -55,7 +55,7 @@
       <li><a href="projects.html">Работы</a></li>
       <li><a href="contacts.html">Контакты</a></li>
     </ul>
-    <a class="nav-phone" data-site="phone" href="tel:+79990000000">+7 (999) 000-00-00</a>
+    <a class="nav-phone" data-site="phone" href="tel:+79090856451">+7 (909) 085-64-51</a>
     <button class="nav-burger" type="button" aria-label="Открыть меню" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
@@ -157,11 +157,49 @@
 
 <section class="section">
   <div class="wrap">
-    <span class="eyebrow">Заявка</span>
+    <span class="eyebrow">Связаться</span>
     <h2>Посчитаем стоимость по вашим стенам</h2>
-    <p class="lead">Оставьте телефон — уточним объём и назовём диапазон цены в тот же день. Замер по Челябинску бесплатный.</p>
+    <p class="lead">Позвоните или напишите в WhatsApp — уточним объём и назовём диапазон цены в тот же день. Замер по Челябинску бесплатный.</p>
 
     <div class="form-wrap">
+      <div data-form-slot>
+        <div class="notice">
+          <h3>Как оставить заявку</h3>
+          <p>Онлайн-форма пока отключена: мы оформляем документы по обработке персональных данных. Это не мешает работе — звоните или пишите в WhatsApp, отвечаем так же быстро.</p>
+          <div class="notice-actions">
+            <a class="btn btn-primary" data-site="phone" data-keep-text="1" href="tel:+79090856451">Позвонить</a>
+            <a class="btn btn-ghost" data-site="whatsapp" data-keep-text="1" href="#" target="_blank" rel="noopener">Написать в WhatsApp</a>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="contact-list">
+          <div class="contact-item">
+            <span>Телефон</span>
+            <a data-site="phone" href="tel:+79090856451">+7 (909) 085-64-51</a>
+            <small>Пн–Сб, 08:00–20:00</small>
+          </div>
+          <div class="contact-item" data-site-item>
+            <span>WhatsApp</span>
+            <a data-site="whatsapp" data-keep-text="1" href="#" target="_blank" rel="noopener">Написать в WhatsApp</a>
+            <small>Пришлите планировку или фото стен — ответим с расчётом.</small>
+          </div>
+          <div class="contact-item" data-site-item>
+            <span>Telegram</span>
+            <a data-site="telegram" data-keep-text="1" href="#" target="_blank" rel="noopener">Написать в Telegram</a>
+          </div>
+          <div class="contact-item">
+            <span>Почта</span>
+            <a data-site="email" href="mailto:navruz@dumaev.ru">navruz@dumaev.ru</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Форма включается флагом SITE.formsEnabled в js/site.js после подачи
+         уведомления в Роскомнадзор. До этого она не попадает в страницу. -->
+    <template data-form-template>
       <form data-request-form id="lead-form" novalidate>
         <input type="hidden" name="form_id" value="index-lead">
         <div class="form-msg form-msg-ok" role="status"></div>
@@ -189,7 +227,7 @@
         </div>
 
         <label class="sr-only" for="l-website">Не заполняйте это поле</label>
-        <input id="l-website" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px" >
+        <input id="l-website" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px">
 
         <label class="consent">
           <input type="checkbox" name="consent" value="1" required>
@@ -198,27 +236,7 @@
 
         <button type="submit" class="btn btn-primary">Отправить заявку</button>
       </form>
-
-      <div>
-        <div class="contact-list">
-          <div class="contact-item">
-            <span>Телефон</span>
-            <a data-site="phone" href="tel:+79990000000">+7 (999) 000-00-00</a>
-            <small>Пн–Сб, 08:00–20:00</small>
-          </div>
-          <div class="contact-item">
-            <span>Мессенджеры</span>
-            <a data-site="whatsapp" data-keep-text="1" href="#" target="_blank" rel="noopener">WhatsApp</a> ·
-            <a data-site="telegram" data-keep-text="1" href="#" target="_blank" rel="noopener">Telegram</a>
-            <small>Пришлите планировку или фото стен — ответим с расчётом.</small>
-          </div>
-          <div class="contact-item">
-            <span>Почта</span>
-            <a data-site="email" href="mailto:info@shtukatur74.ru">info@shtukatur74.ru</a>
-          </div>
-        </div>
-      </div>
-    </div>
+    </template>
   </div>
 </section>
 
@@ -232,7 +250,7 @@
       <details><summary>Какая гарантия на работы?</summary><p>3 года по договору. Гарантия покрывает отслоение штукатурки, трещины и отклонения плоскости сверх нормативного допуска.</p></details>
       <details><summary>Работаете ли по области или только в Челябинске?</summary><p>По всей Челябинской области. Для объектов дальше 30 км от Челябинска в смету добавляется доставка оборудования — сумму озвучиваем на замере.</p></details>
       <details><summary>Что подготовить к приезду бригады?</summary><p>Электричество (380 В или 220 В под соответствующую станцию), воду, свободный доступ к стенам и вынесенную мебель. Окна, радиаторы и полы укрываем сами.</p></details>
-      <details><summary>Берёте объекты в субподряд?</summary><p>Да, работаем с подрядчиками и застройщиками на объёмах от 300 м². Условия и график обсуждаем отдельно — напишите нам через <a href="contacts.html">форму на странице контактов</a>.</p></details>
+      <details><summary>Берёте объекты в субподряд?</summary><p>Да, работаем с подрядчиками и застройщиками на объёмах от 300 м². Условия и график обсуждаем отдельно — позвоните или напишите в WhatsApp — контакты на <a href="contacts.html">странице контактов</a>.</p></details>
     </div>
   </div>
 </section>
@@ -240,8 +258,8 @@
 <section class="cta-strip">
   <div class="wrap">
     <h2>Нужна ровная стена к сроку?</h2>
-    <p>Назовите площадь и город — посчитаем стоимость и скажем, когда сможем выйти на объект.</p>
-    <a href="contacts.html" class="btn">Оставить заявку</a>
+    <p>Позвоните или напишите в WhatsApp: назовите площадь и город — посчитаем стоимость и скажем, когда сможем выйти на объект.</p>
+    <a href="contacts.html" class="btn">Смотреть контакты</a>
   </div>
 </section>
 
@@ -261,8 +279,8 @@
       <div>
         <h4>Контакты</h4>
         <nav class="footer-nav">
-          <a data-site="phone" href="tel:+79990000000">+7 (999) 000-00-00</a>
-          <a data-site="email" href="mailto:info@shtukatur74.ru">info@shtukatur74.ru</a>
+          <a data-site="phone" href="tel:+79090856451">+7 (909) 085-64-51</a>
+          <a data-site="email" href="mailto:navruz@dumaev.ru">navruz@dumaev.ru</a>
           <a data-site="whatsapp" data-keep-text="1" href="#" target="_blank" rel="noopener">WhatsApp</a>
           <a data-site="telegram" data-keep-text="1" href="#" target="_blank" rel="noopener">Telegram</a>
           <a href="privacy.html">Политика конфиденциальности</a>
@@ -270,8 +288,8 @@
       </div>
     </div>
     <div class="footer-legal">
-      <!-- TODO: заменить на реальные реквизиты ИП/ООО -->
-      <span class="footer-req"><b>ИП Фамилия И. О.</b> · ИНН 000000000000 · ОГРНИП 000000000000000</span>
+      <!-- TODO: добавить ФИО ИП после уточнения -->
+      <span class="footer-req"><b>ИНН 746008404699</b> · ОГРНИП 325745600069102</span>
       <span>© 2026 Штукатур74</span>
     </div>
   </div>

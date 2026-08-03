@@ -9,6 +9,23 @@ declare(strict_types=1);
 header('Content-Type: application/json; charset=UTF-8');
 header('X-Content-Type-Options: nosniff');
 
+/**
+ * Приём заявок отключён до подачи уведомления в Роскомнадзор об обработке ПД.
+ * Пока false — обработчик не принимает и не сохраняет никаких данных, даже
+ * если запрос отправлен в обход сайта. Включать одновременно с SITE.formsEnabled
+ * в js/site.js, не раньше подтверждения от РКН.
+ */
+const FORMS_ENABLED = false;
+
+if (!FORMS_ENABLED) {
+    http_response_code(503);
+    header('Retry-After: 86400');
+    echo json_encode([
+        'error' => 'Приём заявок через сайт временно отключён. Позвоните нам или напишите в WhatsApp.',
+    ], JSON_UNESCAPED_UNICODE);
+    exit;
+}
+
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
     header('Allow: POST');

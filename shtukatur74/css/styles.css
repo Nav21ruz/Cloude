@@ -298,6 +298,19 @@ tbody tr:hover { background: var(--paper-2); }
 .form-msg-ok { background: rgba(46, 139, 87, .12); color: #1e6b40; border: 1px solid rgba(46, 139, 87, .3); }
 .form-msg-err { background: rgba(192, 57, 43, .1); color: #a5382c; border: 1px solid rgba(192, 57, 43, .3); }
 
+/* Блок вместо формы, пока приём заявок через сайт отключён */
+.notice {
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--copper);
+  border-radius: 6px;
+  background: var(--paper-2);
+  padding: 30px 28px;
+}
+.notice h3 { margin-bottom: 12px; }
+.notice p { color: var(--text-2); font-size: .95rem; margin-bottom: 14px; }
+.notice-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 22px; }
+.section-alt .notice { background: var(--paper); }
+
 .contact-list { display: grid; gap: 26px; }
 .contact-item span { display: block; font-size: .78rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--text-3); margin-bottom: 5px; }
 .contact-item a, .contact-item p { font-size: 1.08rem; font-weight: 700; }
