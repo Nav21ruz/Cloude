@@ -268,102 +268,119 @@
       <div class="reveal delay-2">
         <div style="background:var(--bg-2);border:1px solid var(--border);padding:clamp(32px,4vw,56px);">
           <h3 style="font-size:1.5rem;font-weight:800;margin-bottom:8px;">Заявка на расчёт</h3>
-          <p style="font-size:0.875rem;color:var(--gray-2);margin-bottom:32px;line-height:1.6;">
-            Заполните форму — менеджер свяжется с вами в течение 2 часов в рабочее время.
+          <p style="font-size:0.9rem;color:var(--gray-2);margin-bottom:28px;line-height:1.7;">
+            Онлайн-форма временно на техническом обслуживании. Свяжитесь с нами напрямую любым
+            удобным способом — ответим в течение 2 часов в рабочее время.
           </p>
-
-          <form id="contact-form" novalidate>
-            <div class="form-row">
-              <div class="form-group">
-                <label for="name">Имя *</label>
-                <input type="text" id="name" name="name" placeholder="Иван Иванов" required>
-              </div>
-              <div class="form-group">
-                <label for="company">Компания</label>
-                <input type="text" id="company" name="company" placeholder="ООО «Название»">
-              </div>
-            </div>
-            <div class="form-row">
-              <div class="form-group">
-                <label for="phone">Телефон *</label>
-                <input type="tel" id="phone" name="phone" placeholder="+7 (___) ___-__-__" required>
-              </div>
-              <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" placeholder="example@mail.ru">
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="object-type">Тип объекта</label>
-              <div class="form-select-wrapper">
-                <select id="object-type" name="object-type">
-                  <option value="">— Выберите тип —</option>
-                  <option value="office">Офис</option>
-                  <option value="retail">Торговое помещение / ритейл</option>
-                  <option value="restaurant">Ресторан / кафе / бар</option>
-                  <option value="medical">Медицинское учреждение</option>
-                  <option value="warehouse">Склад / производство</option>
-                  <option value="other">Другое</option>
-                </select>
-              </div>
-            </div>
-            <div class="form-row">
-              <div class="form-group">
-                <label for="area">Площадь (м²)</label>
-                <input type="text" id="area" name="area" placeholder="например: 500">
-              </div>
-              <div class="form-group">
-                <label for="budget">Бюджет</label>
-                <div class="form-select-wrapper">
-                  <select id="budget" name="budget">
-                    <option value="">— Ориентировочно —</option>
-                    <option value="to3m">До 3 млн ₽</option>
-                    <option value="3to10m">3–10 млн ₽</option>
-                    <option value="10to30m">10–30 млн ₽</option>
-                    <option value="30plus">Более 30 млн ₽</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="message">Описание задачи</label>
-              <textarea id="message" name="message" placeholder="Расскажите о вашем проекте: что нужно сделать, в какие сроки, есть ли дизайн-проект..."></textarea>
-            </div>
-            <div class="form-group">
-              <label for="how-found">Откуда узнали о нас?</label>
-              <div class="form-select-wrapper">
-                <select id="how-found" name="how-found">
-                  <option value="">— Выберите —</option>
-                  <option value="search">Поисковик (Google, Яндекс)</option>
-                  <option value="recommend">По рекомендации</option>
-                  <option value="social">Соцсети</option>
-                  <option value="other">Другое</option>
-                </select>
-              </div>
-            </div>
-            <div class="form-group form-consent">
-              <label class="consent-label">
-                <input type="checkbox" id="consent" name="consent">
-                <span>Я согласен(а) на <a href="privacy.html">обработку персональных данных</a> в соответствии с Федеральным законом № 152-ФЗ «О персональных данных» *</span>
-              </label>
-              <div id="consent-error" style="display:none;color:#c0392b;font-size:0.8rem;margin-top:6px;padding-left:30px;">Необходимо дать согласие на обработку персональных данных</div>
-            </div>
-            <div class="form-submit">
-              <button type="submit" class="btn btn-primary">
-                <span>Отправить заявку</span>
-                <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 9h12M10 4l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-              </button>
-              <p class="form-note">* Обязательные поля</p>
-            </div>
-            <div id="form-success" class="form-success">
-              ✓ Заявка принята! Свяжемся с вами в течение 2 часов в рабочее время.
-            </div>
-            <div id="form-error" class="form-error">
-              Произошла ошибка при отправке. Позвоните нам: <a href="tel:+79090856451">+7 (909) 085-64-51</a>
-            </div>
-          </form>
+          <div style="display:flex;flex-direction:column;gap:14px;">
+            <a href="tel:+79090856451" class="btn btn-primary" style="justify-content:center;">
+              <span>Позвонить: +7 (909) 085-64-51</span>
+            </a>
+            <a href="https://wa.me/79090856451" class="btn" style="justify-content:center;background:#25D366;color:#fff;">
+              <span>Написать в WhatsApp</span>
+            </a>
+            <a href="https://t.me/imovv" class="btn" style="justify-content:center;background:#229ED9;color:#fff;">
+              <span>Написать в Telegram</span>
+            </a>
+          </div>
         </div>
       </div>
+
+      <!--
+      ФОРМА ВРЕМЕННО ОТКЛЮЧЕНА — до подачи уведомления в Роскомнадзор.
+      Чтобы вернуть форму: удалить блок выше (FORM SIDE placeholder) и раскомментировать всё ниже.
+
+      <form id="contact-form" novalidate>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="name">Имя *</label>
+            <input type="text" id="name" name="name" placeholder="Иван Иванов" required>
+          </div>
+          <div class="form-group">
+            <label for="company">Компания</label>
+            <input type="text" id="company" name="company" placeholder="ООО «Название»">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="phone">Телефон *</label>
+            <input type="tel" id="phone" name="phone" placeholder="+7 (___) ___-__-__" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="example@mail.ru">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="object-type">Тип объекта</label>
+          <div class="form-select-wrapper">
+            <select id="object-type" name="object-type">
+              <option value="">— Выберите тип —</option>
+              <option value="office">Офис</option>
+              <option value="retail">Торговое помещение / ритейл</option>
+              <option value="restaurant">Ресторан / кафе / бар</option>
+              <option value="medical">Медицинское учреждение</option>
+              <option value="warehouse">Склад / производство</option>
+              <option value="other">Другое</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="area">Площадь (м²)</label>
+            <input type="text" id="area" name="area" placeholder="например: 500">
+          </div>
+          <div class="form-group">
+            <label for="budget">Бюджет</label>
+            <div class="form-select-wrapper">
+              <select id="budget" name="budget">
+                <option value="">— Ориентировочно —</option>
+                <option value="to3m">До 3 млн ₽</option>
+                <option value="3to10m">3–10 млн ₽</option>
+                <option value="10to30m">10–30 млн ₽</option>
+                <option value="30plus">Более 30 млн ₽</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="message">Описание задачи</label>
+          <textarea id="message" name="message" placeholder="Расскажите о вашем проекте: что нужно сделать, в какие сроки, есть ли дизайн-проект..."></textarea>
+        </div>
+        <div class="form-group">
+          <label for="how-found">Откуда узнали о нас?</label>
+          <div class="form-select-wrapper">
+            <select id="how-found" name="how-found">
+              <option value="">— Выберите —</option>
+              <option value="search">Поисковик (Google, Яндекс)</option>
+              <option value="recommend">По рекомендации</option>
+              <option value="social">Соцсети</option>
+              <option value="other">Другое</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group form-consent">
+          <label class="consent-label">
+            <input type="checkbox" id="consent" name="consent">
+            <span>Я согласен(а) на <a href="privacy.html">обработку персональных данных</a> в соответствии с Федеральным законом № 152-ФЗ «О персональных данных» *</span>
+          </label>
+          <div id="consent-error" style="display:none;color:#c0392b;font-size:0.8rem;margin-top:6px;padding-left:30px;">Необходимо дать согласие на обработку персональных данных</div>
+        </div>
+        <div class="form-submit">
+          <button type="submit" class="btn btn-primary">
+            <span>Отправить заявку</span>
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 9h12M10 4l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </button>
+          <p class="form-note">* Обязательные поля</p>
+        </div>
+        <div id="form-success" class="form-success">
+          ✓ Заявка принята! Свяжемся с вами в течение 2 часов в рабочее время.
+        </div>
+        <div id="form-error" class="form-error">
+          Произошла ошибка при отправке. Позвоните нам: <a href="tel:+79090856451">+7 (909) 085-64-51</a>
+        </div>
+      </form>
+      -->
     </div>
   </div>
 </section>
