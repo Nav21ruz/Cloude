@@ -111,6 +111,9 @@ window.SITE = {
 
   var current = location.pathname.split('/').pop() || 'index.html';
   document.querySelectorAll('.nav-links a, .nav-mobile a').forEach(function (a) {
+    // Кнопку-CTA не помечаем: правило .active перекрасило бы её текст
+    // в цвет заливки, и надпись пропала бы.
+    if (a.classList.contains('btn')) return;
     if (a.getAttribute('href') === current) a.classList.add('active');
   });
 

@@ -8,29 +8,39 @@
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+/* Палитра «Construction/Architecture» — индустриальный серый + сигнальный
+   оранжевый. Стиль Minimalism & Swiss: строгая сетка, воздух, высокий контраст.
+
+   Оранжевый живёт в двух оттенках, и это не прихоть: #EA580C на белом даёт
+   3.56:1 и не проходит WCAG AA для текста, поэтому текст и заливки кнопок
+   используют затемнённый #C2410C (5.18:1), а яркий остаётся для тёмных
+   секций (5.02:1 на --ink) и hover-состояний. */
 :root {
-  --copper: #C07832;
-  --copper-light: #D89354;
-  --copper-dark: #995D22;
-  --copper-soft: rgba(192, 120, 50, .1);
+  --copper: #C2410C;                      /* акцент для текста и кнопок, AA на светлом */
+  --copper-light: #EA580C;                /* яркий акцент: тёмные секции, hover */
+  --copper-dark: #9A3412;                 /* нажатие и hover на светлом */
+  --copper-soft: rgba(234, 88, 12, .09);
 
-  --ink: #16130F;
-  --ink-2: #241F19;
+  --steel: #64748B;                       /* индустриальный серый — вторичные элементы */
+
+  --ink: #0F172A;
+  --ink-2: #1E293B;
   --paper: #FFFFFF;
-  --paper-2: #F7F5F2;
-  --paper-3: #EDE9E3;
+  --paper-2: #F8FAFC;
+  --paper-3: #EBF0F5;
 
-  --text: #16130F;
-  --text-2: #55504A;
-  --text-3: #8A837B;
-  --on-dark: #F4F1EC;
-  --on-dark-2: #A8A29A;
+  --text: #0F172A;
+  --text-2: #334155;
+  --text-3: #64748B;
+  --on-dark: #F1F5F9;
+  --on-dark-2: #94A3B8;
 
-  --border: rgba(22, 19, 15, .12);
-  --border-dark: rgba(255, 255, 255, .12);
+  --border: #E2E8F0;
+  --border-dark: rgba(241, 245, 249, .16);
 
   --nav-h: 72px;
   --wrap: 1180px;
+  --radius: 2px;                          /* Swiss: почти прямые углы */
   --ease: cubic-bezier(.4, 0, .2, 1);
 }
 
@@ -81,6 +91,10 @@ h3 { font-size: clamp(1.1rem, 2vw, 1.35rem); font-weight: 700; }
   margin-bottom: 14px;
 }
 
+/* На тёмном фоне надзаголовок берёт светлый оттенок: #C2410C на --ink даёт
+   3.45:1 и не проходит AA, #EA580C — 5.02:1. */
+.section-dark .eyebrow, .hero .eyebrow, .calc-result .eyebrow { color: var(--copper-light); }
+
 .lead { font-size: 1.05rem; color: var(--text-2); max-width: 62ch; }
 .section-dark .lead { color: var(--on-dark-2); }
 
@@ -89,7 +103,7 @@ h3 { font-size: clamp(1.1rem, 2vw, 1.35rem); font-weight: 700; }
   display: inline-flex; align-items: center; justify-content: center; gap: 10px;
   padding: 15px 30px;
   font-size: .95rem; font-weight: 700;
-  border-radius: 4px;
+  border-radius: var(--radius);
   transition: background .2s var(--ease), color .2s var(--ease), border-color .2s var(--ease), transform .1s;
   text-align: center;
 }
@@ -149,7 +163,7 @@ h3 { font-size: clamp(1.1rem, 2vw, 1.35rem); font-weight: 700; }
   padding: 15px 0;
   border-bottom: 1px solid var(--border);
 }
-.nav-mobile a.active { color: var(--copper); }
+.nav-mobile a:not(.btn).active { color: var(--copper); }
 .nav-mobile .nav-mobile-cta { margin-top: 24px; border: none; }
 
 /* ===== HERO ===== */
@@ -157,7 +171,7 @@ h3 { font-size: clamp(1.1rem, 2vw, 1.35rem); font-weight: 700; }
 .hero::after {
   content: ''; position: absolute; inset: 0;
   background:
-    linear-gradient(115deg, rgba(192,120,50,.14), transparent 55%),
+    linear-gradient(115deg, rgba(234,88,12,.16), transparent 55%),
     repeating-linear-gradient(90deg, rgba(255,255,255,.03) 0 1px, transparent 1px 90px);
   pointer-events: none;
 }
@@ -186,7 +200,7 @@ h3 { font-size: clamp(1.1rem, 2vw, 1.35rem); font-weight: 700; }
 .card {
   background: var(--paper);
   border: 1px solid var(--border);
-  border-radius: 6px;
+  border-radius: 3px;
   padding: 30px 26px;
   transition: border-color .25s var(--ease), transform .25s var(--ease);
 }
@@ -212,7 +226,7 @@ tbody tr:hover { background: var(--paper-2); }
 /* ===== CALCULATOR ===== */
 .calc {
   display: grid; grid-template-columns: 1.15fr .85fr; gap: 1px;
-  background: var(--border); border: 1px solid var(--border); border-radius: 6px;
+  background: var(--border); border: 1px solid var(--border); border-radius: 3px;
   overflow: hidden; margin-top: 40px;
 }
 .calc-form, .calc-result { background: var(--paper); padding: 32px; }
@@ -221,7 +235,7 @@ tbody tr:hover { background: var(--paper-2); }
 .calc-row > label, .field > label { display: block; font-size: .82rem; font-weight: 700; margin-bottom: 8px; color: var(--text-2); }
 .calc-row input[type=number], .field input, .field select, .field textarea {
   width: 100%; padding: 13px 14px;
-  border: 1px solid var(--border); border-radius: 4px;
+  border: 1px solid var(--border); border-radius: var(--radius);
   font-size: .95rem; font-family: inherit; background: var(--paper); color: var(--text);
 }
 .calc-row input:focus, .field input:focus, .field select:focus, .field textarea:focus {
@@ -231,13 +245,15 @@ tbody tr:hover { background: var(--paper-2); }
 .radio-set { display: grid; gap: 10px; }
 .radio-set label {
   display: flex; align-items: flex-start; gap: 10px;
-  padding: 13px 15px; border: 1px solid var(--border); border-radius: 4px;
+  padding: 13px 15px; border: 1px solid var(--border); border-radius: var(--radius);
   font-size: .92rem; cursor: pointer; transition: border-color .2s, background .2s;
 }
 .radio-set label:hover { border-color: var(--copper-light); }
 .radio-set input { accent-color: var(--copper); margin-top: 3px; flex-shrink: 0; }
 .radio-set input:checked ~ span { font-weight: 700; }
 .radio-set label:has(input:checked) { border-color: var(--copper); background: var(--copper-soft); }
+/* На подложке выбранного варианта серая подпись даёт 4.26:1 — затемняем до AA. */
+.radio-set label:has(input:checked) .radio-note { color: var(--text-2); }
 .radio-note { display: block; font-size: .8rem; color: var(--text-3); font-weight: 400; margin-top: 2px; }
 
 .calc-total { font-size: 2.4rem; font-weight: 800; color: var(--copper-light); letter-spacing: -.02em; margin: 6px 0 4px; }
@@ -250,7 +266,7 @@ tbody tr:hover { background: var(--paper-2); }
 /* ===== GEO ===== */
 .geo-list { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 32px; }
 .geo-list li {
-  padding: 9px 16px; border: 1px solid var(--border-dark); border-radius: 40px;
+  padding: 9px 16px; border: 1px solid var(--border-dark); border-radius: var(--radius);
   font-size: .88rem; font-weight: 600; color: var(--on-dark);
 }
 .geo-list li.geo-main { background: var(--copper); border-color: var(--copper); color: #fff; }
@@ -272,7 +288,7 @@ tbody tr:hover { background: var(--paper-2); }
 
 /* ===== PORTFOLIO ===== */
 .works { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; margin-top: 44px; }
-.work { border: 1px solid var(--border); border-radius: 6px; overflow: hidden; background: var(--paper); }
+.work { border: 1px solid var(--border); border-radius: 3px; overflow: hidden; background: var(--paper); }
 .work-media { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); }
 .work-shot {
   aspect-ratio: 4 / 3; background: var(--paper-3);
@@ -293,16 +309,16 @@ tbody tr:hover { background: var(--paper-2); }
 .consent { display: flex; align-items: flex-start; gap: 11px; font-size: .84rem; color: var(--text-2); line-height: 1.5; margin-bottom: 22px; }
 .consent input { accent-color: var(--copper); width: 17px; height: 17px; margin-top: 2px; flex-shrink: 0; }
 .consent a { color: var(--copper); text-decoration: underline; }
-.form-msg { padding: 14px 16px; border-radius: 4px; font-size: .9rem; margin-bottom: 18px; display: none; }
+.form-msg { padding: 14px 16px; border-radius: var(--radius); font-size: .9rem; margin-bottom: 18px; display: none; }
 .form-msg.show { display: block; }
-.form-msg-ok { background: rgba(46, 139, 87, .12); color: #1e6b40; border: 1px solid rgba(46, 139, 87, .3); }
-.form-msg-err { background: rgba(192, 57, 43, .1); color: #a5382c; border: 1px solid rgba(192, 57, 43, .3); }
+.form-msg-ok { background: rgba(21, 128, 61, .1); color: #15803D; border: 1px solid rgba(21, 128, 61, .3); }
+.form-msg-err { background: rgba(220, 38, 38, .08); color: #B91C1C; border: 1px solid rgba(220, 38, 38, .3); }
 
 /* Блок вместо формы, пока приём заявок через сайт отключён */
 .notice {
   border: 1px solid var(--border);
   border-left: 3px solid var(--copper);
-  border-radius: 6px;
+  border-radius: 3px;
   background: var(--paper-2);
   padding: 30px 28px;
 }
@@ -378,7 +394,7 @@ body.has-cookie-bar #messengers { bottom: calc(var(--cookie-h, 90px) + 18px); }
 .cookie-inner p { font-size: .85rem; flex: 1; min-width: 260px; line-height: 1.5; margin: 0; }
 .cookie-inner a { color: var(--copper-light); text-decoration: underline; }
 .cookie-btns { display: flex; gap: 10px; flex-shrink: 0; }
-.cookie-btns button { padding: 11px 22px; font-size: .85rem; font-weight: 700; border-radius: 4px; white-space: nowrap; }
+.cookie-btns button { padding: 11px 22px; font-size: .85rem; font-weight: 700; border-radius: var(--radius); white-space: nowrap; }
 #cookie-accept { background: var(--copper); color: #fff; }
 #cookie-accept:hover { background: var(--copper-light); }
 #cookie-decline { border: 1px solid var(--border-dark); color: var(--on-dark-2); }
