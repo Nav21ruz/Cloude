@@ -138,6 +138,28 @@ window.SITE = {
     }
   }
 
+  /* ---------- Липкая панель действия на мобильных ----------
+     Пока форм нет, звонок и WhatsApp — единственные способы оставить заявку,
+     поэтому они всегда под большим пальцем. */
+  if (!document.getElementById('sticky-cta') && (SITE.phoneRaw || SITE.whatsapp)) {
+    var bar = document.createElement('div');
+    bar.id = 'sticky-cta';
+    var html = '';
+    if (SITE.phoneRaw) {
+      html += '<a class="sticky-call" href="tel:' + SITE.phoneRaw + '">' +
+        '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.4.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1l-2.3 2.2z"/></svg>' +
+        'Позвонить</a>';
+    }
+    if (SITE.whatsapp) {
+      html += '<a class="sticky-wa" href="https://wa.me/' + SITE.whatsapp + '" target="_blank" rel="noopener">' +
+        '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.4 1.3 4.9L2 22l5.3-1.4c1.4.8 3 1.2 4.7 1.2 5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18.2c-1.6 0-3-.4-4.3-1.2l-.3-.2-3.1.8.8-3-.2-.3c-.8-1.3-1.3-2.8-1.3-4.4 0-4.5 3.7-8.2 8.2-8.2s8.2 3.7 8.2 8.2-3.5 8.3-8 8.3zm4.5-5.8c-.3-.2-1.7-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.7 1-.9 1.2-.2.2-.3.2-.6.1-.3-.2-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6l.5-.6c.1-.2.2-.3.3-.5 0-.2 0-.4 0-.5 0-.2-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5 4.4 1.4.6 2.1.7 2.8.6.6-.1 1.7-.7 1.9-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.2-.6-.4z"/></svg>' +
+        'WhatsApp</a>';
+    }
+    bar.innerHTML = html;
+    document.body.appendChild(bar);
+    document.body.classList.add('has-sticky-cta');
+  }
+
   /* ---------- Появление блоков при скролле ---------- */
   var io = new IntersectionObserver(function (entries) {
     entries.forEach(function (e) {
