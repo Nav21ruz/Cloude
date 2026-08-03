@@ -422,11 +422,26 @@ body.has-cookie-bar #messengers { bottom: calc(var(--cookie-h, 90px) + 18px); }
 }
 
 /* ===== REVEAL ===== */
-.reveal { opacity: 0; transform: translateY(18px); transition: opacity .6s var(--ease), transform .6s var(--ease); }
-.reveal.visible { opacity: 1; transform: none; }
+/* Прячем блоки до появления ТОЛЬКО если JS жив: класс .js ставит site.js
+   первой же строкой. Без этого при отключённом или упавшем JS половина
+   страницы осталась бы невидимой — контент важнее анимации. */
+.js .reveal { opacity: 0; transform: translateY(20px); transition: opacity .55s var(--ease), transform .55s var(--ease); }
+.js .reveal.visible { opacity: 1; transform: none; }
+
+/* Соседние карточки появляются по очереди, а не все разом */
+.js .grid .reveal:nth-child(2), .js .works .reveal:nth-child(2) { transition-delay: .07s; }
+.js .grid .reveal:nth-child(3), .js .works .reveal:nth-child(3) { transition-delay: .14s; }
+.js .grid .reveal:nth-child(4), .js .works .reveal:nth-child(4) { transition-delay: .21s; }
+.js .grid .reveal:nth-child(5), .js .works .reveal:nth-child(5) { transition-delay: .28s; }
+.js .grid .reveal:nth-child(6), .js .works .reveal:nth-child(6) { transition-delay: .35s; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .reveal { opacity: 1; transform: none; transition: none; }
+  .js .reveal,
+  .js .hero-inner > *,
+  .js .hero-shots { opacity: 1 !important; transform: none !important; transition: none !important; }
+  .js #sticky-cta { transform: none !important; }
+  .card::before { display: none; }
+  #read-progress { display: none; }
   * { animation-duration: .01ms !important; transition-duration: .01ms !important; }
 }
 
@@ -568,7 +583,7 @@ body.has-cookie-bar #messengers { bottom: calc(var(--cookie-h, 90px) + 18px); }
 @media (max-width: 860px) {
   #sticky-cta {
     position: fixed; left: 0; right: 0; bottom: 0; z-index: 930;
-    display: grid; grid-template-columns: 1fr 1fr;
+    display: block;
     background: var(--ink); border-top: 1px solid var(--border-dark);
   }
   #sticky-cta a {
@@ -576,7 +591,6 @@ body.has-cookie-bar #messengers { bottom: calc(var(--cookie-h, 90px) + 18px); }
     padding: 15px 10px; font-size: .93rem; font-weight: 700; color: #fff;
   }
   #sticky-cta .sticky-call { background: var(--accent-fill); color: var(--on-accent); }
-  #sticky-cta .sticky-wa { background: #128C4A; }
   #sticky-cta svg { width: 17px; height: 17px; fill: currentColor; }
   body.has-sticky-cta { padding-bottom: 54px; }
   /* Плавающие кнопки не должны налезать на панель */
@@ -667,3 +681,60 @@ body.has-cookie-bar #messengers { bottom: calc(var(--cookie-h, 90px) + 18px); }
   .compare td.col-them { color: var(--text-2); }
   .pricelist td.price-cell { padding-top: 0; }
 }
+
+
+/* ═══ АНИМАЦИИ ═══════════════════════════════════════════════════════════
+   Всё ниже отключается при prefers-reduced-motion (правило в конце файла)
+   и ничего не ломает, если JS не отработал. */
+
+/* Полоса прочитанного вверху страницы */
+#read-progress {
+  position: fixed; top: 0; left: 0; height: 3px; width: 0;
+  background: var(--accent-fill);
+  z-index: 950;
+  transition: width .1s linear;
+}
+
+/* Первый экран собирается по частям */
+.js .hero-inner > * { opacity: 0; transform: translateY(16px); }
+.js .hero-ready .hero-inner > * {
+  opacity: 1; transform: none;
+  transition: opacity .6s var(--ease), transform .6s var(--ease);
+}
+.js .hero-ready .hero-inner > *:nth-child(1) { transition-delay: .05s; }
+.js .hero-ready .hero-inner > *:nth-child(2) { transition-delay: .13s; }
+.js .hero-ready .hero-inner > *:nth-child(3) { transition-delay: .21s; }
+.js .hero-ready .hero-inner > *:nth-child(4) { transition-delay: .29s; }
+.js .hero-ready .hero-inner > *:nth-child(5) { transition-delay: .37s; }
+.js .hero-shots { opacity: 0; transition: opacity .7s var(--ease) .3s; }
+.js .hero-ready .hero-shots { opacity: 1; }
+
+/* Цифры набегают */
+.hero-stat b { font-variant-numeric: tabular-nums; }
+
+/* Карточка отвечает на курсор жёлтой полосой слева */
+.card { position: relative; }
+.card::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+  background: var(--accent-fill);
+  transform: scaleY(0); transform-origin: top;
+  transition: transform .25s var(--ease);
+}
+.card:hover::before { transform: scaleY(1); }
+
+/* Кнопка приподнимается, шапка уплотняется при скролле */
+.btn-primary { transition: background .2s var(--ease), transform .18s var(--ease), box-shadow .2s var(--ease); }
+.btn-primary:hover { transform: translateY(-2px); }
+.nav { transition: height .25s var(--ease), box-shadow .25s var(--ease); }
+.nav.scrolled { height: 60px; box-shadow: 0 1px 12px rgba(24, 24, 27, .08); }
+
+/* Строки прайса и сравнения подсвечиваются под курсором */
+.compare tbody tr, .pricelist tbody tr { transition: background .18s var(--ease); }
+
+/* Ответ в FAQ разворачивается плавно */
+.faq details[open] p { animation: faq-open .28s var(--ease); }
+@keyframes faq-open { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+
+/* Закреплённая кнопка звонка выезжает снизу один раз */
+.js #sticky-cta { transform: translateY(100%); transition: transform .35s var(--ease); }
+.js body.sticky-shown #sticky-cta, .js .sticky-shown #sticky-cta { transform: none; }
