@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /logs/
+Disallow: /privacy.html
+
+Sitemap: https://shtukatur74.ru/sitemap.xml
+Host: https://shtukatur74.ru

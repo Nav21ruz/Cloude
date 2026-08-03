@@ -1,0 +1,44 @@
+AddDefaultCharset UTF-8
+DirectoryIndex index.html
+
+# Журнал согласий и логи не должны быть доступны из браузера
+<IfModule mod_authz_core.c>
+  <FilesMatch "\.(log|md)$">
+    Require all denied
+  </FilesMatch>
+</IfModule>
+
+RedirectMatch 403 ^/logs/
+
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+</IfModule>
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/plain text/xml application/javascript application/json image/svg+xml
+</IfModule>
+
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/css "access plus 30 days"
+  ExpiresByType application/javascript "access plus 30 days"
+  ExpiresByType image/svg+xml "access plus 30 days"
+  ExpiresByType image/jpeg "access plus 180 days"
+  ExpiresByType image/webp "access plus 180 days"
+  ExpiresByType font/woff2 "access plus 365 days"
+  ExpiresByType text/html "access plus 0 seconds"
+</IfModule>
+
+# HTTPS и канонический домен без www — включить после установки SSL-сертификата
+# <IfModule mod_rewrite.c>
+#   RewriteEngine On
+#   RewriteCond %{HTTPS} off
+#   RewriteRule ^(.*)$ https://shtukatur74.ru/$1 [R=301,L]
+#   RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+#   RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+# </IfModule>
+
+ErrorDocument 404 /index.html
