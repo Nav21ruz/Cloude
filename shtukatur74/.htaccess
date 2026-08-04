@@ -49,13 +49,36 @@ RedirectMatch 403 ^/logs/
   ExpiresByType application/xml "access plus 1 hour"
 </IfModule>
 
-# HTTPS и канонический домен без www — включить после установки SSL-сертификата
-# <IfModule mod_rewrite.c>
-#   RewriteEngine On
-#   RewriteCond %{HTTPS} off
-#   RewriteRule ^(.*)$ https://shtukatur74.ru/$1 [R=301,L]
-#   RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
-#   RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+# Канонический адрес: https://shtukatur74.ru без www.
+#
+# Проверяются ДВА признака защищённого соединения. На части хостингов SSL
+# терминируется на балансировщике, до Apache запрос доходит уже по http,
+# и переменная HTTPS остаётся пустой — правило с одним условием %{HTTPS} off
+# в такой схеме зацикливает сайт. Заголовок X-Forwarded-Proto закрывает
+# этот случай.
+#
+# ЕСЛИ ПОСЛЕ ЗАЛИВКИ САЙТ УШЁЛ В БЕСКОНЕЧНЫЙ РЕДИРЕКТ (ERR_TOO_MANY_REDIRECTS) —
+# закомментируйте весь блок ниже, сайт немедленно вернётся. Значит хостинг
+# сообщает о протоколе как-то ещё, и условие нужно подобрать отдельно.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # http → https и одновременно www → без www, одним переходом
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP:X-Forwarded-Proto} !=https
+  RewriteRule ^(.*)$ https://shtukatur74.ru/$1 [R=301,L]
+
+  # https://www.shtukatur74.ru → https://shtukatur74.ru
+  RewriteCond %{HTTP_HOST} ^www\. [NC]
+  RewriteRule ^(.*)$ https://shtukatur74.ru/$1 [R=301,L]
+</IfModule>
+
+# HSTS намеренно не включён. Заголовок запрещает браузеру обращаться к сайту
+# по http на указанный срок, и отменить это досрочно нельзя: если сертификат
+# однажды не продлится, сайт станет недоступен до конца max-age. Включать
+# имеет смысл через несколько месяцев стабильной работы автопродления:
+# <IfModule mod_headers.c>
+#   Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
 # </IfModule>
 
 # Отдельная страница 404, а не редирект на главную: отдача главной с кодом
