@@ -14,6 +14,7 @@ define('BOT_TOKEN',    'ВСТАВЬТЕ_ТОКЕН_БОТА');   // получ�
 define('CHAT_ID',      'ВСТАВЬТЕ_CHAT_ID');       // ваш Telegram ID (число)
 define('EMAIL_TO',     'info@tektonpro.ru');       // куда слать письма
 define('EMAIL_FROM',   'info@tektonpro.ru');       // от кого
+define('POLICY_VERSION', '2026-08-04');            // дата редакции privacy.html — обновлять вместе с политикой
 // ═══════════════════════════════════════════════════════════════
 
 $input = file_get_contents('php://input');
@@ -40,6 +41,26 @@ if (!$consent) {
     echo json_encode(['error' => 'Необходимо согласие на обработку персональных данных']);
     exit;
 }
+
+// ── ЖУРНАЛ СОГЛАСИЙ (ст. 9 152-ФЗ — подтверждение факта получения согласия) ──
+// Файл защищён от прямого доступа через .htaccess (см. FilesMatch consent-log.csv).
+function logConsent($name, $phone, $ip) {
+    $path = __DIR__ . '/../data/consent-log.csv';
+    $fp = fopen($path, 'a');
+    if ($fp === false) return;
+    if (flock($fp, LOCK_EX)) {
+        fputcsv($fp, [
+            (new DateTime('now', new DateTimeZone('Asia/Yekaterinburg')))->format('c'),
+            $name,
+            $phone,
+            $ip,
+            POLICY_VERSION,
+        ]);
+        flock($fp, LOCK_UN);
+    }
+    fclose($fp);
+}
+logConsent($name, $phone, $_SERVER['REMOTE_ADDR'] ?? '');
 
 $OBJ = ['office'=>'Офис', 'retail'=>'Торговый зал', 'restaurant'=>'Ресторан/кафе',
         'medical'=>'Медицина', 'warehouse'=>'Склад/производство', 'other'=>'Другое'];

@@ -97,3 +97,9 @@ ErrorDocument 404 /index.html
   Order allow,deny
   Deny from all
 </FilesMatch>
+
+# ── ЗАЩИТА ЖУРНАЛА СОГЛАСИЙ (содержит имена/телефоны — не для публичного доступа) ──
+<FilesMatch "^consent-log\.csv$">
+  Order allow,deny
+  Deny from all
+</FilesMatch>
