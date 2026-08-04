@@ -393,6 +393,18 @@ tbody tr:hover { background: var(--paper-2); }
   font-size: .82rem;
 }
 .footer-req { color: var(--on-dark-2); }
+.offer-note {
+  margin-top: 20px; max-width: 88ch; padding: 16px 18px;
+  background: var(--paper-3); border-left: 3px solid var(--copper);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  font-size: .84rem; line-height: 1.6; color: var(--text-2);
+}
+.offer-note strong { color: var(--text); }
+
+.footer-offer {
+  flex-basis: 100%; margin-top: 14px; max-width: 92ch;
+  color: var(--on-dark-2); font-size: .78rem; line-height: 1.55;
+}
 .footer-req b { color: var(--on-dark); font-weight: 600; }
 
 /* ===== BREADCRUMBS ===== */
