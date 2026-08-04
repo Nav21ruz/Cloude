@@ -1,9 +1,14 @@
 AddDefaultCharset UTF-8
 DirectoryIndex index.html
 
-# Журнал согласий и логи не должны быть доступны из браузера
+# Журнал согласий и внутренняя документация не должны быть доступны из браузера.
+# Закрываем поимённо, а не все .md подряд: prices.md — публичный машиночитаемый
+# прайс для ИИ-агентов, он должен отдаваться.
 <IfModule mod_authz_core.c>
-  <FilesMatch "\.(log|md)$">
+  <FilesMatch "\.log$">
+    Require all denied
+  </FilesMatch>
+  <FilesMatch "^(README|reviews-draft)\.md$">
     Require all denied
   </FilesMatch>
 </IfModule>
@@ -21,6 +26,8 @@ RedirectMatch 403 ^/logs/
   AddType application/manifest+json .webmanifest
   AddType image/webp .webp
   AddType font/woff2 .woff2
+  AddType text/markdown .md
+  AddCharset UTF-8 .md
 </IfModule>
 
 <IfModule mod_deflate.c>
