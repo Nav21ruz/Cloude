@@ -58,6 +58,9 @@
 - [Цены](https://shtukatur74.ru/prices.html): прайс и калькулятор предварительной стоимости
 - [Работы](https://shtukatur74.ru/projects.html): фотографии объектов до и после
 - [Контакты](https://shtukatur74.ru/contacts.html): телефон, мессенджеры, реквизиты, зона выезда
+- [Гарантия](https://shtukatur74.ru/guarantee.html): гарантийные случаи, что не покрывается, порядок обращения
+- [Оплата и договор](https://shtukatur74.ru/payment.html): порядок работ, документы, способы оплаты
+- [Статьи](https://shtukatur74.ru/articles.html): сроки высыхания, нужна ли шпаклёвка, чем штукатурить санузел
 - [Прайс в машиночитаемом виде](https://shtukatur74.ru/prices.md)
 - [Политика обработки персональных данных](https://shtukatur74.ru/privacy.html)
 

@@ -6,6 +6,8 @@ window.SITE = {
   whatsapp: '79090856451',
   telegram: '',                       // TODO: username Telegram без «@»
   email: 'info@tektonpro.ru',
+  /* Заготовка первого сообщения в WhatsApp. Пустое значение = ссылка без текста. */
+  waText: 'Здравствуйте! Нужна механизированная штукатурка. Объект: ___, площадь стен примерно ___ м².',
   metrikaId: '',                      // TODO: номер счётчика Яндекс.Метрики (пусто = не подключать)
 
   /* Плавающая круглая кнопка WhatsApp отключена: в закреплённых остаётся
@@ -47,7 +49,8 @@ window.SITE = {
       el.href = 'mailto:' + SITE.email;
       if (!el.dataset.keepText) el.textContent = SITE.email;
     } else if (key === 'whatsapp') {
-      el.href = 'https://wa.me/' + SITE.whatsapp;
+      var wt = el.dataset.waText || SITE.waText || '';
+      el.href = 'https://wa.me/' + SITE.whatsapp + (wt ? '?text=' + encodeURIComponent(wt) : '');
     } else if (key === 'telegram') {
       el.href = 'https://t.me/' + SITE.telegram;
     }
