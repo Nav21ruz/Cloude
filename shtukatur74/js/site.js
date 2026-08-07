@@ -86,6 +86,21 @@ window.SITE = {
     });
   }
 
+  /* ---------- Плавный переход по якорю ----------
+     После прокрутки ставим фокус в первое поле формы: посетитель, пришедший
+     по кнопке «Оставить заявку», сразу печатает, а не ищет курсором поле.
+     Клавиатурная навигация и скринридеры получают то же самое. */
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest('a[href^="#"]:not([href="#"])');
+    if (!a) return;
+    var target = document.getElementById(a.getAttribute('href').slice(1));
+    if (!target) return;
+    e.preventDefault();
+    target.scrollIntoView({ behavior: calm ? 'auto' : 'smooth', block: 'start' });
+    var field = target.querySelector('input:not([type=hidden]):not([tabindex="-1"]), textarea');
+    if (field) setTimeout(function () { field.focus({ preventScroll: true }); }, calm ? 0 : 500);
+  });
+
   cloneLinks(mobileMenu);
   cloneLinks(footerNav);
 

@@ -411,6 +411,9 @@ tbody tr:hover { background: var(--paper-2); }
 }
 .footer-req b { color: var(--on-dark); font-weight: 600; }
 
+/* Якорные переходы: шапка закреплена, без отступа заголовок уезжает под неё. */
+section[id], [id].section { scroll-margin-top: 92px; }
+
 /* ===== BREADCRUMBS ===== */
 .crumbs { padding: 18px 0; font-size: .84rem; color: var(--text-3); }
 .crumbs a:hover { color: var(--copper); }
