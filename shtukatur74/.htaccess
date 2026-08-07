@@ -11,7 +11,7 @@ DirectoryIndex index.html
   <FilesMatch "^(README|reviews-draft)\.md$">
     Require all denied
   </FilesMatch>
-  <FilesMatch "^mail\.php$">
+  <FilesMatch "^(mail|config\.local|config\.local\.example)\.php$">
     Require all denied
   </FilesMatch>
 </IfModule>

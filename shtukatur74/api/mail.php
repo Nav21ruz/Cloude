@@ -3,13 +3,32 @@ declare(strict_types=1);
 
 /**
  * Общие настройки почты и отправка через SMTP.
- * Подключается из request.php (заявки) и mail-test.php (самопроверка),
- * чтобы пароль ящика лежал в одном файле, а не в двух.
+ * Подключается из request.php (заявки) и mail-test.php (самопроверка).
+ *
+ * ПАРОЛЬ И ПРОЧИЕ НАСТРОЙКИ СЕРВЕРА ЗАДАЮТСЯ НЕ ЗДЕСЬ, а в файле
+ * config.local.php рядом. Его нет в архивах с обновлениями, поэтому
+ * заливка новой версии сайта больше не стирает пароль — так уже
+ * случилось однажды, и форма перестала отправлять письма.
+ *
+ * Как завести: скопировать config.local.example.php в config.local.php
+ * и вписать пароль. Значения ниже — запасные, на случай если файла нет.
  */
 
+if (is_file(__DIR__ . '/config.local.php')) {
+    require __DIR__ . '/config.local.php';
+}
+
+/** Задаёт константу, если её ещё не определил config.local.php. */
+function cfg(string $name, $value): void
+{
+    if (!defined($name)) {
+        define($name, $value);
+    }
+}
+
 // ─── Настройки ────────────────────────────────────────────────────────────
-const MAIL_TO      = 'robot@shtukatur74.ru';     // куда приходят заявки
-const MAIL_FROM    = 'robot@shtukatur74.ru';     // ящик на своём домене; при SMTP должен совпадать с SMTP_USER
+cfg('MAIL_TO', 'robot@shtukatur74.ru');     // куда приходят заявки
+cfg('MAIL_FROM', 'robot@shtukatur74.ru');     // ящик на своём домене; при SMTP должен совпадать с SMTP_USER
 
 /**
  * Отправка через SMTP с авторизацией. На общих хостингах функция mail()
@@ -23,11 +42,11 @@ const MAIL_FROM    = 'robot@shtukatur74.ru';     // ящик на своём д�
  * Для REG.RU: хост mail.hosting.reg.ru, порт 465, шифрование ssl.
  * SMTP_USER — полный адрес ящика, SMTP_PASS — его пароль.
  */
-const SMTP_HOST    = 'mail.hosting.reg.ru';       // сервер исходящей почты REG.RU
-const SMTP_PORT    = 465;
-const SMTP_SECURE  = 'ssl';                       // ssl (465) | tls (587) | '' (25)
-const SMTP_USER    = 'robot@shtukatur74.ru';      // логин = полный адрес ящика
-const SMTP_PASS    = '';                          // ВПИСАТЬ: пароль ящика robot@shtukatur74.ru
+cfg('SMTP_HOST', 'mail.hosting.reg.ru');       // сервер исходящей почты REG.RU
+cfg('SMTP_PORT', 465);
+cfg('SMTP_SECURE', 'ssl');                       // ssl (465) | tls (587) | '' (25)
+cfg('SMTP_USER', 'robot@shtukatur74.ru');      // логин = полный адрес ящика
+cfg('SMTP_PASS', '');                          // ВПИСАТЬ: пароль ящика robot@shtukatur74.ru
 const MAIL_ERR_LOG = __DIR__ . '/../logs/mail-error.log';
 
 /**
@@ -35,10 +54,10 @@ const MAIL_ERR_LOG = __DIR__ . '/../logs/mail-error.log';
  * Пока пусто — страница отвечает 404 и ничего не отправляет.
  * Задайте любую случайную строку, проверьте почту, потом удалите файл.
  */
-const MAIL_TEST_KEY = '';
-const SITE_HOST    = 'shtukatur74.ru';
-const TG_BOT_TOKEN = '';                          // TODO: токен бота от @BotFather (пусто = Telegram не используется)
-const TG_CHAT_ID   = '';                          // TODO: chat_id получателя
+cfg('MAIL_TEST_KEY', '');
+cfg('SITE_HOST', 'shtukatur74.ru');
+cfg('TG_BOT_TOKEN', '');                          // TODO: токен бота от @BotFather (пусто = Telegram не используется)
+cfg('TG_CHAT_ID', '');                          // TODO: chat_id получателя
 const CONSENT_LOG  = __DIR__ . '/../logs/consent.log'; // журнал согласий (ст. 9 152-ФЗ)
 const LEADS_LOG    = __DIR__ . '/../logs/leads.log';   // копия заявок на случай сбоя почты
 const RATE_FILE    = __DIR__ . '/../logs/rate.json';
