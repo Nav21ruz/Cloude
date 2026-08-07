@@ -11,6 +11,9 @@ DirectoryIndex index.html
   <FilesMatch "^(README|reviews-draft)\.md$">
     Require all denied
   </FilesMatch>
+  <FilesMatch "^mail\.php$">
+    Require all denied
+  </FilesMatch>
 </IfModule>
 
 RedirectMatch 403 ^/logs/
