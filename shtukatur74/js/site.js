@@ -3,7 +3,8 @@
 window.SITE = {
   phone: '+7 (909) 085-64-51',
   phoneRaw: '+79090856451',
-  whatsapp: '79090856451',
+  whatsapp: '',                       // WhatsApp убран: заявки идут через форму.
+                                      // Вернуть — вписать номер обратно, ссылки появятся сами.
   telegram: '',                       // TODO: username Telegram без «@»
   email: 'info@shtukatur74.ru',
   /* Заготовка первого сообщения в WhatsApp. Пустое значение = ссылка без текста. */
