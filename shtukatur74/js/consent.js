@@ -24,6 +24,11 @@
       clickmap: true,
       trackLinks: true,
       accurateTrackBounce: true,
+      referrer: document.referrer,
+      url: location.href,
+      // Вебвизор пишет движения мыши и содержимое страницы — это заметно
+      // больше данных о посетителе, чем нужно для статистики. Включать
+      // осознанно и после того, как это отражено в политике.
       webvisor: false
     });
   }
