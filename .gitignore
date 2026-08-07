@@ -2,3 +2,5 @@ shtukatur74-site.zip
 shtukatur74-direct.zip
 __pycache__/
 *.pyc
+# журналы заявок и согласий — персональные данные, в репозитории им не место
+shtukatur74/logs/

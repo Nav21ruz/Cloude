@@ -19,7 +19,7 @@ window.SITE = {
      и в мессенджерах. Переключать на true ТОЛЬКО после подачи уведомления
      в Роскомнадзор об обработке ПД. Серверная часть блокируется отдельно —
      константой FORMS_ENABLED в api/request.php, её нужно переключить тоже. */
-  formsEnabled: false
+  formsEnabled: true
 };
 
 (function () {

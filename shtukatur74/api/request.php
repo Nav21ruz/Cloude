@@ -10,12 +10,11 @@ header('Content-Type: application/json; charset=UTF-8');
 header('X-Content-Type-Options: nosniff');
 
 /**
- * Приём заявок отключён до подачи уведомления в Роскомнадзор об обработке ПД.
- * Пока false — обработчик не принимает и не сохраняет никаких данных, даже
- * если запрос отправлен в обход сайта. Включать одновременно с SITE.formsEnabled
- * в js/site.js, не раньше подтверждения от РКН.
+ * Приём заявок. Выключается одновременно с SITE.formsEnabled в js/site.js:
+ * при false обработчик не принимает и не сохраняет ничего, даже если запрос
+ * отправлен в обход сайта.
  */
-const FORMS_ENABLED = false;
+const FORMS_ENABLED = true;
 
 if (!FORMS_ENABLED) {
     http_response_code(503);
@@ -40,6 +39,10 @@ const SITE_HOST    = 'shtukatur74.ru';
 const TG_BOT_TOKEN = '';                          // TODO: токен бота от @BotFather (пусто = Telegram не используется)
 const TG_CHAT_ID   = '';                          // TODO: chat_id получателя
 const CONSENT_LOG  = __DIR__ . '/../logs/consent.log'; // журнал согласий (ст. 9 152-ФЗ)
+const LEADS_LOG    = __DIR__ . '/../logs/leads.log';   // копия заявок на случай сбоя почты
+const RATE_FILE    = __DIR__ . '/../logs/rate.json';
+const RATE_MAX     = 5;      // заявок с одного адреса
+const RATE_WINDOW  = 3600;   // за час
 // ──────────────────────────────────────────────────────────────────────────
 
 $raw = file_get_contents('php://input');
@@ -70,6 +73,44 @@ function field(array $src, string $key, int $length, bool $multiline = false): s
 if (field($in, 'website', 100) !== '') {
     echo json_encode(['success' => true], JSON_UNESCAPED_UNICODE);
     exit;
+}
+
+// ─── Ограничение частоты ──────────────────────────────────────────────────
+$rateIp  = (string)($_SERVER['REMOTE_ADDR'] ?? '');
+$rateDir = dirname(RATE_FILE);
+if (!is_dir($rateDir)) {
+    @mkdir($rateDir, 0750, true);
+}
+$fh = @fopen(RATE_FILE, 'c+');
+if ($fh !== false) {
+    flock($fh, LOCK_EX);
+    $raw  = stream_get_contents($fh);
+    $hits = json_decode($raw ?: '[]', true);
+    if (!is_array($hits)) {
+        $hits = [];
+    }
+    $now  = time();
+    // Чистим всё старше окна, иначе файл растёт без предела.
+    $hits = array_values(array_filter($hits, static fn($h) => ($h['ts'] ?? 0) > $now - RATE_WINDOW));
+    $mine = count(array_filter($hits, static fn($h) => ($h['ip'] ?? '') === $rateIp));
+    if ($mine >= RATE_MAX) {
+        flock($fh, LOCK_UN);
+        fclose($fh);
+        http_response_code(429);
+        header('Retry-After: ' . RATE_WINDOW);
+        echo json_encode(
+            ['error' => 'Слишком много заявок с одного адреса. Позвоните нам: заявку примем сразу.'],
+            JSON_UNESCAPED_UNICODE
+        );
+        exit;
+    }
+    $hits[] = ['ip' => $rateIp, 'ts' => $now];
+    ftruncate($fh, 0);
+    rewind($fh);
+    fwrite($fh, json_encode($hits));
+    fflush($fh);
+    flock($fh, LOCK_UN);
+    fclose($fh);
 }
 
 // ─── Согласие на обработку ПД: без него заявка не принимается ─────────────
@@ -149,6 +190,12 @@ $headers = implode("\r\n", [
 ]);
 
 $subject = '=?UTF-8?B?' . base64_encode('Заявка с сайта: ' . $name . ', ' . $phone) . '?=';
+@file_put_contents(
+    LEADS_LOG,
+    '===== ' . $when . ' =====' . PHP_EOL . $body . PHP_EOL . PHP_EOL,
+    FILE_APPEND | LOCK_EX
+);
+
 $mailSent = @mail(MAIL_TO, $subject, $body, $headers);
 
 // ─── Telegram (опционально) ───────────────────────────────────────────────
@@ -172,6 +219,8 @@ if (TG_BOT_TOKEN !== '' && TG_CHAT_ID !== '' && function_exists('curl_init')) {
 }
 
 if (!$mailSent && !$tgSent) {
+    // Заявка уже записана в logs/leads.log, поэтому не потеряна. Сообщаем
+    // посетителю телефон, чтобы он не ушёл, решив, что его не услышали.
     http_response_code(502);
     echo json_encode(['error' => 'Не удалось отправить заявку'], JSON_UNESCAPED_UNICODE);
     exit;
