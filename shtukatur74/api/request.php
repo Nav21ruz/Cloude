@@ -10,13 +10,11 @@ header('Content-Type: application/json; charset=UTF-8');
 header('X-Content-Type-Options: nosniff');
 
 /**
- * Приём заявок отключён до подачи уведомления в Роскомнадзор об обработке ПД.
- * При false обработчик не принимает и не сохраняет ничего, даже если запрос
- * отправлен в обход сайта. Включать одновременно с SITE.formsEnabled в
- * js/site.js. Отправка через SMTP, журнал заявок и ограничение частоты ниже
- * уже написаны и заработают сразу при включении.
+ * Приём заявок. Выключается одновременно с SITE.formsEnabled в js/site.js:
+ * при false обработчик не принимает и не сохраняет ничего, даже если запрос
+ * отправлен в обход сайта.
  */
-const FORMS_ENABLED = false;
+const FORMS_ENABLED = true;
 
 if (!FORMS_ENABLED) {
     http_response_code(503);

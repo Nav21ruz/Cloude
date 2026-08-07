@@ -8,7 +8,7 @@ declare(strict_types=1);
  */
 
 // ─── Настройки ────────────────────────────────────────────────────────────
-const MAIL_TO      = 'info@tektonpro.ru';        // куда приходят заявки
+const MAIL_TO      = 'robot@shtukatur74.ru';     // куда приходят заявки
 const MAIL_FROM    = 'robot@shtukatur74.ru';     // ящик на своём домене; при SMTP должен совпадать с SMTP_USER
 
 /**
@@ -23,11 +23,11 @@ const MAIL_FROM    = 'robot@shtukatur74.ru';     // ящик на своём д�
  * Для REG.RU: хост mail.hosting.reg.ru, порт 465, шифрование ssl.
  * SMTP_USER — полный адрес ящика, SMTP_PASS — его пароль.
  */
-const SMTP_HOST    = '';                          // TODO: mail.hosting.reg.ru
+const SMTP_HOST    = 'mail.hosting.reg.ru';       // сервер исходящей почты REG.RU
 const SMTP_PORT    = 465;
 const SMTP_SECURE  = 'ssl';                       // ssl (465) | tls (587) | '' (25)
-const SMTP_USER    = '';                          // TODO: robot@shtukatur74.ru
-const SMTP_PASS    = '';                          // TODO: пароль ящика
+const SMTP_USER    = 'robot@shtukatur74.ru';      // логин = полный адрес ящика
+const SMTP_PASS    = '';                          // ВПИСАТЬ: пароль ящика robot@shtukatur74.ru
 const MAIL_ERR_LOG = __DIR__ . '/../logs/mail-error.log';
 
 /**
