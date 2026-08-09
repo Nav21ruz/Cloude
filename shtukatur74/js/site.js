@@ -102,6 +102,17 @@ window.SITE = {
     if (field) setTimeout(function () { field.focus({ preventScroll: true }); }, calm ? 0 : 500);
   });
 
+  /* ---------- Цель «звонок» для рекламы ----------
+     form_sent — единственная цель в Метрике, а половина заявок идёт
+     звонком с тех же кнопок «Позвонить». Без этой цели статистика
+     Директа занижает конверсию ровно вдвое: кампания выглядит хуже,
+     чем есть на самом деле. */
+  document.addEventListener('click', function (e) {
+    if (e.target.closest('a[href^="tel:"]') && window.ym && SITE.metrikaId) {
+      ym(SITE.metrikaId, 'reachGoal', 'phone_click');
+    }
+  });
+
   cloneLinks(mobileMenu);
   cloneLinks(footerNav);
 
