@@ -7,7 +7,7 @@
   if (!form) return;
 
   var RATES = {
-    mix: { gypsum: 480, cement: 590 },          // ₽/м² — базовая работа со смесью
+    mix: { gypsum: 460, cement: 440 },          // ₽/м² — базовая работа со смесью
     surface: { walls: 0, ceiling: 90 },         // надбавка за потолок, ₽/м²
     beacons: { with: 0, without: -60 },         // без маяков дешевле
     finish: { paint: 70, wallpaper: 0, tile: 0 } // под покраску нужно заглаживание
