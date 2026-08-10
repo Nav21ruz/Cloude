@@ -1,0 +1,11 @@
+shtukatur74-site.zip
+shtukatur74-direct.zip
+__pycache__/
+*.pyc
+# журналы заявок и согласий — персональные данные, в репозитории им не место
+shtukatur74/logs/
+docs-152fz.zip
+# пароль почтового ящика — только на сервере
+shtukatur74/api/config.local.php
+docs-dogovory.zip
+marketing-kb.zip
